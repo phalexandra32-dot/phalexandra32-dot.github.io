@@ -1,0 +1,54 @@
+---
+import PageLayout from './PageLayout.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+  eyebrow?: string;
+  accent?: 'purple' | 'teal';
+  heroIcon?: string;
+  heroBg?: string;
+}
+const {
+  title, description, eyebrow = '',
+  accent = 'purple',
+  heroIcon = '',
+  heroBg = 'var(--hero-bg)',
+} = Astro.props;
+---
+
+<PageLayout title={title} description={description}>
+  <header class="page-hero" style={`background:${heroBg};`}>
+    <div class="container page-hero-inner">
+      {heroIcon && <div class="page-hero-icon" aria-hidden="true">{heroIcon}</div>}
+      <div class="page-hero-eyebrow">{eyebrow}</div>
+      <h1 class="page-hero-title">{title}</h1>
+      {description && <p class="page-hero-desc">{description}</p>}
+    </div>
+  </header>
+
+  <div class="page-content container">
+    <slot />
+  </div>
+</PageLayout>
+
+<style>
+  .page-hero {
+    padding: 60px 0 52px;
+  }
+  .page-hero-inner { max-width: 720px; }
+  .page-hero-icon { font-size: 48px; margin-bottom: 16px; }
+  .page-hero-eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: .14em;
+    text-transform: uppercase; color: #9FE1CB; margin-bottom: 10px;
+  }
+  .page-hero-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700; color: #fff;
+    line-height: 1.1; letter-spacing: -1px;
+    text-wrap: balance; margin-bottom: 16px;
+  }
+  .page-hero-desc { font-size: 17px; color: #AFA9EC; max-width: 560px; line-height: 1.65; }
+  .page-content { padding-top: 56px; padding-bottom: 72px; }
+</style>

@@ -1,0 +1,233 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+
+const levels = [
+  {
+    href: '/physics/primary',
+    icon: '🧲',
+    title: 'Δημοτικό',
+    sub: 'Ε΄–ΣΤ΄ Τάξη',
+    desc: 'Εισαγωγή στη φυσική μέσα από παιχνίδια, πειράματα με απλά υλικά και ζωντανές εικόνες.',
+    topics: ['Φως & Σκιά', 'Ήχος', 'Δυνάμεις', 'Ηλεκτρισμός', 'Θερμότητα'],
+    color: '#534AB7', bg: '#EEEDFE',
+  },
+  {
+    href: '/physics/middle',
+    icon: '⚛️',
+    title: 'Γυμνάσιο',
+    sub: 'Α΄–Γ΄ Γυμνάσιο',
+    desc: 'Συστηματική εισαγωγή στη Φυσική — μηχανική, θερμότητα, οπτική, ηλεκτρισμός. Φύλλα ★/★★/★★★.',
+    topics: ['Κίνηση', 'Δυνάμεις', 'Ενέργεια', 'Ήχος & Φως', 'Ηλεκτρισμός', 'Πυρηνική'],
+    color: '#534AB7', bg: '#EEEDFE',
+  },
+  {
+    href: '/physics/high',
+    icon: '🔬',
+    title: 'Λύκειο',
+    sub: 'Α΄–Γ΄ Λύκειο',
+    desc: 'Βαθύτερη ανάλυση, μαθηματικές προσεγγίσεις, θέματα Πανελληνίων και επιπλέον ασκήσεις.',
+    topics: ['Κινηματική', 'Δυναμική', 'Ταλαντώσεις', 'Κύματα', 'Ηλεκτρομαγνητισμός', 'Κβαντική'],
+    color: '#1D9E75', bg: '#E1F5EE',
+  },
+];
+
+const tools = [
+  { icon: '📄', title: 'Φύλλα εργασίας', desc: 'Διαβαθμισμένα σε 3 επίπεδα δυσκολίας' },
+  { icon: '🎮', title: 'Διαδραστικά κουίζ', desc: 'Αυτοαξιολόγηση με άμεσο feedback' },
+  { icon: '🧪', title: 'Πειράματα τσέπης', desc: 'Με απλά υλικά, για σπίτι ή τάξη' },
+  { icon: '🖥️', title: 'Προσομοιώσεις', desc: 'PhET & GeoGebra ενσωματωμένα' },
+];
+---
+
+<ArticleLayout
+  title="Φυσική"
+  eyebrow="Εκπαιδευτικό Υλικό"
+  description="Πλήρες υλικό για όλες τις βαθμίδες — από το Δημοτικό έως το Λύκειο. Θεωρία, ασκήσεις, πειράματα και προσομοιώσεις, οργανωμένα κατά τάξη και επίπεδο δυσκολίας."
+  heroIcon="⚛️"
+>
+
+  <!-- Levels -->
+  <div class="levels-grid">
+    {levels.map(l => (
+      <a class="level-card" href={l.href} style={`--accent:${l.color};`}>
+        <div class="level-head">
+          <div class="level-icon" style={`background:${l.bg};`}>{l.icon}</div>
+          <div>
+            <div class="level-sub">{l.sub}</div>
+            <h2 class="level-title">{l.title}</h2>
+          </div>
+        </div>
+        <p class="level-desc">{l.desc}</p>
+        <div class="level-topics">
+          {l.topics.map(t => <span class="tag">{t}</span>)}
+        </div>
+        <div class="level-cta">Δες το υλικό →</div>
+      </a>
+    ))}
+  </div>
+
+  <!-- Tools row -->
+  <section class="tools-section">
+    <h2 class="section-title" style="margin-bottom:32px;">Τι θα βρεις</h2>
+    <div class="tools-grid">
+      {tools.map(t => (
+        <div class="tool-card">
+          <div class="tool-icon">{t.icon}</div>
+          <h3>{t.title}</h3>
+          <p>{t.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Downloadable Worksheets -->
+  <section class="worksheets-section">
+    <h2 class="section-title" style="margin-bottom:32px;">📄 Φύλλα Εργασίας — Λήψη PDF</h2>
+    <div class="ws-list">
+
+      <div class="ws-card">
+        <div class="ws-left">
+          <span class="ws-emoji">📐</span>
+          <div>
+            <h3>Φυσικά Μεγέθη & Μονάδες</h3>
+            <p>Γυμνάσιο (Α΄) — Μέτρηση, διαστάσεις, μονάδες SI, σφάλματα. Βήμα-βήμα με λυμένα παραδείγματα.</p>
+            <div class="ws-badges">
+              <span class="badge badge-purple">34 σελίδες</span>
+              <span class="badge badge-teal">Diffit</span>
+            </div>
+          </div>
+        </div>
+        <a href="/akinclusilab.github.io/worksheets/physics-measurements.pdf" target="_blank" class="btn-dl">⬇ Λήψη</a>
+      </div>
+
+      <div class="ws-card">
+        <div class="ws-left">
+          <span class="ws-emoji">💥</span>
+          <div>
+            <h3>Κρούσεις & Ορμή</h3>
+            <p>Λύκειο — Ορμή σώματος, νόμος διατήρησης ορμής, ελαστικές & ανελαστικές κρούσεις, ασκήσεις.</p>
+            <div class="ws-badges">
+              <span class="badge badge-teal-dark">41 σελίδες</span>
+              <span class="badge badge-teal">Diffit</span>
+            </div>
+          </div>
+        </div>
+        <a href="/akinclusilab.github.io/worksheets/physics-collisions-momentum.pdf" target="_blank" class="btn-dl btn-teal">⬇ Λήψη</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Difficulty legend -->
+  <section class="legend-section">
+    <h2 class="section-title" style="margin-bottom:24px;">Επίπεδα δυσκολίας</h2>
+    <div class="legend-grid">
+      <div class="legend-item">
+        <span class="stars">★☆☆</span>
+        <div>
+          <strong>Βασικό</strong>
+          <p>Εισαγωγικές έννοιες, απλές ασκήσεις, κατάλληλο για πρώτη επαφή με την ύλη.</p>
+        </div>
+      </div>
+      <div class="legend-item">
+        <span class="stars">★★☆</span>
+        <div>
+          <strong>Μεσαίο</strong>
+          <p>Εφαρμογή εννοιών, σύνθετες ασκήσεις, κατάλληλο για εξάσκηση πριν τις εξετάσεις.</p>
+        </div>
+      </div>
+      <div class="legend-item">
+        <span class="stars stars--hard">★★★</span>
+        <div>
+          <strong>Προχωρημένο</strong>
+          <p>Σύνθετα προβλήματα, ολυμπιάδες, Πανελλήνιες — για μαθητές που θέλουν να διακριθούν.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</ArticleLayout>
+
+<style>
+  .levels-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-bottom: 64px; }
+  .level-card {
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    text-decoration: none; color: inherit;
+    display: flex; flex-direction: column; gap: 16px;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .level-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--accent); opacity: 0; transition: opacity .2s;
+  }
+  .level-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(83,74,183,.1); border-color: var(--accent); text-decoration: none; }
+  .level-card:hover::before { opacity: 1; }
+  .level-head { display: flex; align-items: center; gap: 14px; }
+  .level-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+  .level-sub { font-size: 11px; font-weight: 600; letter-spacing: .08em; color: var(--fg3); text-transform: uppercase; }
+  .level-title { font-family: var(--font-heading); font-size: 22px; font-weight: 700; margin-top: 2px; }
+  .level-desc { font-size: 14px; color: var(--fg2); line-height: 1.65; flex: 1; }
+  .level-topics { display: flex; flex-wrap: wrap; gap: 6px; }
+  .level-cta { font-size: 13px; font-weight: 600; color: var(--purple); margin-top: 4px; }
+
+  .tools-section { margin-bottom: 56px; }
+  .tools-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+  .tool-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 22px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .tool-icon { font-size: 28px; }
+  .tool-card h3 { font-family: var(--font-heading); font-size: 15px; font-weight: 600; }
+  .tool-card p { font-size: 13px; color: var(--fg2); line-height: 1.55; }
+
+  .legend-section { }
+  .legend-grid { display: flex; flex-direction: column; gap: 16px; }
+  .legend-item {
+    display: flex; align-items: flex-start; gap: 20px;
+    padding: 20px; background: var(--bg2);
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+  }
+  .stars { font-size: 22px; flex-shrink: 0; color: var(--purple); }
+  .stars--hard { color: var(--teal-dark); }
+  .legend-item strong { font-family: var(--font-heading); font-size: 15px; font-weight: 600; display: block; margin-bottom: 4px; }
+  .legend-item p { font-size: 13px; color: var(--fg2); line-height: 1.6; }
+
+  @media (max-width: 768px) {
+    .levels-grid { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: repeat(2,1fr); }
+  }
+  @media (max-width: 480px) {
+    .tools-grid { grid-template-columns: 1fr; }
+  }
+
+  .worksheets-section { margin-bottom: 56px; }
+  .ws-list { display: flex; flex-direction: column; gap: 14px; }
+  .ws-card {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px 24px;
+  }
+  .ws-left { display: flex; align-items: flex-start; gap: 16px; flex: 1; }
+  .ws-emoji { font-size: 30px; flex-shrink: 0; }
+  .ws-left h3 { font-family: var(--font-heading); font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .ws-left p { font-size: 13px; color: var(--fg2); line-height: 1.55; margin-bottom: 8px; }
+  .ws-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+  .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+  .badge-purple { background: var(--purple-light); color: var(--purple-dark); }
+  .badge-teal { background: var(--teal-light); color: var(--teal-dark); }
+  .badge-teal-dark { background: #d1fae5; color: #065f46; }
+  .btn-dl {
+    display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+    background: var(--purple); color: white; padding: 10px 20px;
+    border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; text-decoration: none; flex-shrink: 0;
+  }
+  .btn-dl:hover { opacity: .88; text-decoration: none; }
+  .btn-teal { background: var(--teal); }
+  @media (max-width: 600px) {
+    .ws-card { flex-direction: column; align-items: flex-start; }
+    .btn-dl { width: 100%; justify-content: center; }
+  }
+</style>

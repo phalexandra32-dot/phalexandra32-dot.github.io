@@ -1,0 +1,183 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+
+const grades = [
+  {
+    grade: 'Γ΄ Δημοτικού',
+    icon: '🌱',
+    color: '#1D9E75',
+    chapters: [
+      { title: 'Φως & Ήχος', topics: ['Πηγές φωτός', 'Σκιές', 'Ανάκλαση', 'Πηγές ήχου', 'Διάδοση ήχου'], sheets: 4, diff: 1 },
+      { title: 'Ύλη & Υλικά', topics: ['Στερεά, υγρά, αέρια', 'Ιδιότητες υλικών', 'Αλλαγές κατάστασης'], sheets: 3, diff: 1 },
+    ]
+  },
+  {
+    grade: 'Δ΄ Δημοτικού',
+    icon: '🌿',
+    color: '#534AB7',
+    chapters: [
+      { title: 'Ηλεκτρισμός', topics: ['Ηλεκτρικό ρεύμα', 'Απλό κύκλωμα', 'Αγωγοί & μονωτές', 'Ασφάλεια'], sheets: 5, diff: 1 },
+      { title: 'Μαγνητισμός', topics: ['Μαγνήτες', 'Πόλοι', 'Πυξίδα', 'Ηλεκτρομαγνήτης'], sheets: 4, diff: 2 },
+    ]
+  },
+  {
+    grade: 'Ε΄ Δημοτικού',
+    icon: '🌳',
+    color: '#1D9E75',
+    chapters: [
+      { title: 'Δυνάμεις', topics: ['Τι είναι δύναμη', 'Βαρύτητα', 'Τριβή', 'Ελατήριο'], sheets: 5, diff: 1 },
+      { title: 'Ενέργεια', topics: ['Μορφές ενέργειας', 'Θερμότητα', 'Ανανεώσιμες πηγές', 'Εξοικονόμηση'], sheets: 4, diff: 2 },
+    ]
+  },
+  {
+    grade: 'ΣΤ΄ Δημοτικού',
+    icon: '🌲',
+    color: '#534AB7',
+    chapters: [
+      { title: 'Κίνηση', topics: ['Τρόποι κίνησης', 'Ταχύτητα (απλά)', 'Ευθύγραμμη & καμπύλη'], sheets: 4, diff: 1 },
+      { title: 'Σύμπαν & Γη', topics: ['Ηλιακό σύστημα', 'Φεγγάρι', 'Αστέρια', 'Βαρύτητα στο διάστημα'], sheets: 5, diff: 2 },
+    ]
+  },
+];
+
+function stars(n: number) {
+  return '★'.repeat(n) + '☆'.repeat(3 - n);
+}
+---
+
+<ArticleLayout
+  title="Φυσική Δημοτικού"
+  eyebrow="Πρωτοβάθμια Εκπαίδευση"
+  description="Φύλλα εργασίας, δραστηριότητες και πειράματα φυσικής για τις τάξεις Γ΄–ΣΤ΄ Δημοτικού. Σχεδιασμένα για εξερεύνηση, παρατήρηση και διασκέδαση!"
+  heroIcon="🌱"
+  heroBg="linear-gradient(135deg, #085041, #1D9E75)"
+>
+
+  <div class="breadcrumb">
+    <a href="/">InclusiLab</a> › <a href="/physics">Φυσική</a> › Δημοτικό
+  </div>
+
+  <div class="primary-intro">
+    <div class="intro-emoji">🔍</div>
+    <div>
+      <strong>Εξερεύνηση πρώτα!</strong>
+      <p>Στο δημοτικό η φυσική είναι παρατήρηση, ερώτηση και ανακάλυψη. Εδώ θα βρεις δραστηριότητες που μπορείς να κάνεις στο σπίτι ή στην τάξη με απλά υλικά.</p>
+    </div>
+  </div>
+
+  {grades.map(g => (
+    <section class="grade-section">
+      <div class="grade-header" style={`border-left-color:${g.color};`}>
+        <span class="grade-icon">{g.icon}</span>
+        <div>
+          <h2 style={`color:${g.color};`}>{g.grade}</h2>
+        </div>
+      </div>
+      <div class="chapters-grid">
+        {g.chapters.map(ch => (
+          <div class="chapter-card" style={`--accent:${g.color};`}>
+            <div class="chapter-top">
+              <h3>{ch.title}</h3>
+              <span class="diff-stars" title={`Επίπεδο ${ch.diff}/3`}>{stars(ch.diff)}</span>
+            </div>
+            <ul class="topics-list">
+              {ch.topics.map(t => <li>{t}</li>)}
+            </ul>
+            <div class="chapter-footer">
+              <span class="sheet-count">📄 {ch.sheets} φύλλα εργασίας</span>
+              <a href="#" class="btn btn-teal chapter-btn">Λήψη</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <!-- Fun experiments callout -->
+  <div class="experiments-box">
+    <div class="exp-icon">🧪</div>
+    <div>
+      <h3>Πειράματα στο σπίτι</h3>
+      <p>Όλα τα πειράματα για το δημοτικό χρησιμοποιούν υλικά που βρίσκεις εύκολα: νερό, αλάτι, χαρτί, μπαταρίες, καλώδια. Δεν χρειάζεσαι εργαστήριο!</p>
+      <a href="/simulations" class="btn btn-primary" style="font-size:13px;padding:9px 18px;">Δες τις προσομοιώσεις →</a>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend-row">
+    <strong>Επίπεδο δυσκολίας:</strong>
+    <span class="legend-item"><span class="stars">★☆☆</span> Εύκολο</span>
+    <span class="legend-item"><span class="stars">★★☆</span> Μεσαίο</span>
+    <span class="legend-item"><span class="stars">★★★</span> Δύσκολο</span>
+  </div>
+
+</ArticleLayout>
+
+<style>
+  .breadcrumb { font-size: 13px; color: var(--fg3); margin-bottom: 36px; }
+  .breadcrumb a { color: var(--purple); text-decoration: none; }
+
+  .primary-intro {
+    display: flex; gap: 20px; align-items: flex-start;
+    background: var(--teal-light); border: 1px solid rgba(29,158,117,0.2);
+    border-radius: var(--radius-sm); padding: 20px 24px; margin-bottom: 48px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .primary-intro { background: rgba(29,158,117,0.08); }
+  }
+  :root[data-theme="dark"] .primary-intro { background: rgba(29,158,117,0.08); }
+  .intro-emoji { font-size: 32px; flex-shrink: 0; }
+  .primary-intro strong { display: block; margin-bottom: 4px; font-size: 16px; color: var(--fg); }
+  .primary-intro p { font-size: 14px; color: var(--fg2); line-height: 1.65; }
+
+  .grade-section { margin-bottom: 48px; }
+  .grade-header {
+    display: flex; align-items: center; gap: 14px;
+    border-left: 4px solid; padding-left: 16px; margin-bottom: 20px;
+  }
+  .grade-icon { font-size: 28px; }
+  .grade-header h2 { font-family: var(--font-heading); font-size: 20px; font-weight: 700; }
+
+  .chapters-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+  .chapter-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    border-radius: var(--radius-sm); padding: 20px;
+    display: flex; flex-direction: column; gap: 14px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .chapter-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
+  .chapter-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .chapter-top h3 { font-family: var(--font-heading); font-size: 15px; font-weight: 700; }
+  .diff-stars { font-size: 13px; color: #f59e0b; white-space: nowrap; letter-spacing: 1px; }
+  .topics-list { list-style: none; display: flex; flex-direction: column; gap: 5px; flex: 1; }
+  .topics-list li { font-size: 13px; color: var(--fg2); padding-left: 14px; position: relative; }
+  .topics-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 11px; top: 1px; }
+  .chapter-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid var(--border); }
+  .sheet-count { font-size: 12px; color: var(--fg3); }
+  .chapter-btn { font-size: 12px; padding: 7px 14px; }
+
+  .experiments-box {
+    background: linear-gradient(135deg, var(--teal-light), var(--purple-light));
+    border: 1px solid rgba(29,158,117,0.2);
+    border-radius: var(--radius); padding: 28px 32px;
+    display: flex; gap: 20px; align-items: flex-start; margin-bottom: 32px;
+  }
+  .exp-icon { font-size: 40px; flex-shrink: 0; }
+  .experiments-box h3 { font-family: var(--font-heading); font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .experiments-box p { font-size: 14px; color: var(--fg2); line-height: 1.65; margin-bottom: 14px; }
+
+  .legend-row {
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    padding: 14px 20px; background: var(--bg2);
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 13px; color: var(--fg3);
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .stars { color: #f59e0b; letter-spacing: 1px; }
+
+  @media (max-width: 768px) {
+    .chapters-grid { grid-template-columns: 1fr; }
+    .experiments-box { flex-direction: column; gap: 12px; }
+  }
+</style>

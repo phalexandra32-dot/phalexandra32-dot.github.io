@@ -1,0 +1,214 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+
+const tools = [
+  {
+    name: 'ChatGPT', icon: '🤖', maker: 'OpenAI', href: 'https://chat.openai.com',
+    desc: 'Δημιουργία ασκήσεων, εξηγήσεις εννοιών, διόρθωση κειμένων, σχεδιασμός μαθήματος.',
+    uses: ['Γράψε 5 ασκήσεις για τον Νόμο Ohm στο Γυμνάσιο', 'Εξήγησε την κβαντική μηχανική σε 3 επίπεδα', 'Φτιάξε ρουμπρίκα αξιολόγησης για εργαστήριο'],
+    level: 'Εύκολο', color: '#10a37f',
+  },
+  {
+    name: 'Claude', icon: '✨', maker: 'Anthropic', href: 'https://claude.ai',
+    desc: 'Ανάλυση κειμένων, σχεδιασμός αναλυτικών προγραμμάτων, προσβάσιμο υλικό, μακρά κείμενα.',
+    uses: ['Ανάλυσε αυτό το ΦΕΚ και εξήγησε τι αλλάζει για ΕΑΕ', 'Φτιάξε UDL σχέδιο μαθήματος για Γ΄ Γυμνάσιο', 'Απλοποίησε αυτό το κείμενο για μαθητή με δυσλεξία'],
+    level: 'Εύκολο', color: '#CC785C',
+  },
+  {
+    name: 'Gemini', icon: '💫', maker: 'Google', href: 'https://gemini.google.com',
+    desc: 'Ενσωματωμένο στο Google Workspace — χρήσιμο για Docs, Slides, διαχείριση τάξης.',
+    uses: ['Δημιούργησε Google Slides για μάθημα οπτικής', 'Γράψε email σε γονείς για ΕΑΕ θέματα', 'Συνόψισε αυτές τις σημειώσεις'],
+    level: 'Μεσαίο', color: '#1a73e8',
+  },
+  {
+    name: 'MagicSchool AI', icon: '🏫', maker: 'MagicSchool', href: 'https://www.magicschool.ai',
+    desc: 'Εξειδικευμένο εργαλείο για εκπαιδευτικούς — IEP γεννήτρια, διαφοροποιημένο υλικό.',
+    uses: ['Δημιούργησε IEP στόχους για μαθητή με οπτική αναπηρία', 'Διαφοροποίησε αυτή την άσκηση σε 3 επίπεδα', 'Φτιάξε επικοινωνία με γονείς'],
+    level: 'Εύκολο', color: '#6366f1',
+  },
+];
+
+const prompts = [
+  {
+    cat: 'Ασκήσεις & Φύλλα',
+    icon: '📄',
+    examples: [
+      'Γράψε 10 ασκήσεις για τη 2η τάξη Γυμνασίου, θέμα "Ευθύγραμμη κίνηση", σε 3 επίπεδα δυσκολίας (★, ★★, ★★★). Πρόσθεσε τις απαντήσεις.',
+      'Φτιάξε φύλλο εργασίας για μαθητή με δυσλεξία: θέμα "Νόμος Ohm", με απλές λέξεις, πολλές εικόνες και σύντομες ερωτήσεις.',
+      'Δημιούργησε 5 ερωτήσεις πολλαπλής επιλογής για τον ήχο, κατάλληλες για Α΄ Γυμνάσιο.',
+    ]
+  },
+  {
+    cat: 'Σχέδια μαθήματος',
+    icon: '📋',
+    examples: [
+      'Σχεδίασε μάθημα 45 λεπτών για τη διδασκαλία της ανάκλασης φωτός σε Β΄ Γυμνάσιο. Εφάρμοσε αρχές UDL.',
+      'Πώς να διδάξω ηλεκτρικά κυκλώματα σε τάξη με μαθητή που έχει κινητική αναπηρία; Τι προσαρμογές χρειάζομαι;',
+      'Φτιάξε εβδομαδιαίο πλάνο για τη μηχανική Γ΄ Γυμνασίου, 3 ώρες/εβδομάδα.',
+    ]
+  },
+  {
+    cat: 'ΕΑΕ & Προσβασιμότητα',
+    icon: '♿',
+    examples: [
+      'Γράψε IEP στόχους για μαθητή Γ΄ Γυμνασίου με οπτική αναπηρία που μαθαίνει φυσική.',
+      'Πώς να κάνω αυτό το πείραμα (κίνηση βλήματος) προσβάσιμο σε μαθητή με τύφλωση;',
+      'Απλοποίησε αυτό το κείμενο φυσικής σε επίπεδο Easy Read για μαθητή με νοητική αναπηρία.',
+    ]
+  },
+];
+---
+
+<ArticleLayout
+  title="AI & Εκπαίδευση"
+  eyebrow="Εργαλεία Τεχνητής Νοημοσύνης"
+  description="Πρακτικός οδηγός χρήσης AI εργαλείων για εκπαιδευτικούς φυσικής — ασκήσεις, σχέδια μαθήματος, προσβάσιμο υλικό και IEP με ChatGPT, Claude, Gemini."
+  heroIcon="🤖"
+  heroBg="linear-gradient(135deg, #26215C, #0F6E56)"
+>
+
+  <div class="breadcrumb"><a href="/">InclusiLab</a> › AI & Εκπαίδευση</div>
+
+  <div class="intro-box">
+    <strong>Γιατί να χρησιμοποιώ AI;</strong> Εξοικονομείς χρόνο στη δημιουργία υλικού, παράγεις διαφοροποιημένο περιεχόμενο γρήγορα και πειραματίζεσαι με νέες διδακτικές προσεγγίσεις. Το AI δεν αντικαθιστά τον εκπαιδευτικό — είναι βοηθός.
+  </div>
+
+  <!-- Tools -->
+  <section class="tools-section">
+    <h2 class="section-title" style="margin-bottom:24px;">Τα κύρια εργαλεία</h2>
+    <div class="tools-grid">
+      {tools.map(t => (
+        <div class="tool-card" style={`--accent:${t.color};`}>
+          <div class="tool-head">
+            <span class="tool-emoji">{t.icon}</span>
+            <div>
+              <h3>{t.name}</h3>
+              <span class="tool-maker">{t.maker} · {t.level}</span>
+            </div>
+          </div>
+          <p>{t.desc}</p>
+          <div class="tool-uses">
+            <strong>Παραδείγματα χρήσης:</strong>
+            <ul>
+              {t.uses.map(u => <li>"{u}"</li>)}
+            </ul>
+          </div>
+          <a href={t.href} target="_blank" rel="noopener" class="tool-link">Άνοιξε {t.name} ↗</a>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Prompt library -->
+  <section class="prompts-section">
+    <h2 class="section-title" style="margin-bottom:8px;">Βιβλιοθήκη Prompts</h2>
+    <p class="section-sub">Έτοιμα prompts για εκπαιδευτικούς φυσικής — αντέγραψε, προσάρμοσε, χρησιμοποίησε.</p>
+    <div class="prompts-grid">
+      {prompts.map(p => (
+        <div class="prompt-group">
+          <div class="prompt-cat">
+            <span>{p.icon}</span>
+            <h3>{p.cat}</h3>
+          </div>
+          <div class="prompt-list">
+            {p.examples.map(ex => (
+              <div class="prompt-item">
+                <p>"{ex}"</p>
+                <button class="copy-btn" data-text={ex} aria-label="Αντιγραφή prompt">📋</button>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Ethics note -->
+  <div class="ethics-box">
+    <div>⚠️</div>
+    <div>
+      <strong>Σημαντικό — Χρήση AI με υπευθυνότητα</strong>
+      <p>Πάντα να ελέγχεις και να επιμελείσαι το AI-generated υλικό πριν το δώσεις σε μαθητές. Μη βάζεις προσωπικά δεδομένα μαθητών στα AI εργαλεία. Χρησιμοποίησε το AI ως αφετηρία, όχι ως τελικό αποτέλεσμα.</p>
+    </div>
+  </div>
+
+</ArticleLayout>
+
+<style>
+  .breadcrumb { font-size: 13px; color: var(--fg3); margin-bottom: 36px; }
+  .breadcrumb a { color: var(--purple); text-decoration: none; }
+
+  .intro-box {
+    background: var(--purple-light); border-left: 4px solid var(--purple);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 18px 24px; margin-bottom: 48px;
+    font-size: 14px; color: var(--fg2); line-height: 1.65;
+  }
+  .intro-box strong { color: var(--fg); display: block; margin-bottom: 4px; }
+
+  .tools-section { margin-bottom: 56px; }
+  .tools-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
+  .tool-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    border-radius: var(--radius-sm); padding: 24px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .tool-head { display: flex; align-items: center; gap: 14px; }
+  .tool-emoji { font-size: 28px; }
+  .tool-head h3 { font-family: var(--font-heading); font-size: 18px; font-weight: 700; }
+  .tool-maker { font-size: 11px; color: var(--fg3); letter-spacing: .04em; }
+  .tool-card > p { font-size: 14px; color: var(--fg2); line-height: 1.65; }
+  .tool-uses strong { font-size: 12px; color: var(--fg3); display: block; margin-bottom: 8px; }
+  .tool-uses ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .tool-uses li { font-size: 12px; color: var(--fg2); padding: 8px 12px; background: var(--bg); border-radius: 6px; font-style: italic; line-height: 1.5; }
+  .tool-link { font-size: 13px; font-weight: 600; color: var(--purple); text-decoration: none; margin-top: auto; }
+  .tool-link:hover { text-decoration: underline; }
+
+  .prompts-section { margin-bottom: 48px; }
+  .prompts-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .prompt-group { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
+  .prompt-cat { display: flex; align-items: center; gap: 10px; padding: 16px 20px; background: var(--bg3); border-bottom: 1px solid var(--border); }
+  .prompt-cat span { font-size: 20px; }
+  .prompt-cat h3 { font-family: var(--font-heading); font-size: 14px; font-weight: 600; }
+  .prompt-list { display: flex; flex-direction: column; gap: 0; }
+  .prompt-item { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  .prompt-item:last-child { border-bottom: none; }
+  .prompt-item p { font-size: 12px; color: var(--fg2); line-height: 1.6; flex: 1; font-style: italic; }
+  .copy-btn { background: none; border: 1px solid var(--border); border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 14px; flex-shrink: 0; color: var(--fg3); transition: background .15s; }
+  .copy-btn:hover { background: var(--purple-light); border-color: var(--purple); }
+
+  .ethics-box {
+    background: #fffbeb; border: 1px solid #f59e0b;
+    border-radius: var(--radius-sm); padding: 20px 24px;
+    display: flex; gap: 16px; font-size: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .ethics-box { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3); }
+  }
+  :root[data-theme="dark"] .ethics-box { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3); }
+  .ethics-box > div:first-child { font-size: 24px; flex-shrink: 0; }
+  .ethics-box strong { display: block; margin-bottom: 6px; color: var(--fg); }
+  .ethics-box p { color: var(--fg2); line-height: 1.65; }
+
+  @media (max-width: 768px) {
+    .tools-grid { grid-template-columns: 1fr; }
+    .prompts-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const text = btn.getAttribute('data-text') || '';
+    try {
+      await navigator.clipboard.writeText(text);
+      btn.textContent = '✅';
+      setTimeout(() => btn.textContent = '📋', 1500);
+    } catch {
+      btn.textContent = '❌';
+      setTimeout(() => btn.textContent = '📋', 1500);
+    }
+  });
+});
+</script>

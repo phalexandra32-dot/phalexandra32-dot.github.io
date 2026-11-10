@@ -1,0 +1,121 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+
+const units = [
+  {
+    grade: 'Α΄ Γυμνάσιο',
+    color: '#534AB7',
+    chapters: [
+      { title: 'Εισαγωγή στη Φυσική', topics: ['Φυσικά μεγέθη', 'Μέτρηση', 'Διαστήματα & Χρόνος'], sheets: 4, level: 1 },
+      { title: 'Κίνηση', topics: ['Ευθύγραμμη κίνηση', 'Ταχύτητα', 'Επιτάχυνση', 'Ομαλή κίνηση'], sheets: 8, level: 2 },
+      { title: 'Δυνάμεις', topics: ['Δύναμη & Ισορροπία', 'Τριβή', 'Νόμοι Νεύτωνα'], sheets: 7, level: 2 },
+      { title: 'Ενέργεια', topics: ['Έργο', 'Ισχύς', 'Μορφές ενέργειας'], sheets: 5, level: 2 },
+    ]
+  },
+  {
+    grade: 'Β΄ Γυμνάσιο',
+    color: '#3C3489',
+    chapters: [
+      { title: 'Θερμότητα', topics: ['Θερμοκρασία', 'Θερμική διαστολή', 'Μεταφορά θερμότητας'], sheets: 6, level: 2 },
+      { title: 'Ήχος', topics: ['Κύματα', 'Ταχύτητα ήχου', 'Αντήχηση', 'Μουσική & Φυσική'], sheets: 5, level: 2 },
+      { title: 'Φως', topics: ['Ανάκλαση', 'Διάθλαση', 'Κατοπτρικά', 'Φακοί'], sheets: 7, level: 2 },
+    ]
+  },
+  {
+    grade: 'Γ΄ Γυμνάσιο',
+    color: '#1D9E75',
+    chapters: [
+      { title: 'Ηλεκτρισμός', topics: ['Ηλεκτρικό φορτίο', 'Ηλεκτρικό ρεύμα', 'Αντίσταση', 'Νόμος Ohm'], sheets: 8, level: 2 },
+      { title: 'Μαγνητισμός', topics: ['Μαγνητικό πεδίο', 'Ηλεκτρομαγνητισμός'], sheets: 5, level: 3 },
+      { title: 'Πυρηνική Φυσική', topics: ['Άτομο', 'Ραδιενέργεια', 'Πυρηνική ενέργεια'], sheets: 4, level: 3 },
+    ]
+  },
+];
+
+function stars(n: number) {
+  return '★'.repeat(n) + '☆'.repeat(3 - n);
+}
+---
+
+<ArticleLayout
+  title="Φυσική Γυμνασίου"
+  eyebrow="Α΄–Γ΄ Γυμνάσιο"
+  description="Πλήρης ύλη φυσικής γυμνασίου — θεωρία, φύλλα εργασίας και ασκήσεις διαβαθμισμένα σε τρία επίπεδα δυσκολίας για κάθε τάξη."
+  heroIcon="⚛️"
+>
+
+  <div class="breadcrumb"><a href="/physics">Φυσική</a> › Γυμνάσιο</div>
+
+  {units.map(unit => (
+    <section class="unit-section">
+      <div class="unit-header" style={`border-left-color:${unit.color};`}>
+        <h2 class="unit-grade">{unit.grade}</h2>
+      </div>
+      <div class="chapters-grid">
+        {unit.chapters.map(ch => (
+          <div class="chapter-card">
+            <div class="chapter-top">
+              <h3>{ch.title}</h3>
+              <span class="stars-badge" title={`Επίπεδο ${ch.level}/3`}>{stars(ch.level)}</span>
+            </div>
+            <div class="chapter-topics">
+              {ch.topics.map(t => <span class="tag">{t}</span>)}
+            </div>
+            <div class="chapter-footer">
+              <span class="sheets-count">📄 {ch.sheets} Φύλλα εργασίας</span>
+              <a href="#" class="chapter-link">Κατέβασε →</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <!-- Simulations CTA -->
+  <div class="sim-cta">
+    <div class="sim-cta-text">
+      <div class="section-eyebrow">Διαδραστικό</div>
+      <h2 style="font-family:var(--font-heading);font-size:1.5rem;font-weight:700;margin-bottom:8px;">Προσομοιώσεις για Γυμνάσιο</h2>
+      <p style="color:var(--fg2);font-size:14px;">Κίνηση βλήματος, ηλεκτρικά κυκλώματα, οπτική — δες τη φυσική σε δράση.</p>
+    </div>
+    <a href="/simulations" class="btn btn-primary">Άνοιξε προσομοίωση</a>
+  </div>
+
+</ArticleLayout>
+
+<style>
+  .breadcrumb { font-size: 13px; color: var(--fg3); margin-bottom: 36px; }
+  .breadcrumb a { color: var(--purple); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  .unit-section { margin-bottom: 52px; }
+  .unit-header { border-left: 4px solid var(--purple); padding-left: 14px; margin-bottom: 20px; }
+  .unit-grade { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; }
+
+  .chapters-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+  .chapter-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 20px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .chapter-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .chapter-top h3 { font-family: var(--font-heading); font-size: 15px; font-weight: 600; line-height: 1.3; }
+  .stars-badge { font-size: 13px; color: var(--purple); flex-shrink: 0; letter-spacing: 1px; }
+  .chapter-topics { display: flex; flex-wrap: wrap; gap: 5px; }
+  .chapter-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
+  .sheets-count { font-size: 12px; color: var(--fg3); }
+  .chapter-link { font-size: 12px; font-weight: 600; color: var(--purple); text-decoration: none; }
+  .chapter-link:hover { text-decoration: underline; }
+
+  .sim-cta {
+    background: var(--purple-light); border: 1.5px solid rgba(83,74,183,0.2);
+    border-radius: var(--radius); padding: 32px 36px;
+    display: flex; justify-content: space-between; align-items: center; gap: 24px;
+    margin-top: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .chapters-grid { grid-template-columns: 1fr; }
+    .sim-cta { flex-direction: column; text-align: center; }
+  }
+</style>

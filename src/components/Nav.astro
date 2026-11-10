@@ -1,0 +1,168 @@
+---
+const navLinks = [
+  { href: '/physics', label: 'Φυσική' },
+  { href: '/chemistry', label: 'Χημεία' },
+  { href: '/biology', label: 'Βιολογία' },
+  { href: '/math', label: 'Μαθηματικά' },
+  { href: '/simulations', label: 'Προσομοιώσεις' },
+  { href: '/eae', label: 'ΕΑΕ' },
+  { href: '/ai', label: 'AI' },
+  { href: '/legislation', label: 'Νομοθεσία' },
+];
+const pathname = Astro.url.pathname;
+---
+
+<nav class="site-nav" aria-label="Κεντρική πλοήγηση">
+  <div class="nav-inner container">
+    <a class="logo" href="/" aria-label="InclusiLab αρχική">
+      <svg class="logo-svg" width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+        <ellipse cx="18" cy="18" rx="16" ry="5.5" stroke="#1D9E75" stroke-width="2" fill="none"/>
+        <polygon points="33,18 25.5,5 10.5,5 3,18 10.5,31 25.5,31" fill="#534AB7"/>
+        <text x="8" y="23" font-size="13" font-weight="700" font-family="Space Grotesk,sans-serif" fill="white">IL</text>
+        <ellipse cx="18" cy="18" rx="16" ry="5.5" stroke="#1D9E75" stroke-width="1.5" fill="none" transform="rotate(55 18 18)" stroke-dasharray="7 20" stroke-dashoffset="3"/>
+        <circle cx="18" cy="2.5" r="2.5" fill="#1D9E75"/>
+      </svg>
+      <span class="logo-text">
+        <span class="logo-inclusi">Inclusi</span><span class="logo-lab">Lab</span>
+      </span>
+    </a>
+
+    <ul class="nav-links" role="list">
+      {navLinks.map(link => (
+        <li>
+          <a
+            href={link.href}
+            class:list={['nav-link', { active: pathname.startsWith(link.href) }]}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <a href="/blog" class="btn btn-primary nav-cta">Blog</a>
+
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Άνοιγμα μενού">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <line x1="3" y1="6" x2="19" y2="6"/>
+        <line x1="3" y1="11" x2="19" y2="11"/>
+        <line x1="3" y1="16" x2="19" y2="16"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <ul role="list">
+      {navLinks.map(link => (
+        <li><a href={link.href} class="mobile-link">{link.label}</a></li>
+      ))}
+      <li><a href="/blog" class="mobile-link mobile-cta">Blog</a></li>
+    </ul>
+  </div>
+</nav>
+
+<style>
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(248, 247, 255, 0.90);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  :root[data-theme="dark"] .site-nav,
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .site-nav { background: rgba(15, 13, 31, 0.90); }
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 62px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .logo:hover { text-decoration: none; }
+  .logo-text {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -.5px;
+  }
+  .logo-inclusi { color: var(--purple-dark); }
+  .logo-lab { color: var(--teal-dark); }
+
+  .nav-links {
+    display: flex;
+    gap: 2px;
+    margin-left: auto;
+    list-style: none;
+  }
+  .nav-link {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--fg2);
+    text-decoration: none;
+    padding: 7px 12px;
+    border-radius: 8px;
+    transition: background .15s, color .15s;
+    white-space: nowrap;
+  }
+  .nav-link:hover, .nav-link.active {
+    background: var(--purple-light);
+    color: var(--purple-dark);
+    text-decoration: none;
+  }
+  .nav-cta { margin-left: 10px; font-size: 14px; padding: 8px 18px; }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--fg);
+    padding: 8px;
+    margin-left: auto;
+  }
+
+  .mobile-menu {
+    border-top: 1px solid var(--border);
+    background: var(--bg2);
+    padding: 12px 0 20px;
+  }
+  .mobile-menu ul { list-style: none; }
+  .mobile-link {
+    display: block;
+    padding: 11px 24px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--fg2);
+    text-decoration: none;
+    transition: color .15s;
+  }
+  .mobile-link:hover { color: var(--purple); text-decoration: none; }
+  .mobile-cta { color: var(--purple); font-weight: 600; }
+
+  @media (max-width: 768px) {
+    .nav-links, .nav-cta { display: none; }
+    .nav-toggle { display: flex; }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('mobile-menu');
+  toggle?.addEventListener('click', () => {
+    const open = menu?.hidden === false;
+    if (menu) menu.hidden = open;
+    toggle.setAttribute('aria-expanded', String(!open));
+  });
+</script>

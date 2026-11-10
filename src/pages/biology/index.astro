@@ -1,0 +1,92 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+---
+
+<PageLayout title="Βιολογία" description="Φύλλα εργασίας και υλικό Βιολογίας για Γυμνάσιο και Λύκειο">
+
+  <div class="page-hero" style="background: linear-gradient(135deg, #2d6a1f 0%, #4a9e35 100%);">
+    <div class="container">
+      <div class="hero-emoji">🧬</div>
+      <h1>Βιολογία</h1>
+      <p>Φύλλα εργασίας, θεωρία και ασκήσεις για Γυμνάσιο και Λύκειο</p>
+    </div>
+  </div>
+
+  <div class="container page-content">
+
+    <section class="subject-section">
+      <h2>🏫 Γυμνάσιο</h2>
+
+      <div class="grade-block">
+        <h3>Α΄ Γυμνασίου</h3>
+        <div class="worksheet-list">
+          <div class="worksheet-card">
+            <div class="ws-icon">📄</div>
+            <div class="ws-info">
+              <h4>Οργάνωση της Ζωής και Οικοσυστήματα</h4>
+              <p>Κύτταρο, ιστοί, όργανα, οργανισμός. Τροφικές αλυσίδες, παραγωγοί, καταναλωτές, αποικοδομητές.</p>
+              <div class="ws-meta">
+                <span class="badge badge-green">20 σελίδες</span>
+                <span class="badge badge-teal">Diffit</span>
+              </div>
+            </div>
+            <a href="/akinclusilab.github.io/worksheets/biology-ecosystems.pdf" target="_blank" class="btn-download">⬇ Λήψη PDF</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="grade-block coming-soon">
+        <h3>Β΄ Γυμνασίου</h3>
+        <p class="soon-text">🔜 Σύντομα — Κυτταρική διαίρεση, Γενετική</p>
+      </div>
+
+      <div class="grade-block coming-soon">
+        <h3>Γ΄ Γυμνασίου</h3>
+        <p class="soon-text">🔜 Σύντομα — Ανθρώπινο σώμα, συστήματα οργάνων</p>
+      </div>
+    </section>
+
+    <section class="subject-section">
+      <h2>🎓 Λύκειο</h2>
+      <div class="grade-block coming-soon">
+        <h3>Α΄, Β΄, Γ΄ Λυκείου</h3>
+        <p class="soon-text">🔜 Σύντομα — Θέματα Πανελληνίων, λυμένες ασκήσεις</p>
+      </div>
+    </section>
+
+  </div>
+
+</PageLayout>
+
+<style>
+  .page-hero { padding: 56px 0 48px; color: white; text-align: center; }
+  .hero-emoji { font-size: 56px; margin-bottom: 16px; }
+  .page-hero h1 { font-family: var(--font-heading); font-size: clamp(2rem,5vw,3rem); font-weight: 800; margin-bottom: 12px; }
+  .page-hero p { font-size: 18px; opacity: .85; max-width: 540px; margin: 0 auto; }
+
+  .page-content { padding-top: 56px; padding-bottom: 72px; }
+  .subject-section { margin-bottom: 56px; }
+  .subject-section h2 { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700; margin-bottom: 24px; color: var(--fg); border-bottom: 2px solid #2d6a1f; padding-bottom: 8px; }
+
+  .grade-block { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; }
+  .grade-block h3 { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; color: var(--fg); }
+  .grade-block.coming-soon { opacity: .65; }
+  .soon-text { color: var(--fg3); font-size: 15px; }
+
+  .worksheet-card { display: flex; gap: 16px; align-items: flex-start; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px; }
+  .ws-icon { font-size: 32px; flex-shrink: 0; }
+  .ws-info { flex: 1; }
+  .ws-info h4 { font-family: var(--font-heading); font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: var(--fg); }
+  .ws-info p { font-size: 14px; color: var(--fg2); line-height: 1.5; margin-bottom: 10px; }
+  .ws-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
+  .badge-green { background: #dcfce7; color: #166534; }
+  .badge-teal { background: var(--teal-light); color: var(--teal-dark); }
+  .btn-download { display: inline-flex; align-items: center; gap: 6px; background: #2d6a1f; color: white; border: none; padding: 10px 18px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+  .btn-download:hover { background: #245518; }
+
+  @media (max-width: 600px) {
+    .worksheet-card { flex-direction: column; }
+    .btn-download { width: 100%; justify-content: center; }
+  }
+</style>

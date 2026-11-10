@@ -1,0 +1,174 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+
+const resources = [
+  {
+    icon: '📖', title: 'Braille & Ανάγλυφο υλικό',
+    desc: 'Φύλλα εργασίας και διαγράμματα μετατρεπόμενα σε Braille για μαθητές με οπτική αναπηρία. Συμβατά με εκτυπωτές Braille.',
+    items: ['Φύλλα σε BRF & BRL', 'Ανάγλυφα διαγράμματα SVG', 'Οδηγός για εκπαιδευτικό'],
+    color: '#534AB7', bg: '#EEEDFE',
+  },
+  {
+    icon: '🎧', title: 'Ηχητικές περιγραφές',
+    desc: 'Προσομοιώσεις και εικόνες με πλήρη audio description. Συμβατά με NVDA, JAWS, VoiceOver.',
+    items: ['Audio description για κάθε εικόνα', 'ARIA-labels στις προσομοιώσεις', 'Κείμενο εναλλακτικό για γραφήματα'],
+    color: '#1D9E75', bg: '#E1F5EE',
+  },
+  {
+    icon: '📊', title: 'Διαφοροποιημένη διδασκαλία',
+    desc: 'Σενάρια και υλικό προσαρμοσμένο για μαθητές με μαθησιακές δυσκολίες, ΔΕΠΥ, νοητική αναπηρία.',
+    items: ['Απλοποιημένα κείμενα (Easy Read)', 'Οπτικοί οργανωτές & mind maps', 'Βήμα-βήμα οδηγίες με εικόνες'],
+    color: '#534AB7', bg: '#EEEDFE',
+  },
+  {
+    icon: '🤲', title: 'Πολυαισθητηριακές δραστηριότητες',
+    desc: 'Πειράματα σχεδιασμένα για πολλαπλά κανάλια αντίληψης — απτικό, οπτικό, κιναισθητικό.',
+    items: ['Πειράματα με απτικό υλικό', 'Χρωματικοί κώδικες & υφές', 'Κιναισθητικές δραστηριότητες'],
+    color: '#1D9E75', bg: '#E1F5EE',
+  },
+];
+
+const thesis = {
+  title: 'Διδακτορική έρευνα',
+  desc: 'Το υλικό αυτό αναπτύσσεται στο πλαίσιο της διδακτορικής έρευνας για "Προσβάσιμα Εικονικά Εργαστήρια Φυσικής για μαθητές με οπτική αναπηρία". Η έρευνα εστιάζει στη σχεδίαση διεπαφών που συνδυάζουν ηχητική ανατροφοδότηση, haptic feedback και οπτικοποίηση φυσικών φαινομένων.',
+};
+
+const links = [
+  { icon: '🏛️', title: 'ΙΕΠ — Διαφοροποιημένη διδασκαλία', href: 'https://www.iep.edu.gr' },
+  { icon: '📋', title: 'Νομοθεσία ΕΑΕ', href: '/legislation' },
+  { icon: '🔬', title: 'Προσβάσιμες προσομοιώσεις', href: '/simulations' },
+  { icon: '📝', title: 'ΥΠ.ΠΑΙ.Θ — ΕΑΕ', href: 'https://www.minedu.gov.gr/eae' },
+];
+---
+
+<ArticleLayout
+  title="Ειδική Αγωγή & Φυσική"
+  eyebrow="ΕΑΕ"
+  description="Προσβάσιμο εκπαιδευτικό υλικό φυσικής για μαθητές με αναπηρία — Braille, ηχητικές περιγραφές, διαφοροποιημένη διδασκαλία και πολυαισθητηριακές δραστηριότητες."
+  heroIcon="♿"
+  heroBg="var(--teal-deep)"
+>
+
+  <div class="breadcrumb"><a href="/">InclusiLab</a> › ΕΑΕ & Φυσική</div>
+
+  <!-- Resources grid -->
+  <div class="resources-grid">
+    {resources.map(r => (
+      <div class="resource-card" style={`--accent:${r.color};`}>
+        <div class="resource-icon" style={`background:${r.bg};`}>{r.icon}</div>
+        <h2>{r.title}</h2>
+        <p>{r.desc}</p>
+        <ul>
+          {r.items.map(item => <li>{item}</li>)}
+        </ul>
+        <a href="#" class="btn btn-outline" style="margin-top:auto;">Δες το υλικό</a>
+      </div>
+    ))}
+  </div>
+
+  <!-- Research callout -->
+  <div class="research-box">
+    <div class="research-icon">🎓</div>
+    <div>
+      <h3>{thesis.title}</h3>
+      <p>{thesis.desc}</p>
+    </div>
+  </div>
+
+  <!-- UDL Principles -->
+  <section class="udl-section">
+    <h2 class="section-title">Αρχές Universal Design for Learning (UDL)</h2>
+    <p class="section-sub">Το υλικό σχεδιάζεται σύμφωνα με τις 3 βασικές αρχές UDL:</p>
+    <div class="udl-grid">
+      <div class="udl-card" style="border-top-color:#534AB7;">
+        <div class="udl-num" style="color:#534AB7;">I</div>
+        <h3>Πολλαπλά μέσα αναπαράστασης</h3>
+        <p>Κείμενο, εικόνα, ήχος, video — το ίδιο περιεχόμενο σε πολλές μορφές για διαφορετικές ανάγκες.</p>
+      </div>
+      <div class="udl-card" style="border-top-color:#1D9E75;">
+        <div class="udl-num" style="color:#1D9E75;">II</div>
+        <h3>Πολλαπλά μέσα δράσης & έκφρασης</h3>
+        <p>Γραπτό, προφορικό, κιναισθητικό, ψηφιακό — ο μαθητής επιλέγει πώς δείχνει τι ξέρει.</p>
+      </div>
+      <div class="udl-card" style="border-top-color:#534AB7;">
+        <div class="udl-num" style="color:#534AB7;">III</div>
+        <h3>Πολλαπλά μέσα δέσμευσης</h3>
+        <p>Κίνητρα, επιλογές, ενδιαφέρουσες προκλήσεις — για να μείνει ο μαθητής εμπλεκόμενος.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick links -->
+  <section>
+    <h2 class="section-title" style="margin-bottom:20px;">Χρήσιμοι σύνδεσμοι</h2>
+    <div class="links-grid">
+      {links.map(l => (
+        <a href={l.href} class="link-card" target={l.href.startsWith('http') ? '_blank' : undefined} rel={l.href.startsWith('http') ? 'noopener' : undefined}>
+          <span class="link-icon">{l.icon}</span>
+          <span>{l.title}</span>
+          <span class="link-arrow">→</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+</ArticleLayout>
+
+<style>
+  .breadcrumb { font-size: 13px; color: var(--fg3); margin-bottom: 36px; }
+  .breadcrumb a { color: var(--purple); text-decoration: none; }
+
+  .resources-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; margin-bottom: 48px; }
+  .resource-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px;
+    display: flex; flex-direction: column; gap: 14px;
+    transition: border-color .2s;
+  }
+  .resource-card:hover { border-color: var(--accent); }
+  .resource-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+  .resource-card h2 { font-family: var(--font-heading); font-size: 17px; font-weight: 700; }
+  .resource-card p { font-size: 14px; color: var(--fg2); line-height: 1.65; }
+  .resource-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .resource-card li { font-size: 13px; color: var(--fg2); padding-left: 16px; position: relative; }
+  .resource-card li::before { content: '✓'; position: absolute; left: 0; color: var(--teal); font-weight: 700; }
+
+  .research-box {
+    background: linear-gradient(135deg, var(--purple-light), var(--teal-light));
+    border: 1px solid rgba(83,74,183,0.2);
+    border-radius: var(--radius); padding: 28px 32px;
+    display: flex; gap: 20px; align-items: flex-start;
+    margin-bottom: 48px;
+  }
+  .research-icon { font-size: 36px; flex-shrink: 0; }
+  .research-box h3 { font-family: var(--font-heading); font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--purple-dark); }
+  .research-box p { font-size: 14px; color: var(--fg2); line-height: 1.7; }
+
+  .udl-section { margin-bottom: 48px; }
+  .udl-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .udl-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-top: 4px solid; border-radius: var(--radius-sm); padding: 24px;
+  }
+  .udl-num { font-family: var(--font-heading); font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .udl-card h3 { font-family: var(--font-heading); font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .udl-card p { font-size: 13px; color: var(--fg2); line-height: 1.6; }
+
+  .links-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+  .link-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 16px 20px;
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none; color: var(--fg); font-size: 14px; font-weight: 500;
+    transition: border-color .15s, background .15s;
+  }
+  .link-card:hover { border-color: var(--purple); background: var(--purple-light); text-decoration: none; }
+  .link-icon { font-size: 20px; }
+  .link-arrow { margin-left: auto; color: var(--fg3); }
+
+  @media (max-width: 768px) {
+    .resources-grid { grid-template-columns: 1fr; }
+    .udl-grid { grid-template-columns: 1fr; }
+    .links-grid { grid-template-columns: 1fr; }
+  }
+</style>

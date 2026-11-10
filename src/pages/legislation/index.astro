@@ -1,0 +1,161 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+
+const categories = [
+  {
+    title: 'Νομοθεσία ΕΑΕ',
+    icon: '♿',
+    color: '#1D9E75',
+    items: [
+      { title: 'Ν. 4823/2021 — Αναβάθμιση ΕΑΕ', date: '2021', type: 'ΦΕΚ', desc: 'Νέο θεσμικό πλαίσιο για τη Δευτεροβάθμια ΕΑΕ' },
+      { title: 'Ν. 3699/2008 — Ειδική Αγωγή', date: '2008', type: 'ΦΕΚ', desc: 'Βασικός νόμος ΕΑΕ — αξιολόγηση, ΚΕΔΑΣΥ, πλαίσιο' },
+      { title: 'Εγκύκλιος ΣΕΠΕ — Διαφοροποιημένη διδασκαλία', date: '2023', type: 'Εγκύκλιος', desc: 'Οδηγίες υλοποίησης Διαφοροποιημένης Διδασκαλίας' },
+      { title: 'Πρόγραμμα σπουδών ΕΑΕ Φυσικής', date: '2023', type: 'ΑΠΣ', desc: 'Αναλυτικό πρόγραμμα φυσικής για τμήματα ένταξης' },
+    ]
+  },
+  {
+    title: 'Αξιολόγηση & Εξετάσεις',
+    icon: '📝',
+    color: '#534AB7',
+    items: [
+      { title: 'ΥΑ 79942/ΓΔ4 — Πανελλήνιες & ΕΑΕ', date: '2019', type: 'ΥΑ', desc: 'Ρυθμίσεις για μαθητές με αναπηρία στις Πανελλήνιες' },
+      { title: 'Ν. 4186/2013 — Αξιολόγηση μαθητών', date: '2013', type: 'ΦΕΚ', desc: 'Σύστημα αξιολόγησης στη Δευτεροβάθμια Εκπαίδευση' },
+      { title: 'Εγκύκλιος ΚΕΔΑΣΥ — Γνωμοδοτήσεις', date: '2024', type: 'Εγκύκλιος', desc: 'Διαδικασία γνωμοδοτήσεων και αξιολόγησης ΚΕΔΑΣΥ' },
+    ]
+  },
+  {
+    title: 'Δικαιώματα Εκπαιδευτικών',
+    icon: '👩‍🏫',
+    color: '#3C3489',
+    items: [
+      { title: 'Υπηρεσιακά δικαιώματα κλάδου ΠΕ04', date: '2022', type: 'ΥΑ', desc: 'Αποσπάσεις, τοποθετήσεις, ωράριο ΕΑΕ' },
+      { title: 'Επίδομα ΕΑΕ — Δικαιούχοι', date: '2023', type: 'ΦΕΚ', desc: 'Κριτήρια και διαδικασία χορήγησης επιδόματος ΕΑΕ' },
+      { title: 'Άδειες εκπαιδευτικών — Συνολικός οδηγός', date: '2024', type: 'Οδηγός', desc: 'Κανονική, αναρρωτική, ειδική, εκπαιδευτική άδεια' },
+    ]
+  },
+];
+
+const news = [
+  { date: 'Νοέμβριος 2024', title: 'Νέα εγκύκλιος για τη λειτουργία ΚΕΔΑΣΥ 2024-25', tag: 'ΚΕΔΑΣΥ' },
+  { date: 'Σεπτέμβριος 2024', title: 'Τροπολογία για τις αποσπάσεις σε ΕΑΕ δομές', tag: 'Αποσπάσεις' },
+  { date: 'Αύγουστος 2024', title: 'ΦΕΚ 2024 — Πρόγραμμα σπουδών ΕΑΕ Λυκείου', tag: 'ΑΠΣ' },
+];
+---
+
+<ArticleLayout
+  title="Εκπαιδευτική Νομοθεσία"
+  eyebrow="ΦΕΚ · Εγκύκλιοι · Οδηγοί"
+  description="Οργανωμένη βάση νομοθεσίας ΕΑΕ, αξιολόγησης και δικαιωμάτων εκπαιδευτικών — ΦΕΚ, εγκύκλιοι, Υπουργικές Αποφάσεις."
+  heroIcon="⚖️"
+>
+
+  <div class="breadcrumb"><a href="/">InclusiLab</a> › Νομοθεσία</div>
+
+  <!-- Latest news -->
+  <div class="news-strip">
+    <div class="news-label">🔔 Τελευταία</div>
+    <div class="news-items">
+      {news.map(n => (
+        <div class="news-item">
+          <span class="news-tag">{n.tag}</span>
+          <span class="news-title">{n.title}</span>
+          <span class="news-date">{n.date}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Law categories -->
+  {categories.map(cat => (
+    <section class="law-section">
+      <div class="law-cat-header">
+        <div class="law-cat-icon">{cat.icon}</div>
+        <h2 style={`color:${cat.color};`}>{cat.title}</h2>
+      </div>
+      <div class="law-items">
+        {cat.items.map(item => (
+          <div class="law-item">
+            <div class="law-item-left">
+              <div class="law-type" style={`background:${cat.color}18;color:${cat.color};`}>{item.type}</div>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.desc}</p>
+              </div>
+            </div>
+            <div class="law-item-right">
+              <span class="law-date">{item.date}</span>
+              <a href="#" class="law-btn">Δες →</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <!-- Search tip -->
+  <div class="search-tip">
+    <div>🔍</div>
+    <div>
+      <strong>Αναζήτηση ΦΕΚ</strong>
+      <p>Για να βρεις οποιοδήποτε ΦΕΚ, χρησιμοποίησε το επίσημο <a href="https://www.et.gr" target="_blank" rel="noopener">Εθνικό Τυπογραφείο (et.gr)</a>. Για εγκυκλίους του ΥΠ.ΠΑΙ.Θ: <a href="https://www.minedu.gov.gr" target="_blank" rel="noopener">minedu.gov.gr</a>.</p>
+    </div>
+  </div>
+
+</ArticleLayout>
+
+<style>
+  .breadcrumb { font-size: 13px; color: var(--fg3); margin-bottom: 36px; }
+  .breadcrumb a { color: var(--purple); text-decoration: none; }
+
+  .news-strip {
+    background: var(--teal-light); border: 1px solid rgba(29,158,117,0.2);
+    border-radius: var(--radius-sm); padding: 16px 20px;
+    margin-bottom: 48px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .news-strip { background: rgba(29,158,117,0.08); }
+  }
+  :root[data-theme="dark"] .news-strip { background: rgba(29,158,117,0.08); }
+  .news-label { font-size: 11px; font-weight: 700; color: var(--teal-dark); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 10px; }
+  .news-items { display: flex; flex-direction: column; gap: 8px; }
+  .news-item { display: flex; align-items: center; gap: 10px; font-size: 13px; flex-wrap: wrap; }
+  .news-tag { background: var(--teal); color: white; padding: 2px 8px; border-radius: 100px; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+  .news-title { color: var(--fg); flex: 1; }
+  .news-date { color: var(--fg3); font-size: 11px; flex-shrink: 0; }
+
+  .law-section { margin-bottom: 48px; }
+  .law-cat-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
+  .law-cat-icon { font-size: 24px; }
+  .law-cat-header h2 { font-family: var(--font-heading); font-size: 20px; font-weight: 700; }
+  .law-items { display: flex; flex-direction: column; gap: 2px; }
+  .law-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px; background: var(--bg2);
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    gap: 20px; transition: background .15s;
+  }
+  .law-item:hover { background: var(--bg3); }
+  .law-item-left { display: flex; align-items: flex-start; gap: 14px; flex: 1; }
+  .law-type { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 100px; letter-spacing: .06em; flex-shrink: 0; margin-top: 2px; }
+  .law-item h3 { font-family: var(--font-heading); font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+  .law-item p { font-size: 12px; color: var(--fg3); }
+  .law-item-right { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+  .law-date { font-size: 12px; color: var(--fg3); }
+  .law-btn { font-size: 12px; font-weight: 600; color: var(--purple); text-decoration: none; white-space: nowrap; }
+  .law-btn:hover { text-decoration: underline; }
+
+  .search-tip {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 20px 24px;
+    display: flex; gap: 16px; font-size: 14px;
+  }
+  .search-tip > div:first-child { font-size: 24px; flex-shrink: 0; }
+  .search-tip strong { display: block; margin-bottom: 4px; }
+  .search-tip p { color: var(--fg2); line-height: 1.65; }
+  .search-tip a { color: var(--purple); }
+
+  @media (max-width: 600px) {
+    .law-item { flex-direction: column; align-items: flex-start; }
+    .law-item-right { width: 100%; justify-content: space-between; }
+  }
+</style>

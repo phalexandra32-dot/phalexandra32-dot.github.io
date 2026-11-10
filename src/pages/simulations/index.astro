@@ -1,0 +1,173 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+
+const sims = [
+  {
+    title: 'Κίνηση βλήματος',
+    icon: '🎯', level: 'Γυμνάσιο / Λύκειο',
+    source: 'PhET', sourceColor: '#E8651A',
+    desc: 'Εξερεύνησε πώς η γωνία εκτόξευσης και η αρχική ταχύτητα επηρεάζουν την τροχιά βλήματος.',
+    topics: ['Κινηματική', 'Βαρύτητα', 'Τοξοβολία'],
+    accessible: true,
+    href: 'https://phet.colorado.edu/el/simulations/projectile-motion',
+  },
+  {
+    title: 'Κύματα — Εισαγωγή',
+    icon: '🌊', level: 'Γυμνάσιο',
+    source: 'PhET', sourceColor: '#E8651A',
+    desc: 'Δες πώς δημιουργούνται κύματα, τι είναι πλάτος και συχνότητα, πώς ταξιδεύει η ενέργεια.',
+    topics: ['Κύματα', 'Ήχος', 'Συχνότητα'],
+    accessible: true,
+    href: 'https://phet.colorado.edu/el/simulations/wave-on-a-string',
+  },
+  {
+    title: 'Κύκλωμα DC',
+    icon: '⚡', level: 'Γυμνάσιο / Λύκειο',
+    source: 'PhET', sourceColor: '#E8651A',
+    desc: 'Φτιάξε κυκλώματα, μέτρα ρεύμα και τάση, εξερεύνησε τον νόμο Ohm σε πράξη.',
+    topics: ['Ηλεκτρισμός', 'Νόμος Ohm', 'Αντιστάσεις'],
+    accessible: false,
+    href: 'https://phet.colorado.edu/el/simulations/circuit-construction-kit-dc',
+  },
+  {
+    title: 'Οπτική: Γεωμετρική',
+    icon: '🔭', level: 'Γυμνάσιο / Λύκειο',
+    source: 'PhET', sourceColor: '#E8651A',
+    desc: 'Ανάκλαση, διάθλαση, κάτοπτρα και φακοί — δες πού σχηματίζεται η εικόνα.',
+    topics: ['Φως', 'Διάθλαση', 'Φακοί'],
+    accessible: false,
+    href: 'https://phet.colorado.edu/el/simulations/geometric-optics',
+  },
+  {
+    title: 'Θερμοδυναμική: Αέρια',
+    icon: '🌡️', level: 'Λύκειο',
+    source: 'PhET', sourceColor: '#E8651A',
+    desc: 'Εξερεύνησε τη σχέση πίεσης, θερμοκρασίας και όγκου σε ιδανικό αέριο.',
+    topics: ['Θερμοδυναμική', 'Αέρια', 'Νόμοι αερίων'],
+    accessible: false,
+    href: 'https://phet.colorado.edu/el/simulations/gas-properties',
+  },
+  {
+    title: 'Ταλαντώσεις: Εκκρεμές',
+    icon: '⏱️', level: 'Γυμνάσιο / Λύκειο',
+    source: 'PhET', sourceColor: '#E8651A',
+    desc: 'Μελέτησε την ταλάντωση εκκρεμούς — πώς επηρεάζουν το μήκος και η βαρύτητα την περίοδο.',
+    topics: ['Ταλαντώσεις', 'Εκκρεμές', 'Βαρύτητα'],
+    accessible: true,
+    href: 'https://phet.colorado.edu/el/simulations/pendulum-lab',
+  },
+];
+---
+
+<ArticleLayout
+  title="Προσομοιώσεις"
+  eyebrow="Εικονικά Εργαστήρια"
+  description="Διαδραστικές προσομοιώσεις φυσικής για όλες τις βαθμίδες — PhET, GeoGebra και custom HTML5. Τρέχουν απευθείας στο browser, χωρίς εγκατάσταση."
+  heroIcon="🖥️"
+>
+
+  <div class="breadcrumb"><a href="/">InclusiLab</a> › Προσομοιώσεις</div>
+
+  <div class="sim-info">
+    <div class="sim-info-item">
+      <span>🌐</span> Τρέχουν απευθείας στο browser — δεν χρειάζεται εγκατάσταση
+    </div>
+    <div class="sim-info-item">
+      <span>♿</span> Με <strong>✓</strong> σηματοδοτείται η συμβατότητα με screen readers
+    </div>
+    <div class="sim-info-item">
+      <span>🇬🇷</span> Διαθέσιμες στα ελληνικά (PhET)
+    </div>
+  </div>
+
+  <div class="sims-grid">
+    {sims.map(sim => (
+      <div class="sim-card">
+        <div class="sim-card-top">
+          <div class="sim-emoji">{sim.icon}</div>
+          <div class="sim-badges">
+            <span class="sim-source" style={`background:${sim.sourceColor}20;color:${sim.sourceColor};`}>{sim.source}</span>
+            {sim.accessible && <span class="sim-a11y" title="Συμβατό με screen reader">♿ Accessible</span>}
+          </div>
+        </div>
+        <h3>{sim.title}</h3>
+        <div class="sim-level">{sim.level}</div>
+        <p>{sim.desc}</p>
+        <div class="sim-topics">
+          {sim.topics.map(t => <span class="tag">{t}</span>)}
+        </div>
+        <a href={sim.href} target="_blank" rel="noopener" class="btn btn-primary sim-btn">
+          Άνοιξε προσομοίωση ↗
+        </a>
+      </div>
+    ))}
+  </div>
+
+  <!-- GeoGebra section -->
+  <div class="geogebra-section">
+    <div class="geogebra-text">
+      <div class="section-eyebrow">GeoGebra</div>
+      <h2 class="section-title">Μαθηματική Φυσική</h2>
+      <p>Το GeoGebra προσφέρει εκατοντάδες δυναμικά applets για τη μαθηματική πλευρά της φυσικής — γραφήματα κίνησης, διανύσματα, τοπία.</p>
+      <a href="https://www.geogebra.org/search/physics" target="_blank" rel="noopener" class="btn btn-outline">Εξερεύνησε GeoGebra →</a>
+    </div>
+    <div class="geogebra-features">
+      <div class="geo-feat"><span>📐</span> Διανυσματική ανάλυση κινήσεων</div>
+      <div class="geo-feat"><span>📈</span> Γραφήματα x-t, v-t, a-t</div>
+      <div class="geo-feat"><span>🔄</span> Κυκλική κίνηση & στροφορμή</div>
+      <div class="geo-feat"><span>⚡</span> Ηλεκτρικά πεδία</div>
+    </div>
+  </div>
+
+</ArticleLayout>
+
+<style>
+  .breadcrumb { font-size: 13px; color: var(--fg3); margin-bottom: 36px; }
+  .breadcrumb a { color: var(--purple); text-decoration: none; }
+
+  .sim-info {
+    display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 40px;
+    padding: 16px 20px; background: var(--bg2);
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+  }
+  .sim-info-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--fg2); }
+  .sim-info-item span { font-size: 18px; }
+
+  .sims-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-bottom: 56px; }
+  .sim-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px;
+    display: flex; flex-direction: column; gap: 12px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .sim-card:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(83,74,183,.09); }
+  .sim-card-top { display: flex; justify-content: space-between; align-items: center; }
+  .sim-emoji { font-size: 32px; }
+  .sim-badges { display: flex; gap: 6px; align-items: center; }
+  .sim-source { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 100px; }
+  .sim-a11y { font-size: 11px; font-weight: 600; color: var(--teal-dark); background: var(--teal-light); padding: 3px 8px; border-radius: 100px; }
+  .sim-card h3 { font-family: var(--font-heading); font-size: 16px; font-weight: 700; }
+  .sim-level { font-size: 11px; color: var(--fg3); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+  .sim-card > p { font-size: 13px; color: var(--fg2); line-height: 1.65; flex: 1; }
+  .sim-topics { display: flex; flex-wrap: wrap; gap: 5px; }
+  .sim-btn { font-size: 13px; padding: 10px 18px; margin-top: auto; }
+
+  .geogebra-section {
+    background: var(--purple-light); border: 1px solid rgba(83,74,183,0.15);
+    border-radius: var(--radius); padding: 36px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .geogebra-section { background: rgba(83,74,183,0.08); }
+  }
+  :root[data-theme="dark"] .geogebra-section { background: rgba(83,74,183,0.08); }
+  .geogebra-features { display: flex; flex-direction: column; gap: 12px; }
+  .geo-feat { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--fg2); padding: 10px 14px; background: var(--bg2); border-radius: 8px; }
+  .geo-feat span { font-size: 20px; }
+
+  @media (max-width: 768px) {
+    .sims-grid { grid-template-columns: 1fr; }
+    .geogebra-section { grid-template-columns: 1fr; }
+    .sim-info { flex-direction: column; gap: 12px; }
+  }
+</style>

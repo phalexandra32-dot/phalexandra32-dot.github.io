@@ -1,0 +1,190 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+
+const posts = [
+  {
+    slug: 'phet-eae',
+    emoji: '⚛️', bg: '#EEEDFE',
+    cat: 'Προσομοιώσεις', catColor: '#534AB7',
+    date: '8 Νοεμβρίου 2024',
+    title: 'Πώς χρησιμοποιώ PhET στην ΕΑΕ τάξη',
+    excerpt: 'Εμπειρίες από δύο χρόνια εφαρμογής εικονικών πειραμάτων με μαθητές αναπηρίας — τι δούλεψε και τι μάθαμε.',
+    tags: ['PhET', 'ΕΑΕ', 'Οπτική αναπηρία'],
+    readTime: '5 λεπτά',
+  },
+  {
+    slug: 'chatgpt-physics',
+    emoji: '🤖', bg: '#E1F5EE',
+    cat: 'AI & Εκπαίδευση', catColor: '#1D9E75',
+    date: '1 Νοεμβρίου 2024',
+    title: 'ChatGPT ως βοηθός στη φυσική: 5 πρακτικές χρήσεις',
+    excerpt: 'Πώς η τεχνητή νοημοσύνη μπορεί να βοηθήσει στην ανάπτυξη διαβαθμισμένου υλικού, χωρίς να αντικαταστήσει τον εκπαιδευτικό.',
+    tags: ['ChatGPT', 'AI', 'Φύλλα εργασίας'],
+    readTime: '7 λεπτά',
+  },
+  {
+    slug: 'fek-eae-2024',
+    emoji: '⚖️', bg: '#EEEDFE',
+    cat: 'Νομοθεσία', catColor: '#534AB7',
+    date: '20 Οκτωβρίου 2024',
+    title: 'Νέο ΦΕΚ για Ειδική Αγωγή: τι αλλάζει το 2024',
+    excerpt: 'Ανάλυση των πρόσφατων αλλαγών στο θεσμικό πλαίσιο της ΕΑΕ — τι επηρεάζει τους εκπαιδευτικούς κλάδου ΠΕ04.',
+    tags: ['ΦΕΚ', 'ΕΑΕ', 'Νομοθεσία'],
+    readTime: '6 λεπτά',
+  },
+  {
+    slug: 'udl-physics',
+    emoji: '📊', bg: '#E1F5EE',
+    cat: 'ΕΑΕ & Φυσική', catColor: '#1D9E75',
+    date: '12 Οκτωβρίου 2024',
+    title: 'Universal Design for Learning στη φυσική: πρακτικός οδηγός',
+    excerpt: 'Πώς εφαρμόζω τις 3 αρχές UDL στο μάθημα φυσικής — παραδείγματα, εργαλεία και υλικό.',
+    tags: ['UDL', 'Διαφοροποίηση', 'Φυσική'],
+    readTime: '8 λεπτά',
+  },
+  {
+    slug: 'braille-physics',
+    emoji: '📖', bg: '#EEEDFE',
+    cat: 'ΕΑΕ & Φυσική', catColor: '#534AB7',
+    date: '5 Οκτωβρίου 2024',
+    title: 'Φυσική σε Braille: η εμπειρία μου',
+    excerpt: 'Η διαδικασία μετατροπής φυσικών διαγραμμάτων σε ανάγλυφη μορφή — εργαλεία, προκλήσεις και λύσεις.',
+    tags: ['Braille', 'Οπτική αναπηρία', 'Αναλυτικά'],
+    readTime: '10 λεπτά',
+  },
+  {
+    slug: 'simulations-accessibility',
+    emoji: '🖥️', bg: '#E1F5EE',
+    cat: 'Προσομοιώσεις', catColor: '#1D9E75',
+    date: '25 Σεπτεμβρίου 2024',
+    title: 'Προσβάσιμες προσομοιώσεις: GeoGebra vs PhET',
+    excerpt: 'Σύγκριση των δύο μεγαλύτερων πλατφορμών — ποια είναι πιο φιλική σε screen readers;',
+    tags: ['GeoGebra', 'PhET', 'Προσβασιμότητα'],
+    readTime: '6 λεπτά',
+  },
+];
+
+const allCats = ['Όλα', 'Προσομοιώσεις', 'AI & Εκπαίδευση', 'ΕΑΕ & Φυσική', 'Νομοθεσία'];
+---
+
+<PageLayout title="Blog" description="Άρθρα για τη φυσική στην εκπαίδευση, την ΕΑΕ, τα AI εργαλεία και τη νομοθεσία.">
+
+  <header class="blog-hero">
+    <div class="container">
+      <div class="section-eyebrow">Blog</div>
+      <h1 class="page-title">Νέα & Άρθρα</h1>
+      <p>Εκπαιδευτικές εμπειρίες, νέα εργαλεία και ιδέες για τη φυσική στη σχολική τάξη.</p>
+    </div>
+  </header>
+
+  <div class="container blog-layout">
+
+    <!-- Filter tabs -->
+    <div class="filter-tabs" role="tablist">
+      {allCats.map((cat, i) => (
+        <button
+          class:list={['filter-tab', { active: i === 0 }]}
+          data-cat={cat}
+          role="tab"
+        >{cat}</button>
+      ))}
+    </div>
+
+    <!-- Posts grid -->
+    <div class="posts-grid" id="posts-grid">
+      {posts.map(post => (
+        <article class="post-card" data-cat={post.cat}>
+          <a href={`/blog/${post.slug}`} class="post-card-inner">
+            <div class="post-thumb" style={`background:${post.bg};`}>{post.emoji}</div>
+            <div class="post-body">
+              <div class="post-meta">
+                <span class="post-cat" style={`color:${post.catColor};`}>{post.cat}</span>
+                <span class="post-sep">·</span>
+                <span class="post-date">{post.date}</span>
+                <span class="post-sep">·</span>
+                <span class="post-read">{post.readTime}</span>
+              </div>
+              <h2>{post.title}</h2>
+              <p>{post.excerpt}</p>
+              <div class="post-tags">
+                {post.tags.map(t => <span class="tag">{t}</span>)}
+              </div>
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
+
+  </div>
+
+</PageLayout>
+
+<style>
+  .blog-hero {
+    background: var(--hero-bg);
+    padding: 56px 0;
+    margin-bottom: 0;
+  }
+  .blog-hero .section-eyebrow { color: #9FE1CB; margin-bottom: 10px; }
+  .blog-hero .page-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 700; color: #fff;
+    letter-spacing: -1px; margin-bottom: 14px;
+  }
+  .blog-hero p { color: #AFA9EC; font-size: 16px; }
+
+  .blog-layout { padding-top: 40px; padding-bottom: 72px; }
+
+  .filter-tabs {
+    display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap;
+  }
+  .filter-tab {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 100px; padding: 7px 16px;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    color: var(--fg2); transition: background .15s, border-color .15s, color .15s;
+  }
+  .filter-tab:hover { border-color: var(--purple); color: var(--purple); }
+  .filter-tab.active { background: var(--purple); border-color: var(--purple); color: white; }
+
+  .posts-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; }
+  .post-card { }
+  .post-card-inner {
+    display: block; text-decoration: none; color: inherit;
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+    transition: transform .2s, box-shadow .2s;
+    height: 100%;
+  }
+  .post-card-inner:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(83,74,183,.1); text-decoration: none; }
+  .post-thumb { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 56px; }
+  .post-body { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .post-meta { display: flex; align-items: center; gap: 6px; font-size: 12px; flex-wrap: wrap; }
+  .post-cat { font-weight: 700; letter-spacing: .06em; text-transform: uppercase; font-size: 11px; }
+  .post-sep { color: var(--fg3); }
+  .post-date, .post-read { color: var(--fg3); }
+  .post-card h2 { font-family: var(--font-heading); font-size: 17px; font-weight: 700; line-height: 1.35; }
+  .post-card p { font-size: 14px; color: var(--fg2); line-height: 1.65; }
+  .post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .post-card[hidden] { display: none; }
+
+  @media (max-width: 768px) { .posts-grid { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  const tabs = document.querySelectorAll('.filter-tab');
+  const posts = document.querySelectorAll('.post-card');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const cat = tab.getAttribute('data-cat');
+      posts.forEach(post => {
+        const postCat = post.getAttribute('data-cat');
+        post.hidden = cat !== 'Όλα' && postCat !== cat;
+      });
+    });
+  });
+</script>

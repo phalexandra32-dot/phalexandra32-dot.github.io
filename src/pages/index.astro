@@ -1,0 +1,473 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+
+const stats = [
+  { num: '120+', label: 'Φύλλα εργασίας' },
+  { num: '40+',  label: 'Προσομοιώσεις' },
+  { num: '3',    label: 'Βαθμίδες εκπαίδευσης' },
+  { num: '∞',    label: 'Δωρεάν & Ανοιχτό' },
+];
+
+const topics = [
+  {
+    icon: '⚛️', href: '/physics/middle',
+    title: 'Φυσική Γυμνασίου',
+    desc: 'Μηχανική, θερμότητα, ηλεκτρισμός — φύλλα και θεωρία για Α΄–Γ΄ Γυμνασίου, με επίπεδα ★/★★/★★★.',
+    tags: ['Α΄–Γ΄ Γυμνάσιο', 'Διαβαθμισμένο'],
+    accent: '#534AB7', bg: '#EEEDFE',
+  },
+  {
+    icon: '🔬', href: '/physics/high',
+    title: 'Φυσική Λυκείου',
+    desc: 'Από κινηματική και δυναμική έως κβαντική — πλήρης ύλη Α΄–Γ΄ Λυκείου με θέματα Πανελληνίων.',
+    tags: ['Α΄–Γ΄ Λύκειο', 'Πανελλήνιες'],
+    accent: '#1D9E75', bg: '#E1F5EE',
+  },
+  {
+    icon: '🧲', href: '/physics/primary',
+    title: 'Φυσική Δημοτικού',
+    desc: 'Εισαγωγή στα φαινόμενα της φύσης — φως, ήχος, δυνάμεις — με εικόνες, παιχνίδια και απλές δραστηριότητες.',
+    tags: ['Ε΄–ΣΤ΄ Δημοτικό', 'Διαδραστικό'],
+    accent: '#534AB7', bg: '#EEEDFE',
+  },
+  {
+    icon: '🤖', href: '/ai',
+    title: 'AI & Εκπαίδευση',
+    desc: 'Πώς να χρησιμοποιείς ChatGPT, Claude, Gemini για τη διδασκαλία — εργαλεία και οδηγοί για εκπαιδευτικούς.',
+    tags: ['Εκπαιδευτικοί', 'AI Tools'],
+    accent: '#534AB7', bg: '#EEEDFE',
+  },
+  {
+    icon: '♿', href: '/eae',
+    title: 'Ειδική Αγωγή & Φυσική',
+    desc: 'Προσβάσιμο υλικό, Braille, πολυαισθητηριακές δραστηριότητες και διαφοροποιημένη διδασκαλία.',
+    tags: ['ΕΑΕ', 'Προσβασιμότητα'],
+    accent: '#1D9E75', bg: '#E1F5EE',
+  },
+  {
+    icon: '⚖️', href: '/legislation',
+    title: 'Εκπαιδευτική Νομοθεσία',
+    desc: 'ΦΕΚ, εγκύκλιοι, δικαιώματα εκπαιδευτικών, νομοθεσία ΕΑΕ — οργανωμένα και κατανοητά.',
+    tags: ['ΦΕΚ', 'Εγκύκλιοι'],
+    accent: '#534AB7', bg: '#EEEDFE',
+  },
+];
+
+const simulations = [
+  { icon: '🎯', title: 'Κίνηση βλήματος', desc: 'Γωνία, ταχύτητα, τριβή' },
+  { icon: '🌊', title: 'Κύματα & Ήχος',   desc: 'Συχνότητα, πλάτος, επαλληλία' },
+  { icon: '⚡', title: 'Ηλεκτρικά κυκλώματα', desc: 'Αντιστάσεις, πηγές, amperόμετρα' },
+  { icon: '🔭', title: 'Οπτική & Φως',    desc: 'Ανάκλαση, διάθλαση, φακοί' },
+];
+
+const eaeFeatures = [
+  { icon: '📖', title: 'Braille & Ανάγλυφο υλικό', desc: 'Φύλλα εργασίας και διαγράμματα για μαθητές με οπτική αναπηρία.' },
+  { icon: '🎧', title: 'Ηχητικές περιγραφές', desc: 'Προσομοιώσεις με audio description — συμβατές με screen readers.' },
+  { icon: '📊', title: 'Διαφοροποιημένη διδασκαλία', desc: 'Σενάρια και υλικό προσαρμοσμένο σε διαφορετικές μαθησιακές ανάγκες.' },
+  { icon: '🤲', title: 'Πολυαισθητηριακές δραστηριότητες', desc: 'Πειράματα με απτικό, οπτικό και ακουστικό υλικό.' },
+];
+
+const latestPosts = [
+  { icon: '⚛️', bg: '#EEEDFE', cat: 'Προσομοιώσεις', href: '/blog/phet-eae', title: 'Πώς χρησιμοποιώ PhET στην ΕΑΕ τάξη', excerpt: 'Εμπειρίες από την εφαρμογή εικονικών πειραμάτων με μαθητές αναπηρίας...' },
+  { icon: '🤖', bg: '#E1F5EE', cat: 'AI & Εκπαίδευση', catColor: 'teal', href: '/blog/chatgpt-physics', title: 'ChatGPT ως βοηθός στη φυσική: 5 χρήσεις', excerpt: 'Πώς η τεχνητή νοημοσύνη βοηθά στην ανάπτυξη εκπαιδευτικού υλικού...' },
+  { icon: '⚖️', bg: '#EEEDFE', cat: 'Νομοθεσία', href: '/blog/fek-eae-2024', title: 'Νέο ΦΕΚ για ΕΑΕ: τι αλλάζει το 2024', excerpt: 'Ανάλυση των πρόσφατων αλλαγών στο θεσμικό πλαίσιο της ΕΑΕ...' },
+];
+---
+
+<PageLayout title="InclusiLab" description="Εκπαιδευτική πλατφόρμα φυσικής, ΕΑΕ και AI — Where science meets everyone">
+
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <canvas id="particles" aria-hidden="true"></canvas>
+    <div class="hero-inner container">
+      <div class="hero-text">
+        <div class="hero-badge">Φυσική · AI · Ειδική Αγωγή</div>
+        <h1 id="hero-heading">Επιστήμη <em>για<br>όλους</em> —<br>χωρίς αποκλεισμούς</h1>
+        <p>Πειράματα, προσομοιώσεις, διαβαθμισμένο εκπαιδευτικό υλικό και εργαλεία AI για μαθητές, εκπαιδευτικούς και όλους που αγαπούν τη φυσική.</p>
+        <div class="hero-actions">
+          <a href="#topics" class="btn btn-teal">Εξερεύνησε το υλικό</a>
+          <a href="/simulations" class="btn btn-ghost">Δες τις προσομοιώσεις →</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <svg width="300" height="300" viewBox="0 0 300 300" fill="none">
+          <polygon points="150,18 270,84 270,216 150,282 30,216 30,84" fill="none" stroke="rgba(83,74,183,0.25)" stroke-width="1.5"/>
+          <polygon points="150,60 220,100 220,180 150,220 80,180 80,100" fill="rgba(83,74,183,0.07)" stroke="rgba(83,74,183,0.4)" stroke-width="1.5"/>
+          <polygon points="150,98 198,125 198,180 150,207 102,180 102,125" fill="#534AB7"/>
+          <ellipse cx="150" cy="150" rx="78" ry="27" stroke="#1D9E75" stroke-width="2.5" fill="none" transform="rotate(-18 150 150)"/>
+          <ellipse cx="150" cy="150" rx="78" ry="27" stroke="rgba(29,158,117,0.3)" stroke-width="2" fill="none" transform="rotate(50 150 150)" stroke-dasharray="6 8"/>
+          <text x="122" y="165" font-size="36" font-weight="700" font-family="Space Grotesk,sans-serif" fill="white">IL</text>
+          <circle cx="150" cy="73" r="6" fill="#1D9E75"/>
+          <circle cx="223" cy="192" r="4" fill="rgba(29,158,117,0.6)"/>
+          <circle cx="77" cy="108" r="4" fill="rgba(29,158,117,0.6)"/>
+          <text x="14" y="82"  font-size="20" fill="rgba(255,255,255,0.35)">⚛</text>
+          <text x="255" y="82"  font-size="20" fill="rgba(255,255,255,0.35)">🧪</text>
+          <text x="14" y="240" font-size="20" fill="rgba(255,255,255,0.35)">🔭</text>
+          <text x="255" y="240" font-size="20" fill="rgba(255,255,255,0.35)">♿</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-strip" role="region" aria-label="Στατιστικά">
+    <div class="container">
+      <div class="stats-grid">
+        {stats.map(s => (
+          <div class="stat">
+            <div class="stat-num">{s.num}</div>
+            <div class="stat-label">{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPICS -->
+  <section class="section" id="topics" aria-labelledby="topics-heading">
+    <div class="container">
+      <div class="section-eyebrow">Θεματικές Ενότητες</div>
+      <h2 id="topics-heading" class="section-title">Ό,τι χρειάζεσαι,<br>σε ένα μέρος</h2>
+      <p class="section-sub">Από το δημοτικό έως το λύκειο — φύλλα εργασίας, πειράματα, θεωρία και εφαρμογές διαβαθμισμένα κατά δυσκολία.</p>
+      <div class="topics-grid">
+        {topics.map(t => (
+          <a class="topic-card" href={t.href} style={`--card-accent: ${t.accent};`}>
+            <div class="topic-icon" style={`background: ${t.bg};`}>{t.icon}</div>
+            <h3>{t.title}</h3>
+            <p>{t.desc}</p>
+            <div class="topic-tags">
+              {t.tags.map((tag, i) => (
+                <span class:list={['tag', i === 1 && t.accent === '#1D9E75' ? 'tag-teal' : '']}>{tag}</span>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SIMULATIONS FEATURE -->
+  <section class="feature-dark" id="simulations" aria-labelledby="sim-heading">
+    <div class="container feature-inner">
+      <div class="feature-text">
+        <div class="section-eyebrow" style="color:#9FE1CB;">Εικονικά Εργαστήρια</div>
+        <h2 id="sim-heading" class="section-title" style="color:#fff;">Πείραμα χωρίς<br>εργαστήριο</h2>
+        <p class="section-sub" style="color:#AFA9EC;">Ενσωματωμένες προσομοιώσεις PhET, GeoGebra και custom HTML5 — τρέχουν στο browser, χωρίς εγκατάσταση.</p>
+        <a href="/simulations" class="btn btn-teal">Άνοιξε την προσομοίωση →</a>
+      </div>
+      <div class="sim-cards">
+        {simulations.map(s => (
+          <div class="sim-card">
+            <div class="sim-icon" aria-hidden="true">{s.icon}</div>
+            <h4>{s.title}</h4>
+            <p>{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- EAE SECTION -->
+  <section class="eae-section" id="eae" aria-labelledby="eae-heading">
+    <div class="container eae-inner">
+      <div>
+        <div class="section-eyebrow">Ειδική Αγωγή & Εκπαίδευση</div>
+        <h2 id="eae-heading" class="section-title">Φυσική προσβάσιμη<br>σε όλους</h2>
+        <p class="section-sub">Υλικό σχεδιασμένο για μαθητές με αναπηρία — γιατί η επιστήμη δεν έχει αποκλεισμούς.</p>
+        <a href="/eae" class="btn btn-teal">Δες το ΕΑΕ υλικό</a>
+      </div>
+      <div class="eae-features">
+        {eaeFeatures.map(f => (
+          <div class="eae-feat">
+            <div class="eae-feat-icon" aria-hidden="true">{f.icon}</div>
+            <div>
+              <h4>{f.title}</h4>
+              <p>{f.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG PREVIEW -->
+  <section class="section" id="blog" aria-labelledby="blog-heading">
+    <div class="container">
+      <div class="section-eyebrow">Τελευταίες Αναρτήσεις</div>
+      <h2 id="blog-heading" class="section-title">Νέα & Άρθρα</h2>
+      <p class="section-sub">Εκπαιδευτικές εμπειρίες, νέα εργαλεία και ιδέες για τη φυσική στη σχολική τάξη.</p>
+      <div class="posts-grid">
+        {latestPosts.map(post => (
+          <a class="post-card" href={post.href}>
+            <div class="post-thumb" style={`background:${post.bg};`} aria-hidden="true">{post.icon}</div>
+            <div class="post-body">
+              <div class:list={['post-cat', post.catColor === 'teal' ? 'post-cat--teal' : '']}>{post.cat}</div>
+              <h3>{post.title}</h3>
+              <p>{post.excerpt}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div style="text-align:center; margin-top:36px;">
+        <a href="/blog" class="btn btn-outline">Όλα τα άρθρα →</a>
+      </div>
+    </div>
+  </section>
+
+</PageLayout>
+
+<style>
+/* HERO */
+.hero {
+  background: var(--hero-bg);
+  position: relative;
+  overflow: hidden;
+  min-height: 580px;
+  display: flex;
+  align-items: center;
+}
+canvas#particles { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(93,202,165,0.15);
+  border: 1px solid rgba(93,202,165,0.3);
+  color: #9FE1CB;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 100px;
+  margin-bottom: 24px;
+}
+.hero-badge::before { content:''; width:6px; height:6px; background:var(--teal); border-radius:50%; }
+.hero h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: #fff;
+  letter-spacing: -1px;
+  text-wrap: balance;
+  margin-bottom: 20px;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, #9FE1CB, #5DCAA5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero p { font-size: 17px; color: #AFA9EC; line-height: 1.65; margin-bottom: 36px; max-width: 480px; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-ghost {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.85);
+  padding: 13px 26px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  transition: background .15s;
+  display: inline-block;
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.14); text-decoration: none; }
+.hero-visual { display:flex; justify-content:center; align-items:center; }
+
+/* STATS */
+.stats-strip { background: var(--bg2); border-bottom: 1px solid var(--border); }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  padding: 28px 0;
+}
+.stat { text-align: center; border-right: 1px solid var(--border); padding: 0 20px; }
+.stat:last-child { border-right: none; }
+.stat-num { font-family: var(--font-heading); font-size: 28px; font-weight: 700; color: var(--purple); line-height: 1; }
+.stat-label { font-size: 12px; color: var(--fg3); margin-top: 4px; font-weight: 500; }
+
+/* TOPICS */
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.topic-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.topic-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--card-accent, var(--purple));
+  opacity: 0;
+  transition: opacity .2s;
+}
+.topic-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(83,74,183,.1); border-color: var(--card-accent, var(--purple)); text-decoration: none; }
+.topic-card:hover::before { opacity: 1; }
+.topic-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+.topic-card h3 { font-family: var(--font-heading); font-size: 17px; font-weight: 600; }
+.topic-card p { font-size: 14px; color: var(--fg2); line-height: 1.6; flex: 1; }
+.topic-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* SIMULATIONS */
+.feature-dark { background: var(--hero-bg); padding: 72px 0; }
+.feature-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.sim-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.sim-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  transition: background .15s;
+}
+.sim-card:hover { background: rgba(255,255,255,0.1); }
+.sim-icon { font-size: 28px; margin-bottom: 10px; }
+.sim-card h4 { font-family: var(--font-heading); font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.sim-card p { font-size: 12px; color: #9F9BC8; }
+
+/* EAE */
+.eae-section {
+  background: var(--teal-light);
+  padding: 72px 0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .eae-section { background: rgba(29,158,117,0.08); }
+}
+:root[data-theme="dark"] .eae-section { background: rgba(29,158,117,0.08); }
+.eae-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.eae-features { display: flex; flex-direction: column; gap: 22px; }
+.eae-feat { display: flex; gap: 16px; align-items: flex-start; }
+.eae-feat-icon {
+  width: 44px; height: 44px;
+  background: rgba(29,158,117,0.12);
+  border: 1.5px solid rgba(29,158,117,0.2);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.eae-feat h4 { font-family: var(--font-heading); font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.eae-feat p { font-size: 13px; color: var(--fg2); line-height: 1.6; }
+
+/* BLOG */
+.posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.post-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .2s, box-shadow .2s;
+  display: flex; flex-direction: column;
+}
+.post-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(83,74,183,.09); text-decoration: none; }
+.post-thumb { height: 160px; display:flex; align-items:center; justify-content:center; font-size:48px; }
+.post-body { padding: 20px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.post-cat { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--purple); }
+.post-cat--teal { color: var(--teal-dark); }
+.post-card h3 { font-family: var(--font-heading); font-size: 15px; font-weight: 600; line-height: 1.4; }
+.post-card p { font-size: 13px; color: var(--fg2); line-height: 1.6; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .hero-inner { grid-template-columns: 1fr; padding-top: 60px; padding-bottom: 60px; }
+  .hero-visual { display: none; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat:nth-child(2) { border-right: none; }
+  .topics-grid { grid-template-columns: 1fr; }
+  .feature-inner { grid-template-columns: 1fr; }
+  .sim-cards { grid-template-columns: 1fr 1fr; }
+  .eae-inner { grid-template-columns: 1fr; }
+  .posts-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .sim-cards { grid-template-columns: 1fr; }
+}
+</style>
+
+<script>
+// Particle canvas
+const canvas = document.getElementById('particles');
+const ctx = canvas?.getContext('2d');
+if (canvas && ctx) {
+  let W, H, pts;
+  function init() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+    pts = Array.from({length: 55}, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      r: Math.random() * 1.6 + 0.4,
+      vx: (Math.random() - .5) * .38,
+      vy: (Math.random() - .5) * .38,
+      a: Math.random() * .45 + .1,
+    }));
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    for (const p of pts) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+      if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(174,170,236,${p.a})`;
+      ctx.fill();
+    }
+    for (let i = 0; i < pts.length; i++) {
+      for (let j = i + 1; j < pts.length; j++) {
+        const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+        const d = Math.sqrt(dx*dx + dy*dy);
+        if (d < 90) {
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x, pts[i].y);
+          ctx.lineTo(pts[j].x, pts[j].y);
+          ctx.strokeStyle = `rgba(83,74,183,${.12 * (1 - d/90)})`;
+          ctx.lineWidth = .6;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', init);
+  init(); draw();
+}
+</script>
