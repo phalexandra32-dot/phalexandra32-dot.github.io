@@ -19,6 +19,31 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
 
   <section class="games-grid">
 
+    <!-- Προμηθέας – Η Κλοπή της Φωτιάς -->
+    <div class="game-card prometheus">
+      <div class="game-icon">🔥</div>
+      <div class="game-body">
+        <span class="game-tag">Φυσική Α' Γυμνασίου · Θερμότητα</span>
+        <h2>Προμηθέας – Η Κλοπή της Φωτιάς</h2>
+        <p>
+          Ο Τιτάνας Προμηθέας αλυσοδέθηκε στον Καύκασο! Λύσε 5 αίθουσες γρίφων
+          για αγωγή, συναγωγή, ακτινοβολία, καύση και θερμική ισορροπία —
+          με οδηγούς τον Ήφαιστο, τον Αίολο, τον Απόλλωνα, τον Δευκαλίωνα
+          και τη Θέμιδα. Ελευθέρωσέ τον!
+        </p>
+        <div class="game-meta">
+          <span>⏱ ~35 λεπτά</span>
+          <span>🗝️ 5 επίπεδα</span>
+          <span>🧩 Γρίφοι · Κρυπτόλεξα · Ακροστιχίδες</span>
+          <span>📲 Εγκαθίσταται σαν εφαρμογή</span>
+          <span>🔤 Κουμπί μεγαλύτερης γραμματοσειράς</span>
+        </div>
+        <a href="/games/prometheus/" class="btn btn-prometheus">
+          🔥 Ξεκίνα την Αποστολή!
+        </a>
+      </div>
+    </div>
+
     <!-- Ο Λαβύρινθος του Μινώταυρου -->
     <div class="game-card labyrinth">
       <div class="game-icon">🏛️</div>
@@ -156,6 +181,7 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
     box-shadow: 0 6px 20px rgba(0,0,0,0.12);
   }
 
+  .game-card.prometheus { border-top: 5px solid #e65100; }
   .game-card.labyrinth { border-top: 5px solid #a3231d; }
   .game-card.physics  { border-top: 5px solid #0d47a1; }
   .game-card.chemistry { border-top: 5px solid #00796b; }
@@ -219,6 +245,7 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
 
   .btn:hover { opacity: 0.88; transform: translateY(-1px); }
 
+  .btn-prometheus { background: #e65100; color: #fff; }
   .btn-labyrinth { background: #a3231d; color: #fff; }
   .btn-physics  { background: #0d47a1; color: #fff; }
   .btn-chemistry { background: #00796b; color: #fff; }

@@ -1,0 +1,1386 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#c9a84c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Προμηθέας">
+<link rel="apple-touch-icon" href="icon-192.png">
+  <style>
+  :root { color-scheme: dark; padding-block: env(safe-area-inset-top,0px) env(safe-area-inset-bottom,0px); }
+  *, *::before, *::after { box-sizing: border-box; }
+  img { max-width: 100%; }
+  [hidden] { display: none !important; }
+</style>
+  <title>Προμηθέας – Η κλοπή της φωτιάς</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+:root {
+  --bg: #0d0905;
+  --bg2: #1a1008;
+  --bg3: #241508;
+  --panel: rgba(26,13,5,0.92);
+  --border: #6b3a0a;
+  --border-gold: #c9a84c;
+  --fg: #f0d9b5;
+  --fg2: #d4b896;
+  --fg3: #a89070;
+  --fire1: #ff4500;
+  --fire2: #ff6b00;
+  --fire3: #ff9933;
+  --fire4: #ffcc44;
+  --gold: #c9a84c;
+  --gold2: #e8c46e;
+  --success: #4caf7a;
+  --error: #e05c5c;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 22px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding-left: max(16px, env(safe-area-inset-left,0px));
+  padding-right: max(16px, env(safe-area-inset-right,0px));
+  padding-block: max(16px, env(safe-area-inset-top,0px)) max(16px, env(safe-area-inset-bottom,0px));
+}
+
+h1,h2,h3 { font-family: 'Cinzel', serif; letter-spacing: 0.05em; }
+
+/* ── SCREENS ── */
+.screen {
+  position: fixed; inset: 0;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.5s ease;
+  overflow-y: auto;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 16px max(16px, env(safe-area-inset-left,0px));
+}
+.screen.active { opacity: 1; pointer-events: all; }
+
+/* ── BACKGROUND ── */
+#bg-canvas {
+  position: fixed; inset: 0; z-index: -1;
+  pointer-events: none;
+}
+#embers-layer {
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none; overflow: hidden;
+}
+.ember {
+  position: absolute; border-radius: 50%;
+  background: radial-gradient(circle, #ffcc44 0%, #ff6600 60%, transparent 100%);
+  animation: ember-rise linear forwards;
+  pointer-events: none;
+}
+@keyframes ember-rise {
+  0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.9; }
+  60%  { opacity: 0.7; }
+  100% { transform: translateY(-110vh) rotate(360deg) scale(0.3); opacity: 0; }
+}
+
+/* ── HUD ── */
+#hud {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: max(8px, env(safe-area-inset-top,0px)) max(16px, env(safe-area-inset-right,0px)) 8px max(16px, env(safe-area-inset-left,0px));
+  background: linear-gradient(to bottom, rgba(13,9,5,0.95) 70%, transparent);
+  font-family: 'Cinzel', serif; font-size: 0.8rem;
+  display: none;
+}
+#hud.visible { display: flex; }
+.hud-keys { display: flex; gap: 4px; align-items: center; color: var(--gold); }
+.hud-key { font-size: 1.1rem; transition: transform 0.3s; }
+.hud-key.earned { color: var(--fire3); animation: key-glow 0.6s ease; }
+@keyframes key-glow { 50% { transform: scale(1.4); filter: drop-shadow(0 0 6px #ff9933); } }
+.hud-score { color: var(--fire3); }
+.hud-stage { color: var(--fg2); font-size: 0.75rem; }
+
+/* ── DECORATIVE BORDER ── */
+.greek-panel {
+  background: var(--panel);
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  position: relative;
+  box-shadow: 0 0 40px rgba(200,100,0,0.1), inset 0 0 60px rgba(0,0,0,0.5);
+}
+.greek-panel::before {
+  content: '';
+  position: absolute; inset: 4px;
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+/* ── BUTTONS ── */
+.btn {
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem; letter-spacing: 0.08em;
+  padding: 13px 30px;
+  border: 2px solid var(--border-gold);
+  background: linear-gradient(135deg, #2a1508 0%, #1a0d05 100%);
+  color: var(--gold2);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+.btn::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,153,51,0.1) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.2s;
+}
+.btn:hover { border-color: var(--gold2); color: #fff; box-shadow: 0 0 20px rgba(255,153,51,0.3); }
+.btn:hover::before { opacity: 1; }
+.btn:active { transform: scale(0.97); }
+.btn-fire {
+  background: linear-gradient(135deg, #8b2500 0%, #5a1800 100%);
+  border-color: var(--fire3);
+  color: var(--fire4);
+  box-shadow: 0 0 15px rgba(255,100,0,0.2);
+}
+.btn-fire:hover { box-shadow: 0 0 30px rgba(255,100,0,0.5); }
+.btn-sm { padding: 8px 18px; font-size: 0.8rem; }
+
+/* ── FIRE CSS ── */
+.fire-wrap {
+  position: relative; display: flex; justify-content: center;
+  height: 120px; margin-bottom: -20px;
+}
+.flame {
+  position: absolute; bottom: 0;
+  transform-origin: bottom center;
+  border-radius: 50% 50% 20% 20% / 70% 70% 30% 30%;
+  filter: blur(1px);
+}
+.flame-1 {
+  width: 80px; height: 110px; left: calc(50% - 40px);
+  background: linear-gradient(to top, #ff2200, #ff6600, #ff9900, transparent);
+  animation: fl1 1.4s ease-in-out infinite alternate;
+}
+.flame-2 {
+  width: 55px; height: 80px; left: calc(50% - 27px);
+  background: linear-gradient(to top, #ff5500, #ffaa00, #ffee44, transparent);
+  animation: fl2 1.1s ease-in-out infinite alternate;
+}
+.flame-3 {
+  width: 30px; height: 50px; left: calc(50% - 15px);
+  background: linear-gradient(to top, #ffcc00, #ffffff, transparent);
+  filter: blur(2px);
+  animation: fl3 0.9s ease-in-out infinite alternate;
+}
+@keyframes fl1 { 0%{transform:scaleX(1) scaleY(1) rotate(-2deg)} 100%{transform:scaleX(0.9) scaleY(1.08) rotate(2deg)} }
+@keyframes fl2 { 0%{transform:scaleX(1) scaleY(1) rotate(1deg)} 100%{transform:scaleX(1.1) scaleY(0.95) rotate(-1deg)} }
+@keyframes fl3 { 0%{transform:scaleX(1) scaleY(1)} 100%{transform:scaleX(0.85) scaleY(1.1)} }
+.glow-base {
+  position: absolute; bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 120px; height: 20px;
+  background: radial-gradient(ellipse, rgba(255,100,0,0.6) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(4px);
+}
+
+/* ── INTRO SCREEN ── */
+#s-intro {
+  justify-content: center; min-height: 100vh;
+  background: radial-gradient(ellipse at 50% 100%, #3a1500 0%, #1a0905 40%, var(--bg) 70%);
+}
+.intro-box {
+  max-width: 560px; width: 100%;
+  text-align: center;
+  padding: 40px 32px;
+  margin-top: 20px;
+}
+.intro-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2rem, 7vw, 3.2rem);
+  font-weight: 900;
+  color: var(--gold2);
+  text-shadow: 0 0 40px rgba(255,153,51,0.5), 0 2px 4px rgba(0,0,0,0.8);
+  line-height: 1.1;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.intro-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
+  color: var(--fire3);
+  letter-spacing: 0.15em;
+  margin-bottom: 24px;
+}
+.intro-desc {
+  font-size: 1rem; line-height: 1.7;
+  color: var(--fg2); margin-bottom: 32px;
+  font-style: italic;
+}
+.ornament { color: var(--gold); font-size: 1.3rem; margin-bottom: 16px; letter-spacing: 0.3em; }
+
+/* ── STORY SCREEN ── */
+#s-story {
+  min-height: 100vh; justify-content: center;
+  padding-top: 60px;
+}
+.story-box {
+  max-width: 620px; width: 100%;
+  padding: 32px;
+  margin-top: 16px;
+}
+.story-stage-num {
+  font-family: 'Cinzel', serif; font-size: 0.8rem;
+  color: var(--fire3); letter-spacing: 0.2em;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.story-title {
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  color: var(--gold2); margin-bottom: 20px;
+  text-shadow: 0 0 20px rgba(255,153,51,0.3);
+}
+.story-text {
+  font-size: 1.05rem; line-height: 1.8;
+  color: var(--fg2); margin-bottom: 20px;
+}
+.story-guide {
+  display: flex; gap: 16px; align-items: flex-start;
+  background: rgba(0,0,0,0.3); border-left: 3px solid var(--fire2);
+  padding: 16px; border-radius: 2px; margin-bottom: 24px;
+}
+.guide-icon { font-size: 2.5rem; flex-shrink: 0; }
+.guide-text { font-style: italic; color: var(--fg); font-size: 1.05rem; line-height: 1.7; }
+.guide-name { font-family: 'Cinzel', serif; font-size: 0.75rem; color: var(--fire3); margin-bottom: 6px; }
+.physics-box {
+  background: rgba(255,153,51,0.08);
+  border: 1px solid rgba(255,153,51,0.25);
+  border-radius: 3px; padding: 14px 16px;
+  font-size: 1rem; color: var(--fg2);
+  margin-bottom: 24px;
+}
+.physics-box strong { color: var(--fire3); font-family: 'Cinzel', serif; }
+
+/* ── CHALLENGE HEADER ── */
+.challenge-header {
+  width: 100%; max-width: 680px;
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 20px;
+}
+.ch-badge {
+  background: linear-gradient(135deg, var(--fire2), var(--fire1));
+  color: #fff; font-family: 'Cinzel', serif;
+  font-size: 0.7rem; letter-spacing: 0.1em;
+  padding: 4px 10px; border-radius: 2px;
+  white-space: nowrap;
+}
+.ch-title { font-size: 1.1rem; color: var(--fg2); }
+.ch-progress { margin-left: auto; display: flex; gap: 6px; }
+.ch-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+.ch-dot.done { background: var(--fire3); box-shadow: 0 0 6px rgba(255,153,51,0.6); }
+.ch-dot.current { background: var(--fire4); animation: pulse 1s ease-in-out infinite; }
+@keyframes pulse { 50% { transform: scale(1.3); } }
+
+/* ── RIDDLE ── */
+#s-riddle { min-height: 100vh; padding-top: 70px; justify-content: flex-start; align-items: center; }
+.riddle-box { max-width: 640px; width: 100%; padding: 28px; }
+.riddle-q {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  line-height: 1.7; color: var(--fg); margin-bottom: 24px;
+  text-align: center;
+}
+.riddle-opts { display: grid; gap: 10px; }
+.riddle-opt {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--border);
+  border-radius: 3px; padding: 16px 18px;
+  cursor: pointer; text-align: left;
+  font-family: 'EB Garamond', serif; font-size: 1.1rem;
+  color: var(--fg2); transition: all 0.2s;
+  display: flex; gap: 12px; align-items: center;
+}
+.riddle-opt:hover { border-color: var(--fire3); color: var(--fg); background: rgba(255,100,0,0.08); }
+.riddle-opt.correct { border-color: var(--success); background: rgba(76,175,122,0.15); color: #7fffc4; }
+.riddle-opt.wrong { border-color: var(--error); background: rgba(224,92,92,0.1); color: #ffaaaa; }
+.opt-letter {
+  font-family: 'Cinzel', serif; font-size: 0.85rem;
+  color: var(--fire3); font-weight: 700; min-width: 20px;
+}
+.riddle-feedback {
+  margin-top: 20px; padding: 16px;
+  border-radius: 3px; font-size: 0.95rem; line-height: 1.6;
+  display: none;
+}
+.riddle-feedback.show { display: block; }
+.riddle-feedback.ok { background: rgba(76,175,122,0.1); border: 1px solid #4caf7a; color: #7fffc4; }
+.riddle-feedback.bad { background: rgba(224,92,92,0.1); border: 1px solid #e05c5c; color: #ffbbbb; }
+
+/* ── WORD SEARCH ── */
+#s-wordsearch { min-height: 100vh; padding-top: 70px; justify-content: flex-start; align-items: center; }
+.ws-box { max-width: 680px; width: 100%; padding: 20px; }
+.ws-words {
+  display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;
+}
+.ws-word {
+  font-family: 'Cinzel', serif; font-size: 0.95rem;
+  padding: 5px 12px; border: 1px solid var(--border);
+  border-radius: 2px; color: var(--fg2); letter-spacing: 0.08em;
+  transition: all 0.3s;
+}
+.ws-word.found { text-decoration: line-through; border-color: var(--success); color: var(--success); }
+.ws-grid-wrap { overflow-x: auto; margin-bottom: 16px; }
+.ws-grid {
+  border-collapse: collapse;
+  touch-action: none; user-select: none;
+  margin: 0 auto;
+}
+.ws-grid td {
+  width: 36px; height: 36px; text-align: center; vertical-align: middle;
+  font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700;
+  color: var(--fg2);
+  border: 1px solid rgba(107,58,10,0.3);
+  cursor: pointer; position: relative;
+  transition: color 0.2s;
+  letter-spacing: 0;
+}
+@media (max-width: 400px) { .ws-grid td { width: 28px; height: 28px; font-size: 0.82rem; } }
+.ws-grid td.selected { background: rgba(255,153,51,0.25); color: #fff; }
+.ws-grid td.found-cell { background: rgba(76,175,122,0.2); color: var(--success); }
+.ws-grid td.found-cell.hl0 { background: rgba(255,80,0,0.25); color: #ff9966; }
+.ws-grid td.found-cell.hl1 { background: rgba(200,120,0,0.25); color: #ffd080; }
+.ws-grid td.found-cell.hl2 { background: rgba(100,160,80,0.25); color: #80ff80; }
+.ws-grid td.found-cell.hl3 { background: rgba(80,120,200,0.25); color: #80c0ff; }
+.ws-grid td.found-cell.hl4 { background: rgba(180,80,180,0.25); color: #ff80ff; }
+.ws-hint { font-size: 0.95rem; color: var(--fg3); text-align: center; font-style: italic; }
+
+/* ── ACROSTIC ── */
+#s-acrostic { min-height: 100vh; padding-top: 70px; justify-content: flex-start; align-items: center; }
+.ac-box { max-width: 640px; width: 100%; padding: 20px; }
+.ac-target {
+  display: flex; gap: 8px; justify-content: center;
+  margin-bottom: 24px;
+}
+.ac-letter-box {
+  width: 42px; height: 48px;
+  border: 2px solid var(--border-gold);
+  border-radius: 3px; display: flex; align-items: center; justify-content: center;
+  font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 700;
+  color: transparent; background: rgba(0,0,0,0.4);
+  transition: all 0.4s;
+}
+.ac-letter-box.revealed {
+  color: var(--gold2);
+  background: rgba(201,168,76,0.15);
+  box-shadow: 0 0 12px rgba(201,168,76,0.4);
+}
+.ac-clues { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
+.ac-clue {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: rgba(0,0,0,0.25); border: 1px solid var(--border);
+  border-radius: 3px; padding: 12px;
+  transition: border-color 0.3s;
+}
+.ac-clue.correct { border-color: var(--success); }
+.ac-clue.wrong { border-color: var(--error); }
+.ac-idx {
+  font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 700;
+  color: var(--fire3); min-width: 24px; text-align: center;
+  flex-shrink: 0;
+}
+.ac-body { flex: 1; min-width: 0; }
+.ac-q { font-size: 1.05rem; color: var(--fg2); line-height: 1.6; margin-bottom: 8px; }
+.ac-hint { font-size: 0.9rem; color: var(--fg3); font-style: italic; margin-bottom: 6px; }
+.ac-input {
+  width: 100%; background: rgba(0,0,0,0.3);
+  border: 1px solid var(--border); border-radius: 2px;
+  padding: 10px 12px; color: var(--fg); font-family: 'EB Garamond', serif;
+  font-size: 1.1rem; letter-spacing: 0.05em;
+  transition: border-color 0.2s;
+}
+.ac-input:focus { outline: none; border-color: var(--fire3); }
+.ac-input:disabled { opacity: 0.6; }
+
+/* ── STAGE COMPLETE ── */
+#s-stage-complete {
+  min-height: 100vh; justify-content: center;
+  background: radial-gradient(ellipse at 50% 60%, #2a1200 0%, var(--bg) 60%);
+}
+.sc-box {
+  max-width: 540px; width: 100%;
+  text-align: center; padding: 40px 28px;
+}
+.sc-title { font-size: clamp(1.8rem, 6vw, 2.6rem); color: var(--gold2); margin-bottom: 12px; }
+.sc-subtitle { color: var(--fire3); font-size: 1.1rem; margin-bottom: 24px; }
+.sc-chains {
+  display: flex; justify-content: center; gap: 8px;
+  font-size: 2rem; margin: 20px 0;
+}
+.sc-chain { transition: all 0.5s; }
+.sc-chain.broken { opacity: 0.3; transform: scale(0.7) rotate(20deg); }
+.sc-score-gained { font-size: 1.3rem; color: var(--fire4); margin-bottom: 8px; }
+.sc-total { font-size: 0.9rem; color: var(--fg3); margin-bottom: 28px; }
+.prometheus-art {
+  font-size: 3rem; margin: 16px 0;
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+/* ── FINALE ── */
+#s-finale {
+  min-height: 100vh; justify-content: center; align-items: center;
+  background: radial-gradient(ellipse at 50% 50%, #3a1800 0%, #1a0900 40%, var(--bg) 80%);
+}
+.finale-box {
+  max-width: 580px; width: 100%;
+  text-align: center; padding: 48px 28px;
+}
+.finale-art { font-size: 4rem; margin-bottom: 16px; animation: float 2.5s ease-in-out infinite; }
+.finale-title { font-size: clamp(1.6rem, 6vw, 2.4rem); color: var(--gold2); margin-bottom: 16px; }
+.finale-text { font-size: 1.05rem; color: var(--fg2); line-height: 1.8; margin-bottom: 24px; font-style: italic; }
+.finale-score {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem; color: var(--fire3);
+  margin-bottom: 8px;
+}
+.finale-stars { font-size: 2rem; margin-bottom: 24px; letter-spacing: 0.3em; }
+
+/* ── FEEDBACK TOAST ── */
+#toast {
+  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(40px);
+  background: rgba(26,13,5,0.95); border: 1px solid var(--border-gold);
+  color: var(--fg); padding: 10px 24px; border-radius: 3px;
+  font-family: 'Cinzel', serif; font-size: 0.85rem;
+  opacity: 0; transition: all 0.3s; pointer-events: none; z-index: 500;
+  white-space: nowrap;
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── FONT SIZE TOGGLE ── */
+#font-toggle {
+  position: fixed; bottom: max(20px, env(safe-area-inset-bottom,0px));
+  right: max(16px, env(safe-area-inset-right,0px));
+  z-index: 200;
+  background: rgba(13,9,5,0.92);
+  border: 1px solid var(--border-gold);
+  color: var(--gold); font-family: 'Cinzel', serif;
+  font-size: 1rem; font-weight: 700;
+  padding: 7px 12px; border-radius: 3px;
+  cursor: pointer; opacity: 0.75;
+  transition: opacity 0.2s, border-color 0.2s, color 0.2s;
+  line-height: 1;
+}
+#font-toggle:hover { opacity: 1; }
+#font-toggle.large { color: var(--fire3); border-color: var(--fire3); }
+body.font-large { font-size: 26px !important; }
+body.font-large .ws-grid td { width: 44px; height: 44px; font-size: 1rem; }
+@media (max-width: 400px) { body.font-large .ws-grid td { width: 34px; height: 34px; font-size: 0.9rem; } }
+
+/* ── MISC ── */
+.text-center { text-align: center; }
+.mt-16 { margin-top: 16px; }
+.mb-16 { margin-bottom: 16px; }
+.divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.score-gained { color: var(--fire4); font-family: 'Cinzel', serif; font-size: 1rem; text-align: center; }
+</style>
+</head>
+<body>
+
+
+<!-- BACKGROUND -->
+<canvas id="bg-canvas"></canvas>
+<div id="embers-layer"></div>
+
+<!-- HUD -->
+<div id="hud">
+  <div class="hud-keys">
+    <span id="key-icons">🔗🔗🔗🔗🔗</span>
+  </div>
+  <div class="hud-stage" id="hud-stage">Στάδιο 1/5</div>
+  <div class="hud-score">⚡ <span id="hud-score-val">0</span></div>
+</div>
+
+<!-- FONT TOGGLE -->
+<button id="font-toggle" onclick="toggleFont()" title="Μέγεθος γραμματοσειράς">Α+</button>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- ══════════ SCREENS ══════════ -->
+
+<!-- INTRO -->
+<div class="screen active" id="s-intro">
+  <div class="intro-box">
+    <div class="fire-wrap">
+      <div class="glow-base"></div>
+      <div class="flame flame-1"></div>
+      <div class="flame flame-2"></div>
+      <div class="flame flame-3"></div>
+    </div>
+    <div class="ornament">— ✦ —</div>
+    <h1 class="intro-title">ΠΡΟΜΗΘΕΑΣ</h1>
+    <div class="intro-subtitle">Η Κλοπή της Φωτιάς</div>
+    <p class="intro-desc">
+      Ο Τιτάνας Προμηθέας έκλεψε τη φωτιά από τον Όλυμπο και την χάρισε στους ανθρώπους.
+      Ο Δίας τον τιμώρησε: τον αλυσόδεσε στον Καύκασο. Λύσε τους γρίφους της θερμότητας
+      και απελευθέρωσε τον Τιτάνα!
+    </p>
+    <div class="btn-row">
+      <button class="btn btn-fire" onclick="startGame()">Ξεκίνα την Αποστολή</button>
+    </div>
+    <div style="margin-top:28px; font-size:0.78rem; color:var(--fg3); letter-spacing:0.08em;">
+      ΟΜΙΛΟΣ ΦΥΣΙΚΗΣ · ΓΥΜΝΑΣΙΟ ΓΟΥΡΙΑΣ
+    </div>
+  </div>
+</div>
+
+<!-- STORY -->
+<div class="screen" id="s-story">
+  <div class="story-box greek-panel" style="margin-top:70px; margin-bottom:24px;">
+    <div class="story-stage-num" id="story-stage-num">ΣΤΑΔΙΟ 1 / 5</div>
+    <h2 class="story-title" id="story-title">Αγωγή Θερμότητας</h2>
+    <div class="story-guide">
+      <div class="guide-icon" id="story-guide-icon">🔨</div>
+      <div>
+        <div class="guide-name" id="story-guide-name">ΗΦΑΙΣΤΟΣ</div>
+        <div class="guide-text" id="story-guide-text">...</div>
+      </div>
+    </div>
+    <p class="story-text" id="story-text">...</p>
+    <div class="physics-box" id="story-physics"></div>
+    <div class="btn-row">
+      <button class="btn btn-fire" onclick="beginChallenges()">Ξεκίνα τις Δοκιμασίες!</button>
+    </div>
+  </div>
+</div>
+
+<!-- RIDDLE -->
+<div class="screen" id="s-riddle">
+  <div style="max-width:640px; width:100%; margin-top:70px;">
+    <div class="challenge-header">
+      <span class="ch-badge">ΓΡΙΦΟΣ</span>
+      <span class="ch-title" id="riddle-stage-title"></span>
+      <div class="ch-progress" id="riddle-progress"></div>
+    </div>
+    <div class="riddle-box greek-panel">
+      <p class="riddle-q" id="riddle-q"></p>
+      <div class="riddle-opts" id="riddle-opts"></div>
+      <div class="riddle-feedback" id="riddle-feedback"></div>
+      <div class="btn-row mt-16" id="riddle-next-btn" style="display:none;">
+        <button class="btn btn-fire" onclick="nextChallenge()">Συνέχεια →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WORD SEARCH -->
+<div class="screen" id="s-wordsearch">
+  <div style="max-width:680px; width:100%; margin-top:70px;">
+    <div class="challenge-header">
+      <span class="ch-badge">ΚΡΥΠΤΟΛΕΞΟ</span>
+      <span class="ch-title" id="ws-stage-title"></span>
+      <div class="ch-progress" id="ws-progress"></div>
+    </div>
+    <div class="ws-box greek-panel">
+      <p style="font-size:0.88rem; color:var(--fg3); margin-bottom:14px;">
+        Βρες τις λέξεις που σχετίζονται με τη θεματική ενότητα:
+      </p>
+      <div class="ws-words" id="ws-words"></div>
+      <div class="ws-grid-wrap">
+        <table class="ws-grid" id="ws-table"></table>
+      </div>
+      <p class="ws-hint" id="ws-hint">Κάνε κλικ-σύρε για να επιλέξεις γράμματα οριζόντια, κάθετα ή διαγώνια</p>
+      <div class="btn-row mt-16" id="ws-next-btn" style="display:none;">
+        <button class="btn btn-fire" onclick="nextChallenge()">Συνέχεια →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACROSTIC -->
+<div class="screen" id="s-acrostic">
+  <div style="max-width:640px; width:100%; margin-top:70px;">
+    <div class="challenge-header">
+      <span class="ch-badge">ΑΚΡΟΣΤΙΧΙΔΑ</span>
+      <span class="ch-title" id="ac-stage-title"></span>
+      <div class="ch-progress" id="ac-progress"></div>
+    </div>
+    <div class="ac-box greek-panel">
+      <p style="font-size:0.88rem; color:var(--fg3); margin-bottom:16px;">
+        Λύσε τις ερωτήσεις. Τα <strong style="color:var(--gold)">πρώτα γράμματα</strong> των απαντήσεων σχηματίζουν μια λέξη-κλειδί!
+      </p>
+      <div class="ac-target" id="ac-target"></div>
+      <div class="ac-clues" id="ac-clues"></div>
+      <div class="btn-row">
+        <button class="btn" onclick="checkAcrostic()">Έλεγχος ✓</button>
+      </div>
+      <div id="ac-feedback" style="margin-top:16px; display:none;"></div>
+      <div class="btn-row mt-16" id="ac-next-btn" style="display:none;">
+        <button class="btn btn-fire" onclick="nextChallenge()">Συνέχεια →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STAGE COMPLETE -->
+<div class="screen" id="s-stage-complete">
+  <div class="sc-box">
+    <div class="fire-wrap" style="height:80px; margin-bottom:0;">
+      <div class="glow-base"></div>
+      <div class="flame flame-1" style="width:50px;height:70px;left:calc(50% - 25px)"></div>
+      <div class="flame flame-2" style="width:35px;height:50px;left:calc(50% - 17px)"></div>
+      <div class="flame flame-3" style="width:20px;height:35px;left:calc(50% - 10px)"></div>
+    </div>
+    <div class="prometheus-art" id="sc-art">⛓️</div>
+    <h2 class="sc-title" id="sc-title">Στάδιο Ολοκληρώθηκε!</h2>
+    <div class="sc-subtitle" id="sc-subtitle">Αγωγή Θερμότητας</div>
+    <div class="sc-chains" id="sc-chains"></div>
+    <div class="sc-score-gained" id="sc-score-gained">+50 πόντοι</div>
+    <div class="sc-total" id="sc-total">Σύνολο: 50 πόντοι</div>
+    <p style="font-size:0.95rem; color:var(--fg2); line-height:1.7; margin-bottom:24px;" id="sc-text"></p>
+    <div class="btn-row">
+      <button class="btn btn-fire" id="sc-next-btn" onclick="goNextStage()">Επόμενο Στάδιο →</button>
+    </div>
+  </div>
+</div>
+
+<!-- FINALE -->
+<div class="screen" id="s-finale">
+  <div class="finale-box">
+    <div class="fire-wrap" style="margin-bottom:8px;">
+      <div class="glow-base"></div>
+      <div class="flame flame-1"></div>
+      <div class="flame flame-2"></div>
+      <div class="flame flame-3"></div>
+    </div>
+    <div class="finale-art">🏔️</div>
+    <h2 class="finale-title">Ο Προμηθέας Είναι Ελεύθερος!</h2>
+    <p class="finale-text">
+      Με τη γνώση σου για τη θερμότητα, έσπασες τις αλυσίδες του Τιτάνα.
+      Ο Προμηθέας μπορεί πλέον να συνεχίσει να βοηθά την ανθρωπότητα —
+      ακριβώς όπως εσύ βοήθησες τους ανθρώπους να κατανοήσουν τη φωτιά!
+    </p>
+    <div class="finale-score">⚡ <span id="finale-score-val">0</span> πόντοι</div>
+    <div class="finale-stars" id="finale-stars">★★★★★</div>
+    <div class="btn-row">
+      <button class="btn btn-fire" onclick="restartGame()">Νέο Παιχνίδι 🔥</button>
+    </div>
+    <div style="margin-top:20px; font-size:0.78rem; color:var(--fg3);">
+      ΟΜΙΛΟΣ ΦΥΣΙΚΗΣ · ΓΥΜΝΑΣΙΟ ΓΟΥΡΙΑΣ
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════
+//  GAME DATA
+// ════════════════════════════════════════════════
+const STAGES = [
+  {
+    id:1, title:"Αγωγή Θερμότητας",
+    storyGuideIcon:"🔨", storyGuideName:"ΗΦΑΙΣΤΟΣ",
+    storyGuideText:"Νεαρέ ήρωα, για να φτάσεις στον Προμηθέα πρέπει πρώτα να κατανοήσεις πώς ταξιδεύει η θερμότητα μέσα στα στερεά υλικά. Εγώ, ο θεός της φωτιάς και των μετάλλων, θα σε καθοδηγήσω!",
+    storyText:"Ο δρόμος προς τον Καύκασο αρχίζει από το εργαστήριο του Ηφαίστου. Γύρω σου, πυρωμένα μέταλλα και εργαλεία. Η θερμότητα ταξιδεύει από τα δάχτυλά σου μέχρι το στο αντικείμενο που αγγίζεις — αυτό είναι η αγωγή θερμότητας.",
+    storyPhysics:"<strong>📌 Αγωγή Θερμότητας:</strong> Μεταφορά θερμότητας μέσω άμεσης επαφής. Ταξιδεύει από θερμότερα σε ψυχρότερα σημεία. Τα μέταλλα (χαλκός, σίδηρος) είναι καλοί αγωγοί. Το ξύλο και το γυαλί είναι κακοί αγωγοί (μονωτές).",
+    challenges:[
+      { type:'riddle',
+        q:"Γιατί ένα μεταλλικό κουτάλι αφημένο στο ίδιο δωμάτιο με ένα ξύλινο κουτάλι φαίνεται πιο κρύο στην αφή, παρόλο που έχουν την ίδια θερμοκρασία;",
+        opts:["Γιατί το μέταλλο είναι πραγματικά σε χαμηλότερη θερμοκρασία","Γιατί το μέταλλο είναι καλύτερος αγωγός θερμότητας και απάγει γρηγορότερα θερμότητα από το χέρι μας","Γιατί το ξύλο εκπέμπει θερμότητα προς το χέρι μας","Γιατί το μέταλλο είναι πιο βαρύ και κρατά λιγότερη θερμότητα"],
+        correct:1,
+        expl:"Σωστά! Το μέταλλο είναι εξαιρετικός αγωγός θερμότητας. Όταν αγγίζουμε το μεταλλικό κουτάλι, η θερμότητα από το χέρι μας μεταφέρεται γρήγορα σε αυτό, οπότε νιώθουμε ψύξη. Το ξύλο, ως κακός αγωγός, δεν «κλέβει» θερμότητα από το χέρι μας."
+      },
+      { type:'wordsearch',
+        words:["ΑΓΩΓΗ","ΜΕΤΑΛΛΟ","ΘΕΡΜΟΤΗΤΑ","ΣΙΔΗΡΟΣ","ΧΑΛΚΟΣ"],
+        wlabels:["αγωγή","μέταλλο","θερμότητα","σίδηρος","χαλκός"]
+      },
+      { type:'acrostic',
+        target:"ΑΓΩΓΗ",
+        clues:[
+          {l:"Α", q:"Ποιο ελαφρύ μέταλλο χρησιμοποιείται στα αεροπλάνα και στις κατσαρόλες λόγω της αγωγιμότητάς του;", hint:"Al στο περιοδικό πίνακα", ans:"ΑΛΟΥΜΙΝΙΟ"},
+          {l:"Γ", q:"Πώς ονομάζεται η φυσική θερμότητα που εκλύεται από το εσωτερικό της Γης;", hint:"Γεω + θερμό...", ans:"ΓΕΩΘΕΡΜΙΑ"},
+          {l:"Ω", q:"Ποια είναι η μονάδα μέτρησης της ηλεκτρικής αντίστασης στο σύστημα SI;", hint:"Ένα σύντομο γράμμα!", ans:"ΩΜ"},
+          {l:"Γ", q:"Τι χρώμα παρουσιάζει η φλόγα όταν καίμε οινόπνευμα (αιθανόλη);", hint:"Μπλε-πράσινο απόχρωση", ans:"ΓΑΛΑΖΙΟ"},
+          {l:"Η", q:"Πώς χαρακτηρίζουμε την ακτινοβολία που εκπέμπει ο ήλιος;", hint:"Από τον ήλιο...", ans:"ΗΛΙΑΚΗ"}
+        ]
+      }
+    ]
+  },
+  {
+    id:2, title:"Συναγωγή Θερμότητας",
+    storyGuideIcon:"💨", storyGuideName:"ΑΙΟΛΟΣ",
+    storyGuideText:"Θεός των ανέμων εδώ! Η αγωγή λειτουργεί μόνο σε στερεά, αλλά στα υγρά και τα αέρια η θερμότητα ταξιδεύει διαφορετικά — με ρεύματα! Αυτή είναι η συναγωγή.",
+    storyText:"Φτάνεις σε μια πεδιάδα με ζεστές πηγές. Ο ζεστός αέρας ανεβαίνει, ο κρύος κατεβαίνει — δημιουργούνται ρεύματα αέρα. Με αυτό το φαινόμενο λειτουργεί η κεντρική θέρμανση, τα σύννεφα και οι ωκεάνιες κυκλοφορίες!",
+    storyPhysics:"<strong>📌 Συναγωγή Θερμότητας:</strong> Μεταφορά θερμότητας μέσω κίνησης μαζών ρευστού (υγρού ή αερίου). Ο θερμαινόμενος αέρας/υγρό γίνεται λιγότερο πυκνός και ανεβαίνει, ο ψυχρότερος κατεβαίνει — δημιουργούνται κυκλώματα ρεύματος.",
+    challenges:[
+      { type:'riddle',
+        q:"Γιατί ο θερμαντήρας τοποθετείται κάτω από το παράθυρο (ψηλά τοίχο) και όχι κοντά στην οροφή;",
+        opts:["Γιατί εκεί είναι πιο κρύο και χρειάζεται περισσότερη θέρμανση","Γιατί ο ζεστός αέρας ανεβαίνει, κυκλοφορεί ολόκληρο το δωμάτιο και θερμαίνεται ομοιόμορφα","Γιατί η οροφή απορροφά θερμότητα και δεν χρειάζεται θέρμανση","Γιατί ο θερμαντήρας κάτω προκαλεί λιγότερα ατυχήματα"],
+        correct:1,
+        expl:"Άριστα! Ο ζεστός αέρας είναι λιγότερο πυκνός, οπότε ανεβαίνει από κάτω. Ψύχεται στην οροφή, γίνεται βαρύτερος και κατεβαίνει — δημιουργείται έτσι κυκλοφορία που θερμαίνει όλο το χώρο."
+      },
+      { type:'wordsearch',
+        words:["ΣΥΝΑΓΩΓΗ","ΡΕΥΣΤΟ","ΠΥΚΝΟΤΗΤΑ","ΑΕΡΑΣ","ΒΡΑΣΜΟΣ"],
+        wlabels:["συναγωγή","ρευστό","πυκνότητα","αέρας","βρασμός"]
+      },
+      { type:'acrostic',
+        target:"ΡΕΥΜΑ",
+        clues:[
+          {l:"Ρ", q:"Πώς ονομάζεται η κίνηση υγρού ή αερίου από ένα μέρος σε άλλο (π.χ. ποταμός);", hint:"Ρ...", ans:"ΡΟΗ"},
+          {l:"Ε", q:"Τι γίνεται το νερό στους 100°C σε φυσιολογική ατμοσφαιρική πίεση;", hint:"Αλλαγή φάσης...", ans:"ΕΞΑΤΜΙΣΗ"},
+          {l:"Υ", q:"Πώς ονομάζεται μια ουσία που είναι ούτε στέρεη ούτε αέρια (π.χ. νερό, λάδι);", hint:"Πιο παχύρρευστη από τον αέρα", ans:"ΥΓΡΟ"},
+          {l:"Μ", q:"Ποια φυσική ποσότητα μετριέται σε χιλιόγραμμα (kg) στο διεθνές σύστημα;", hint:"Πόσο «βαριά» είναι η ύλη", ans:"ΜΑΖΑ"},
+          {l:"Α", q:"Πώς ονομάζεται το μείγμα αερίων που αναπνέουμε καθημερινά;", hint:"Αέριο περιβάλλον μας", ans:"ΑΕΡΑΣ"}
+        ]
+      }
+    ]
+  },
+  {
+    id:3, title:"Ακτινοβολία Θερμότητας",
+    storyGuideIcon:"☀️", storyGuideName:"ΑΠΟΛΛΩΝΑΣ",
+    storyGuideText:"Θεός του ήλιου εδώ! Η αγωγή χρειάζεται επαφή, η συναγωγή χρειάζεται ρευστό — αλλά η φωτιά του ήλιου φτάνει μέχρι τη Γη μέσα από το κενό του διαστήματος! Αυτή είναι η ακτινοβολία.",
+    storyText:"Στέκεσαι έξω στο φως του ήλιου. Νιώθεις τη ζεστασιά — αλλά δεν αγγίζεις τον ήλιο και δεν υπάρχει αέρας στο διάστημα για συναγωγή. Η θερμότητα ταξιδεύει ως ηλεκτρομαγνητικό κύμα!",
+    storyPhysics:"<strong>📌 Ακτινοβολία Θερμότητας:</strong> Μεταφορά θερμότητας ως ηλεκτρομαγνητική ακτινοβολία (κυρίως υπέρυθρη). Δεν χρειάζεται υλικό μέσο — ταξιδεύει ακόμα και στο κενό. Κάθε σώμα θερμοκρασίας >0K εκπέμπει ακτινοβολία. Σκούρα σώματα απορροφούν και εκπέμπουν περισσότερο.",
+    challenges:[
+      { type:'riddle',
+        q:"Πώς φτάνει η θερμότητα του ήλιου στη Γη, παρόλο που στο διάστημα δεν υπάρχει ατμόσφαιρα ούτε υλικό που να μπορεί να αγωγεί ή να μεταφέρει θερμότητα;",
+        opts:["Με αγωγή μέσω αόρατων σωματιδίων που γεμίζουν το διάστημα","Με συναγωγή λόγω κίνησης αερίων μεταξύ ήλιου και Γης","Με ηλεκτρομαγνητική ακτινοβολία που δεν χρειάζεται υλικό μέσο","Με κύματα ήχου που ταξιδεύουν στο κενό"],
+        correct:2,
+        expl:"Τέλεια! Η ηλεκτρομαγνητική ακτινοβολία (κυρίως υπέρυθρη και ορατό φως) ταξιδεύει στο κενό με την ταχύτητα του φωτός. Έτσι η ενέργεια του ήλιου φτάνει στη Γη μέσα σε περίπου 8 λεπτά!"
+      },
+      { type:'wordsearch',
+        words:["ΑΚΤΙΝΑ","ΗΛΙΟΣ","ΚΥΜΑ","ΦΩΤΟΝΙΟ","ΘΕΡΜΙΚΗ"],
+        wlabels:["ακτίνα","ήλιος","κύμα","φωτόνιο","θερμική"]
+      },
+      { type:'acrostic',
+        target:"ΗΛΙΟΣ",
+        clues:[
+          {l:"Η", q:"Τι είδος ενέργειας παράγεται κατά τη ροή φορτίων σε ηλεκτρικό κύκλωμα;", hint:"Από ρεύμα...", ans:"ΗΛΕΚΤΡΙΚΗ"},
+          {l:"Λ", q:"Τι αντικείμενο χρησιμοποιούμε για να παράγουμε τεχνητό φωτισμό;", hint:"Φωτίζει το δωμάτιο", ans:"ΛΑΜΠΑ"},
+          {l:"Ι", q:"Πώς ονομάζονται τα ηλεκτρικά φορτισμένα άτομα ή μόρια;", hint:"Ι... θετικά ή αρνητικά φορτισμένα", ans:"ΙΟΝΤΑ"},
+          {l:"Ο", q:"Ποιο αέριο απαιτείται απαραίτητα για τη διαδικασία της καύσης;", hint:"Αναπνέουμε και αυτό...", ans:"ΟΞΥΓΟΝΟ"},
+          {l:"Σ", q:"Τι είδος ηλεκτρισμού παράγεται όταν τρίβουμε δύο ανθεκτικά υλικά μεταξύ τους;", hint:"Σ... ακίνητος", ans:"ΣΤΑΤΙΚΟΣ"}
+        ]
+      }
+    ]
+  },
+  {
+    id:4, title:"Καύση",
+    storyGuideIcon:"⚡", storyGuideName:"ΔΕΥΚΑΛΙΩΝΑΣ",
+    storyGuideText:"Πλησιάζεις στον τόπο δέσμευσης! Η φωτιά — η καύση — ήταν αυτή που ο Προμηθέας χάρισε στους ανθρώπους. Είναι χημική αντίδραση που απελευθερώνει φως και θερμότητα. Ξέρεις τι χρειάζεται για να ανάψει;",
+    storyText:"Μπροστά σου βλέπεις ένα τεράστιο δοχείο. Για να σπάσεις την αλυσίδα, χρειάζεσαι φωτιά — αλλά για φωτιά χρειάζεσαι τρία πράγματα: καύσιμο, οξυγόνο και αρκετή θερμοκρασία. Αυτό είναι το τρίγωνο της φωτιάς!",
+    storyPhysics:"<strong>📌 Καύση:</strong> Χημική αντίδραση καυσίμου με οξυγόνο που εκλύει φως και θερμότητα. Χρειάζονται: καύσιμο + οξυγόνο + θερμοκρασία ανάφλεξης. Προϊόντα: διοξείδιο άνθρακα (CO₂) + νερό (H₂O) + ενέργεια. Χωρίς ένα από τα τρία, η φωτιά σβήνει!",
+    challenges:[
+      { type:'riddle',
+        q:"Ποια ΤΡΙΑ στοιχεία χρειάζονται ταυτόχρονα για να συμβεί καύση (το «τρίγωνο της φωτιάς»);",
+        opts:["Νερό, αέρας και κρύο","Καύσιμο, οξυγόνο και θερμοκρασία ανάφλεξης","Άνθρακας, διοξείδιο άνθρακα και πίεση","Αζώτο, οξυγόνο και βενζίνη"],
+        correct:1,
+        expl:"Άριστα! Αυτό είναι το τρίγωνο της φωτιάς: καύσιμο (π.χ. ξύλο, βενζίνη) + οξυγόνο (από τον αέρα) + θερμοκρασία ανάφλεξης. Αν αφαιρέσουμε οποιοδήποτε από τα τρία, η φωτιά σβήνει — αυτή είναι και η αρχή λειτουργίας των πυροσβεστήρων!"
+      },
+      { type:'wordsearch',
+        words:["ΚΑΥΣΗ","ΟΞΥΓΟΝΟ","ΦΛΟΓΑ","ΚΑΥΣΙΜΟ","ΑΝΑΦΛΕΞΗ"],
+        wlabels:["καύση","οξυγόνο","φλόγα","καύσιμο","ανάφλεξη"]
+      },
+      { type:'acrostic',
+        target:"ΦΩΤΙΑ",
+        clues:[
+          {l:"Φ", q:"Τι οπτικό εργαλείο (γυάλινο αντικείμενο) μπορεί να συγκεντρώσει το φως του ήλιου και να ανάψει φωτιά;", hint:"Φ... για συγκέντρωση φωτός", ans:"ΦΑΚΟΣ"},
+          {l:"Ω", q:"Ποια είναι η μονάδα μέτρησης της ηλεκτρικής αντίστασης (σύμβολο Ω);", hint:"Ένα σύντομο γράμμα...", ans:"ΩΜ"},
+          {l:"Τ", q:"Πώς ονομάζεται η αλλαγή φάσης από στέρεο σε υγρό (π.χ. παγάκι → νερό);", hint:"Τ... λιώνω", ans:"ΤΗΞΗ"},
+          {l:"Ι", q:"Πώς ονομάζεται η κατάσταση όπου δύο σώματα έχουν φτάσει στην ίδια θερμοκρασία;", hint:"Ι... ισορροπία", ans:"ΙΣΟΡΡΟΠΙΑ"},
+          {l:"Α", q:"Πώς ονομάζεται γενικά η χημική διεργασία στην οποία συμμετέχουν αντιδρώντα και προϊόντα;", hint:"Α... χημική...", ans:"ΑΝΤΙΔΡΑΣΗ"}
+        ]
+      }
+    ]
+  },
+  {
+    id:5, title:"Θερμική Ισορροπία",
+    storyGuideIcon:"⚖️", storyGuideName:"ΘΕΜΙΣ",
+    storyGuideText:"Θεά της δικαιοσύνης και της ισορροπίας! Για να απελευθερώσεις τον Προμηθέα, πρέπει να κατανοήσεις την τελευταία αρχή: η θερμότητα πάντα ρέει από το θερμό στο ψυχρό — μέχρι να επιτευχθεί ισορροπία.",
+    storyText:"Ο Προμηθέας είναι μπροστά σου! Αλυσοδεμένος στον παγωμένο βράχο, με τη φωτιά που έκλεψε να καίει δίπλα του. Θερμότητα μεταφέρεται από τη φλόγα στο μέταλλο της αλυσίδας — μέχρι να λιώσει ο κρίκος. Λύσε την τελευταία δοκιμασία!",
+    storyPhysics:"<strong>📌 Θερμική Ισορροπία:</strong> Όταν δύο σώματα έρχονται σε θερμική επαφή, θερμότητα μεταφέρεται από το θερμότερο στο ψυχρότερο μέχρι να αποκτήσουν την ίδια θερμοκρασία. Τότε επιτυγχάνεται θερμική ισορροπία. Αυτό είναι ο Μηδενικός Νόμος της Θερμοδυναμικής!",
+    challenges:[
+      { type:'riddle',
+        q:"Τοποθετούμε ένα κομμάτι πάγου (−10°C) σε ένα ποτήρι νερό (20°C). Τι θα συμβεί τελικά;",
+        opts:["Ο πάγος θα παραμείνει παγωμένος και το νερό θα παραμείνει ζεστό — δεν αλλάζουν","Θερμότητα θα μεταφερθεί από το νερό στον πάγο μέχρι να φτάσουν στην ίδια θερμοκρασία","Θερμότητα θα μεταφερθεί από τον πάγο στο νερό","Το νερό θα παγώσει εντελώς λόγω του πάγου"],
+        correct:1,
+        expl:"Σωστά! Θερμότητα πάντα ρέει από το θερμό (νερό 20°C) στο ψυχρό (πάγος −10°C). Ο πάγος λιώνει, το νερό ψύχεται — και τελικά φτάνουν σε θερμική ισορροπία σε κάποια ενδιάμεση θερμοκρασία (ανάλογα με τις ποσότητες)."
+      },
+      { type:'wordsearch',
+        words:["ΙΣΟΡΡΟΠΙΑ","ΜΕΤΑΦΟΡΑ","ΕΝΕΡΓΕΙΑ","ΘΕΡΜΗ","ΚΕΛΒΙΝ"],
+        wlabels:["ισορροπία","μεταφορά","ενέργεια","θερμή","Κέλβιν"]
+      },
+      { type:'acrostic',
+        target:"ΘΕΡΜΗ",
+        clues:[
+          {l:"Θ", q:"Πώς ονομάζεται η κατάσταση στην οποία δύο σώματα σε επαφή φτάνουν στην ίδια θερμοκρασία;", hint:"Θ... ισορροπία", ans:"ΘΕΡΜΙΚΗ"},
+          {l:"Ε", q:"Πώς ονομάζεται η ενέργεια που σχετίζεται με την κίνηση των μορίων ενός σώματος;", hint:"Ε... εντός...", ans:"ΕΣΩΤΕΡΙΚΗ"},
+          {l:"Ρ", q:"Πώς λέμε την κίνηση υγρού ή αέριου από ένα σημείο σε άλλο;", hint:"Ρ... ποτάμι", ans:"ΡΟΗ"},
+          {l:"Μ", q:"Ποια φυσική ποσότητα (σε kg) χρησιμοποιούμε στον τύπο Q = m·c·ΔΤ;", hint:"Μ... πόσο «βαρύ»", ans:"ΜΑΖΑ"},
+          {l:"Η", q:"Ποιος είναι ο θεός της φωτιάς και των μετάλλων στην ελληνική μυθολογία, οδηγός μας στο παιχνίδι;", hint:"Η... φτιάχνει όπλα στον Όλυμπο", ans:"ΗΦΑΙΣΤΟΣ"}
+        ]
+      }
+    ]
+  }
+];
+
+const SC_TEXTS = [
+  "Κατανόησες την αγωγή! Η θερμότητα ταξιδεύει μέσα στα μέταλλα σαν κύμα — από άτομο σε άτομο. Συνέχισε!",
+  "Άριστα! Τα ρεύματα συναγωγής γεμίζουν τη ζεστασιά σε κάθε γωνιά. Πλησιάζεις στον Προμηθέα!",
+  "Εξαιρετικά! Η ακτινοβολία δεν χρειάζεται μέσο — ταξιδεύει στο κενό του διαστήματος. Σχεδόν φτάνεις!",
+  "Μπράβο! Τώρα ξέρεις να ανάβεις και να σβήνεις φωτιά! Μια τελευταία δοκιμασία...",
+  "ΥΠΕΡΟΧΟ! Κατακτήσατε όλες τις γνώσεις της θερμότητας!"
+];
+
+// ════════════════════════════════════════════════
+//  GAME STATE
+// ════════════════════════════════════════════════
+let gStage = 0, gChallenge = 0, gScore = 0, gKeys = 0;
+let gAnswered = false;
+let wsGrid = null, wsWordPos = null, wsFound = new Set();
+let wsDragStart = null, wsDragging = false;
+let acCorrect = [];
+
+// ════════════════════════════════════════════════
+//  BACKGROUND & EFFECTS
+// ════════════════════════════════════════════════
+(function initBg() {
+  const c = document.getElementById('bg-canvas');
+  const ctx = c.getContext('2d');
+  function resize() { c.width = window.innerWidth; c.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const particles = [];
+  function addParticle() {
+    const x = Math.random() * c.width;
+    particles.push({
+      x, y: c.height,
+      vx: (Math.random()-.5)*0.6,
+      vy: -(0.4+Math.random()*0.6),
+      life: 1, size: 60+Math.random()*80
+    });
+  }
+
+  function loop() {
+    ctx.clearRect(0,0,c.width,c.height);
+    // base gradient
+    const g = ctx.createRadialGradient(c.width/2, c.height, 0, c.width/2, c.height*.5, c.height);
+    g.addColorStop(0,'#2a1200');
+    g.addColorStop(0.4,'#180b04');
+    g.addColorStop(1,'#0d0905');
+    ctx.fillStyle = g;
+    ctx.fillRect(0,0,c.width,c.height);
+
+    if (Math.random()<0.08) addParticle();
+    for (let i=particles.length-1; i>=0; i--) {
+      const p = particles[i];
+      p.x += p.vx; p.y += p.vy; p.life -= 0.004;
+      if (p.life<=0) { particles.splice(i,1); continue; }
+      const g2 = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.size*p.life);
+      g2.addColorStop(0,'rgba(255,80,0,'+p.life*0.04+')');
+      g2.addColorStop(1,'transparent');
+      ctx.fillStyle = g2;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.size*p.life,0,Math.PI*2);
+      ctx.fill();
+    }
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  // Embers
+  const eLayer = document.getElementById('embers-layer');
+  setInterval(()=>{
+    if(!document.querySelector('.screen.active')?.id.startsWith('s-')) return;
+    const e = document.createElement('div');
+    e.className = 'ember';
+    const sz = 2+Math.random()*3;
+    e.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}vw;bottom:0;animation-duration:${3+Math.random()*4}s`;
+    eLayer.appendChild(e);
+    setTimeout(()=>e.remove(),8000);
+  },300);
+})();
+
+// ════════════════════════════════════════════════
+//  NAVIGATION
+// ════════════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const el = document.getElementById(id);
+  if(el) { void el.offsetWidth; el.classList.add('active'); }
+  window.scrollTo(0,0);
+}
+
+function updateHUD() {
+  const hud = document.getElementById('hud');
+  hud.classList.add('visible');
+  document.getElementById('hud-score-val').textContent = gScore;
+  document.getElementById('hud-stage').textContent = `Στάδιο ${gStage+1}/5`;
+  const keys = document.getElementById('key-icons');
+  keys.textContent = '';
+  for(let i=0;i<5;i++){
+    const sp = document.createElement('span');
+    sp.className = 'hud-key' + (i<gKeys?' earned':'');
+    sp.textContent = i<gKeys ? '🔑' : '🔗';
+    keys.appendChild(sp);
+  }
+}
+
+function showToast(msg, dur=2000) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), dur);
+}
+
+function addScore(pts) {
+  gScore += pts;
+  updateHUD();
+  showToast(`+${pts} πόντοι! ⚡`);
+}
+
+function progressDots(container, total, current) {
+  container.innerHTML = '';
+  for(let i=0;i<total;i++){
+    const d = document.createElement('div');
+    d.className = 'ch-dot' + (i<current?' done':i===current?' current':'');
+    container.appendChild(d);
+  }
+}
+
+// ════════════════════════════════════════════════
+//  FONT SIZE TOGGLE
+// ════════════════════════════════════════════════
+function toggleFont() {
+  const isLarge = document.body.classList.toggle('font-large');
+  const btn = document.getElementById('font-toggle');
+  btn.classList.toggle('large', isLarge);
+  btn.textContent = isLarge ? 'Α−' : 'Α+';
+  try { localStorage.setItem('prometheus-font', isLarge ? 'large' : 'normal'); } catch(e) {}
+}
+(function() {
+  try {
+    if (localStorage.getItem('prometheus-font') === 'large') {
+      document.body.classList.add('font-large');
+      const btn = document.getElementById('font-toggle');
+      if (btn) { btn.classList.add('large'); btn.textContent = 'Α−'; }
+    }
+  } catch(e) {}
+})();
+
+// ════════════════════════════════════════════════
+//  FLOW CONTROL
+// ════════════════════════════════════════════════
+function startGame() {
+  gStage=0; gChallenge=0; gScore=0; gKeys=0;
+  updateHUD();
+  showStory();
+}
+
+function showStory() {
+  const st = STAGES[gStage];
+  document.getElementById('story-stage-num').textContent = `ΣΤΑΔΙΟ ${st.id} / 5`;
+  document.getElementById('story-title').textContent = st.title;
+  document.getElementById('story-guide-icon').textContent = st.storyGuideIcon;
+  document.getElementById('story-guide-name').textContent = st.storyGuideName;
+  document.getElementById('story-guide-text').textContent = st.storyGuideText;
+  document.getElementById('story-text').textContent = st.storyText;
+  document.getElementById('story-physics').innerHTML = st.storyPhysics;
+  showScreen('s-story');
+}
+
+function beginChallenges() {
+  gChallenge=0;
+  launchChallenge();
+}
+
+function launchChallenge() {
+  const ch = STAGES[gStage].challenges[gChallenge];
+  if(ch.type==='riddle') setupRiddle(ch);
+  else if(ch.type==='wordsearch') setupWordSearch(ch);
+  else if(ch.type==='acrostic') setupAcrostic(ch);
+}
+
+function nextChallenge() {
+  gChallenge++;
+  if(gChallenge >= STAGES[gStage].challenges.length) {
+    showStageComplete();
+  } else {
+    launchChallenge();
+  }
+}
+
+function showStageComplete() {
+  gKeys++;
+  addScore(20);
+  const sc = STAGES[gStage];
+  document.getElementById('sc-title').textContent = `Στάδιο ${sc.id} Ολοκληρώθηκε!`;
+  document.getElementById('sc-subtitle').textContent = sc.title;
+  document.getElementById('sc-text').textContent = SC_TEXTS[gStage];
+  document.getElementById('sc-score-gained').textContent = `+20 πόντοι`;
+  document.getElementById('sc-total').textContent = `Σύνολο: ${gScore} πόντοι`;
+  // Chains: 5 total, one per stage freed
+  const chains = document.getElementById('sc-chains');
+  chains.innerHTML = '';
+  for(let i=0;i<5;i++){
+    const sp = document.createElement('span');
+    sp.className = 'sc-chain' + (i<gKeys?' broken':'');
+    sp.textContent = i<gKeys ? '🔓' : '⛓️';
+    chains.appendChild(sp);
+  }
+  const art = document.getElementById('sc-art');
+  const arts = ['🔥','💨','☀️','⚡','🏔️'];
+  art.textContent = arts[gStage] || '🔥';
+  const nextBtn = document.getElementById('sc-next-btn');
+  if(gStage>=4) {
+    nextBtn.textContent = '⚡ Απελευθέρωσε τον Προμηθέα!';
+  } else {
+    nextBtn.textContent = 'Επόμενο Στάδιο →';
+  }
+  updateHUD();
+  showScreen('s-stage-complete');
+}
+
+function goNextStage() {
+  gStage++;
+  if(gStage >= STAGES.length) {
+    showFinale();
+  } else {
+    gChallenge=0;
+    updateHUD();
+    showStory();
+  }
+}
+
+function showFinale() {
+  document.getElementById('finale-score-val').textContent = gScore;
+  const pct = gScore / 325;
+  const stars = pct > 0.85 ? '★★★★★' : pct > 0.65 ? '★★★★☆' : pct > 0.45 ? '★★★☆☆' : '★★☆☆☆';
+  document.getElementById('finale-stars').textContent = stars;
+  document.getElementById('hud').classList.remove('visible');
+  showScreen('s-finale');
+}
+
+function restartGame() {
+  gStage=0; gChallenge=0; gScore=0; gKeys=0;
+  updateHUD();
+  showScreen('s-intro');
+}
+
+// ════════════════════════════════════════════════
+//  RIDDLE
+// ════════════════════════════════════════════════
+function setupRiddle(ch) {
+  gAnswered = false;
+  document.getElementById('riddle-stage-title').textContent = STAGES[gStage].title;
+  progressDots(document.getElementById('riddle-progress'), 3, 0);
+  document.getElementById('riddle-q').textContent = ch.q;
+  const opts = document.getElementById('riddle-opts');
+  opts.innerHTML = '';
+  const letters = ['Α','Β','Γ','Δ'];
+  ch.opts.forEach((o,i)=>{
+    const btn = document.createElement('div');
+    btn.className = 'riddle-opt';
+    btn.innerHTML = `<span class="opt-letter">${letters[i]}</span>${o}`;
+    btn.onclick = ()=>answerRiddle(i, ch.correct, ch.expl);
+    opts.appendChild(btn);
+  });
+  document.getElementById('riddle-feedback').classList.remove('show','ok','bad');
+  document.getElementById('riddle-feedback').style.display='';
+  document.getElementById('riddle-next-btn').style.display='none';
+  showScreen('s-riddle');
+}
+
+function answerRiddle(idx, correct, expl) {
+  if(gAnswered) return;
+  gAnswered=true;
+  const opts = document.getElementById('riddle-opts').children;
+  Array.from(opts).forEach((o,i)=>{
+    o.style.pointerEvents='none';
+    if(i===correct) o.classList.add('correct');
+    else if(i===idx && idx!==correct) o.classList.add('wrong');
+  });
+  const fb = document.getElementById('riddle-feedback');
+  if(idx===correct){
+    fb.className='riddle-feedback show ok';
+    fb.innerHTML='✅ <strong>Σωστά!</strong> '+expl;
+    addScore(10);
+  } else {
+    fb.className='riddle-feedback show bad';
+    fb.innerHTML='❌ Λάθος. <strong>Σωστή απάντηση: '+['Α','Β','Γ','Δ'][correct]+'.</strong> '+expl;
+  }
+  document.getElementById('riddle-next-btn').style.display='';
+}
+
+// ════════════════════════════════════════════════
+//  WORD SEARCH
+// ════════════════════════════════════════════════
+const GREEK_FILLER = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ';
+
+function generateGrid(words, size=10) {
+  const grid = Array.from({length:size},()=>Array(size).fill(''));
+  const wordPos = new Map();
+  const dirs = [[0,1],[1,0],[0,-1],[-1,0],[1,1],[-1,1],[1,-1],[-1,-1]];
+  for(const word of words){
+    let placed=false;
+    for(let a=0;a<300&&!placed;a++){
+      const dir=dirs[Math.floor(Math.random()*dirs.length)];
+      const [dr,dc]=dir;
+      const r0=Math.floor(Math.random()*size);
+      const c0=Math.floor(Math.random()*size);
+      const rE=r0+dr*(word.length-1);
+      const cE=c0+dc*(word.length-1);
+      if(rE<0||rE>=size||cE<0||cE>=size) continue;
+      let ok=true; const cells=[];
+      for(let i=0;i<word.length;i++){
+        const r=r0+dr*i, c=c0+dc*i;
+        if(grid[r][c]!==''&&grid[r][c]!==word[i]){ok=false;break;}
+        cells.push([r,c]);
+      }
+      if(ok){
+        cells.forEach(([r,c],i)=>grid[r][c]=word[i]);
+        wordPos.set(word,cells);
+        placed=true;
+      }
+    }
+  }
+  for(let r=0;r<size;r++)
+    for(let c=0;c<size;c++)
+      if(!grid[r][c]) grid[r][c]=GREEK_FILLER[Math.floor(Math.random()*GREEK_FILLER.length)];
+  return {grid, wordPos};
+}
+
+function setupWordSearch(ch) {
+  document.getElementById('ws-stage-title').textContent = STAGES[gStage].title;
+  progressDots(document.getElementById('ws-progress'), 3, 1);
+  wsFound = new Set();
+  const gen = generateGrid(ch.words);
+  wsGrid = gen.grid; wsWordPos = gen.wordPos;
+
+  // Word labels
+  const ww = document.getElementById('ws-words');
+  ww.innerHTML='';
+  ch.words.forEach((w,i)=>{
+    const sp = document.createElement('span');
+    sp.className='ws-word'; sp.id=`wsw-${i}`; sp.dataset.word=w;
+    sp.textContent=ch.wlabels[i];
+    ww.appendChild(sp);
+  });
+
+  // Build table
+  const tbl = document.getElementById('ws-table');
+  tbl.innerHTML='';
+  for(let r=0;r<10;r++){
+    const tr=document.createElement('tr');
+    for(let c=0;c<10;c++){
+      const td=document.createElement('td');
+      td.textContent=wsGrid[r][c];
+      td.dataset.r=r; td.dataset.c=c;
+      tr.appendChild(td);
+    }
+    tbl.appendChild(tr);
+  }
+
+  // Pointer events
+  tbl.addEventListener('pointerdown', wsPointerDown, {passive:false});
+  tbl.addEventListener('pointermove', wsPointerMove, {passive:false});
+  tbl.addEventListener('pointerup', wsPointerUp);
+  tbl.addEventListener('pointercancel', wsPointerCancel);
+
+  document.getElementById('ws-next-btn').style.display='none';
+  document.getElementById('ws-hint').textContent='Κάνε κλικ-σύρε για να επιλέξεις γράμματα οριζόντια, κάθετα ή διαγώνια';
+  showScreen('s-wordsearch');
+}
+
+function wsGetCell(e) {
+  const el = document.elementFromPoint(e.clientX, e.clientY);
+  return el?.closest('td') || null;
+}
+
+function wsPointerDown(e) {
+  const cell = wsGetCell(e);
+  if(!cell) return;
+  wsDragging=true; wsDragStart={r:+cell.dataset.r, c:+cell.dataset.c};
+  wsHighlightSelection(wsDragStart, wsDragStart);
+  e.preventDefault();
+}
+function wsPointerMove(e) {
+  if(!wsDragging) return;
+  const cell = wsGetCell(e);
+  if(cell) wsHighlightSelection(wsDragStart, {r:+cell.dataset.r, c:+cell.dataset.c});
+  e.preventDefault();
+}
+function wsPointerUp(e) {
+  if(!wsDragging) return;
+  wsDragging=false;
+  const cell = wsGetCell(e);
+  if(cell) wsCheckSelection(wsDragStart, {r:+cell.dataset.r, c:+cell.dataset.c});
+  wsClearSelection();
+}
+function wsPointerCancel() { wsDragging=false; wsClearSelection(); }
+
+function wsGetLineCells(start, end) {
+  const dr=end.r-start.r, dc=end.c-start.c;
+  if(dr===0&&dc===0) return [{r:start.r,c:start.c}];
+  const len=Math.max(Math.abs(dr),Math.abs(dc));
+  if(dr!==0&&dc!==0&&Math.abs(dr)!==Math.abs(dc)) return null;
+  const sr=dr===0?0:dr/Math.abs(dr);
+  const sc=dc===0?0:dc/Math.abs(dc);
+  const cells=[];
+  for(let i=0;i<=len;i++) cells.push({r:start.r+sr*i,c:start.c+sc*i});
+  return cells;
+}
+
+function wsHighlightSelection(start, end) {
+  const tbl=document.getElementById('ws-table');
+  tbl.querySelectorAll('td.selected').forEach(td=>td.classList.remove('selected'));
+  const cells=wsGetLineCells(start,end);
+  if(!cells) return;
+  cells.forEach(({r,c})=>{
+    const td=tbl.rows[r]?.cells[c];
+    if(td&&!td.classList.contains('found-cell')) td.classList.add('selected');
+  });
+}
+
+function wsClearSelection() {
+  document.getElementById('ws-table').querySelectorAll('td.selected').forEach(td=>td.classList.remove('selected'));
+}
+
+const HLS=['hl0','hl1','hl2','hl3','hl4'];
+let hlIdx=0;
+
+function wsCheckSelection(start, end) {
+  const cells=wsGetLineCells(start,end);
+  if(!cells||cells.length<2) return;
+  const word=cells.map(({r,c})=>wsGrid[r][c]).join('');
+  const wordRev=[...word].reverse().join('');
+  const tbl=document.getElementById('ws-table');
+  for(const [w, wCells] of wsWordPos){
+    if(wsFound.has(w)) continue;
+    const placed=wCells.map(([r,c])=>wsGrid[r][c]).join('');
+    if(word===w||wordRev===w||(cells.length===wCells.length&&(word===placed||wordRev===placed))){
+      wsFound.add(w);
+      const hl=HLS[hlIdx%HLS.length]; hlIdx++;
+      wCells.forEach(([r,c])=>{
+        const td=tbl.rows[r]?.cells[c];
+        if(td){td.classList.remove('selected');td.classList.add('found-cell',hl);}
+      });
+      // mark in list
+      const sp=[...document.querySelectorAll('.ws-word')].find(x=>x.dataset.word===w);
+      if(sp) sp.classList.add('found');
+      addScore(5);
+      showToast(`✅ "${w}" βρέθηκε!`);
+      if(wsFound.size===wsWordPos.size) wsComplete();
+      return;
+    }
+  }
+}
+
+function wsComplete() {
+  document.getElementById('ws-hint').textContent='🎉 Βρήκες όλες τις λέξεις! Εξαιρετική δουλειά!';
+  document.getElementById('ws-next-btn').style.display='';
+}
+
+// ════════════════════════════════════════════════
+//  ACROSTIC
+// ════════════════════════════════════════════════
+function setupAcrostic(ch) {
+  document.getElementById('ac-stage-title').textContent = STAGES[gStage].title;
+  progressDots(document.getElementById('ac-progress'), 3, 2);
+
+  // Target word display
+  const target = document.getElementById('ac-target');
+  target.innerHTML='';
+  for(const letter of ch.target){
+    const box=document.createElement('div');
+    box.className='ac-letter-box'; box.dataset.l=letter;
+    box.textContent=letter; // Show letters as hints (they're in the clue indices anyway)
+    target.appendChild(box);
+  }
+
+  // Reset revealed state
+  document.querySelectorAll('.ac-letter-box').forEach(b=>b.classList.remove('revealed'));
+
+  // Clues
+  const cl=document.getElementById('ac-clues');
+  cl.innerHTML='';
+  acCorrect=[];
+  ch.clues.forEach((clue,i)=>{
+    acCorrect.push(false);
+    const div=document.createElement('div');
+    div.className='ac-clue'; div.id=`ac-clue-${i}`;
+    div.innerHTML=`
+      <div class="ac-idx">${clue.l}</div>
+      <div class="ac-body">
+        <div class="ac-q">${clue.q}</div>
+        <div class="ac-hint">💡 Υπόδειξη: ${clue.hint}</div>
+        <input class="ac-input" id="ac-inp-${i}" placeholder="Γράψε την απάντησή σου..." autocomplete="off" spellcheck="false">
+      </div>`;
+    cl.appendChild(div);
+  });
+
+  document.getElementById('ac-feedback').style.display='none';
+  document.getElementById('ac-next-btn').style.display='none';
+  showScreen('s-acrostic');
+}
+
+function normalizeFirst(str) {
+  const map={'Ά':'Α','Έ':'Ε','Ή':'Η','Ί':'Ι','Ό':'Ο','Ύ':'Υ','Ώ':'Ω','ά':'α','έ':'ε','ή':'η','ί':'ι','ό':'ο','ύ':'υ','ώ':'ω','Ϊ':'Ι','Ϋ':'Υ'};
+  const ch=str.trim().charAt(0);
+  return (map[ch]||ch).toUpperCase();
+}
+
+function checkAcrostic() {
+  const ch=STAGES[gStage].challenges[gChallenge];
+  let allOk=true;
+  ch.clues.forEach((clue,i)=>{
+    const inp=document.getElementById(`ac-inp-${i}`);
+    const val=inp.value.trim();
+    const first=normalizeFirst(val||' ');
+    const expect=clue.l.toUpperCase();
+    const ok=(first===expect&&val.length>0);
+    acCorrect[i]=ok;
+    const div=document.getElementById(`ac-clue-${i}`);
+    div.className='ac-clue '+(ok?'correct':'wrong');
+    inp.disabled=ok;
+    if(!ok) allOk=false;
+    // Reveal letter in target
+    const boxes=document.querySelectorAll('.ac-letter-box');
+    if(ok&&boxes[i]) boxes[i].classList.add('revealed');
+  });
+
+  const fb=document.getElementById('ac-feedback');
+  if(allOk){
+    fb.style.display='block';
+    fb.innerHTML=`<div style="color:var(--success);font-family:'Cinzel',serif;font-size:1.1rem;text-align:center;">✅ Η κρυφή λέξη είναι: <strong style="color:var(--gold2)">${ch.target}</strong>! Εξαιρετικά!</div>`;
+    addScore(15);
+    document.getElementById('ac-next-btn').style.display='';
+  } else {
+    fb.style.display='block';
+    fb.innerHTML='<div style="color:var(--fire3);font-size:0.9rem;">⚠️ Μερικές απαντήσεις δεν είναι σωστές. Βεβαιώσου ότι η <strong>πρώτη γράμμα</strong> κάθε απάντησης είναι η σωστή!</div>';
+  }
+}
+
+// ════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════
+document.getElementById('hud').classList.remove('visible');
+</script>
+
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
