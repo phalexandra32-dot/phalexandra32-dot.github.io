@@ -122,6 +122,67 @@ import PageLayout from '../../layouts/PageLayout.astro';
 
     </section>
 
+    <section class="subject-section">
+      <h2>🔭 Φυσική &amp; Ιστορία — Β΄ Λυκείου</h2>
+
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <div class="lesson-icon">🌍</div>
+          <div class="lesson-meta">
+            <h3>Από τον Γαλιλαίο στον Διαφωτισμό: Η Επιστημονική Επανάσταση και η Συγκρότηση του Νεότερου Κόσμου</h3>
+            <div class="lesson-tags">
+              <span class="badge badge-blue">Φυσική</span>
+              <span class="badge badge-red">Ιστορία</span>
+              <span class="badge badge-teal">Β΄ Λυκείου</span>
+              <span class="badge badge-orange">Διαθεματικό</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="lesson-desc">Διαθεματικό σχέδιο 2 διδακτικών ωρών που συνδέει την Επιστημονική Επανάσταση (17ος αι.) με τη γέννηση του Διαφωτισμού. Οι μαθητές εξερευνούν πώς ο Γαλιλαίος ανέτρεψε την αριστοτελική φυσική με την πειραματική μέθοδο, πώς ο Νεύτωνας μαθηματικοποίησε τη φύση, και πώς αυτές οι ιδέες ενέπνευσαν φιλοσόφους όπως ο Λοκ και ο Μοντεσκιέ. Συνδυάζει πρωτογενείς πηγές (δίκη Γαλιλαίου, Principia) με πείραμα πτώσης σωμάτων.</p>
+
+        <div class="lesson-skills">
+          <h4>🎯 Δεξιότητες &amp; Στόχοι</h4>
+          <ul>
+            <li><strong>Φυσική:</strong> Γαλιλαιϊκή πειραματική μέθοδος, νόμοι Νεύτωνα, γεωκεντρικό vs ηλιοκεντρικό σύστημα, αδράνεια</li>
+            <li><strong>Ιστορία:</strong> Επιστημονική Επανάσταση, Διαφωτισμός, σύγκρουση επιστήμης–Εκκλησίας, φυσικά δικαιώματα</li>
+            <li><strong>Κριτική σκέψη:</strong> Ανάλυση πρωτογενών πηγών, διεπιστημονική σύνδεση, ομαδική συζήτηση</li>
+          </ul>
+        </div>
+
+        <div class="lesson-files">
+          <div class="file-card">
+            <div class="file-icon">📊</div>
+            <div class="file-info">
+              <h4>Παρουσίαση PowerPoint</h4>
+              <p>Επιστημονική Επανάσταση: Γαλιλαίος, Νεύτωνας, Διαφωτισμός</p>
+              <span class="badge badge-gray">PPTX · Για εκπαιδευτικό</span>
+            </div>
+            <a href="/collaborative/galileo-enlightenment-presentation.pptx" target="_blank" class="btn-download btn-purple">⬇ Λήψη PPTX</a>
+          </div>
+          <div class="file-card">
+            <div class="file-icon">📄</div>
+            <div class="file-info">
+              <h4>Φύλλο Εργασίας — Diffit</h4>
+              <p>Κείμενα Α+Β (Φυσική & Ιστορία), 7 ερωτήματα, ετυμολογία 5 όρων, σύνδεση Φυσικής–Ιστορίας</p>
+              <span class="badge badge-green">14 σελίδες · PDF · Diffit</span>
+            </div>
+            <a href="/collaborative/galileo-enlightenment-worksheet.pdf" target="_blank" class="btn-download">⬇ Λήψη PDF</a>
+          </div>
+          <div class="file-card">
+            <div class="file-icon">📝</div>
+            <div class="file-info">
+              <h4>Σχέδιο Μαθήματος (Word)</h4>
+              <p>Αναλυτική δομή 2 διδακτικών ωρών, στόχοι, προτεινόμενα projects</p>
+              <span class="badge badge-gray">DOCX · Για εκπαιδευτικό</span>
+            </div>
+            <a href="/collaborative/galileo-enlightenment-lesson-plan.docx" target="_blank" class="btn-download btn-dark">⬇ Λήψη DOCX</a>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
     <section class="coming-section">
       <h2>🔜 Επόμενα σχέδια</h2>
       <div class="coming-grid">
@@ -256,12 +317,15 @@ import PageLayout from '../../layouts/PageLayout.astro';
   .badge-teal { background: var(--teal-light); color: var(--teal-dark); }
   .badge-green { background: #dcfce7; color: #166534; }
   .badge-orange { background: #fff7ed; color: #9a3412; }
+  .badge-red { background: #fee2e2; color: #991b1b; }
   .badge-gray { background: var(--bg2); color: var(--fg2); }
 
   .btn-download { display: inline-flex; align-items: center; gap: 6px; background: #2d6a1f; color: white; border: none; padding: 10px 18px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
   .btn-download:hover { background: #245518; }
   .btn-purple { background: #5a2d82; }
   .btn-purple:hover { background: #471f69; }
+  .btn-dark { background: #374151; }
+  .btn-dark:hover { background: #1f2937; }
 
   .coming-section h2 { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; color: var(--fg); }
   .coming-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
