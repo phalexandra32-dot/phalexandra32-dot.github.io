@@ -103,6 +103,46 @@ const sims = [
     ))}
   </div>
 
+  <!-- Interactive Labs Section (Δρ.6-10) -->
+  <div class="labs-section">
+    <div class="section-eyebrow">Εικονικό Εργαστήριο</div>
+    <h2 class="section-title labs-title">🔬 Διαδραστικές Προσομοιώσεις Δρ.6–10</h2>
+    <p class="labs-desc">
+      Πέντε διαδραστικές canvas προσομοιώσεις για Θερμότητα και Ηλεκτρισμός — με φύλλα εργασίας
+      ενσωματωμένα για κάθε δραστηριότητα. Τρέχουν απευθείας στο browser.
+    </p>
+    <div class="labs-cards">
+      <div class="lab-card">
+        <span class="lab-icon">🌡️</span>
+        <strong>Δρ.6: Θερμόμετρο</strong>
+        <p>Θερμοκρασία, θερμική ενέργεια, ανύψωση υδραργύρου σε 3 σώματα</p>
+      </div>
+      <div class="lab-card">
+        <span class="lab-icon">⚖️</span>
+        <strong>Δρ.7: Θερμική Ισορροπία</strong>
+        <p>Γράφημα T-t, ρυθμιστές θερμοκρασίας και μάζας, τύπος T<sub>eq</sub></p>
+      </div>
+      <div class="lab-card">
+        <span class="lab-icon">⚡</span>
+        <strong>Δρ.8: Βραχυκύκλωμα</strong>
+        <p>3 καταστάσεις: κανονική, βραχυκύκλωμα, ασφάλεια — διάγραμμα κυκλώματος</p>
+      </div>
+      <div class="lab-card">
+        <span class="lab-icon">🔄</span>
+        <strong>Δρ.9: Κινητήρας DC</strong>
+        <p>Περιστρεφόμενο πηνίο μεταξύ μαγνητών, ρυθμιστές V &amp; B</p>
+      </div>
+      <div class="lab-card">
+        <span class="lab-icon">🔌</span>
+        <strong>Δρ.10: Γεννήτρια AC</strong>
+        <p>Περιστρεφόμενος μαγνήτης, ταλαντοσκόπιο, ημιτονοειδές σήμα</p>
+      </div>
+    </div>
+    <a href="/simulations/labs.html" class="btn btn-primary labs-btn">
+      🔬 Άνοιξε το Εικονικό Εργαστήριο →
+    </a>
+  </div>
+
   <!-- GeoGebra section -->
   <div class="geogebra-section">
     <div class="geogebra-text">
@@ -151,6 +191,31 @@ const sims = [
   .sim-card > p { font-size: 13px; color: var(--fg2); line-height: 1.65; flex: 1; }
   .sim-topics { display: flex; flex-wrap: wrap; gap: 5px; }
   .sim-btn { font-size: 13px; padding: 10px 18px; margin-top: auto; }
+
+  .labs-section {
+    margin-bottom: 48px;
+    padding: 28px 32px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .labs-title { font-family: var(--font-heading); font-size: 20px; margin-bottom: 10px; }
+  .labs-desc { font-size: 14px; color: var(--fg2); line-height: 1.65; margin-bottom: 20px; }
+  .labs-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .lab-card {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .lab-icon { font-size: 1.6rem; }
+  .lab-card strong { font-size: 13px; color: var(--fg); }
+  .lab-card p { font-size: 12px; color: var(--fg2); margin: 0; line-height: 1.5; }
+  .labs-btn { font-size: 14px; }
 
   .geogebra-section {
     background: var(--purple-light); border: 1px solid rgba(83,74,183,0.15);

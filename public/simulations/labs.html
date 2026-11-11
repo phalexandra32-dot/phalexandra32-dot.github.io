@@ -1,0 +1,1149 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Εικονικές Προσομοιώσεις — Όμιλος Φυσικής</title>
+<style>
+:root{
+  --bg:#f5f7fa;--surface:#fff;--border:#e2e8f0;--fg:#1a202c;--fg2:#4a5568;
+  --accent:#2563eb;--accent2:#1d4ed8;--green:#16a34a;--red:#dc2626;
+  --yellow:#ca8a04;--purple:#7c3aed;--teal:#0d9488;--orange:#ea580c;
+  --radius:12px;--shadow:0 2px 8px rgba(0,0,0,.08);
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f172a;--surface:#1e293b;--border:#334155;--fg:#f1f5f9;--fg2:#94a3b8;
+  --accent:#3b82f6;--accent2:#60a5fa;--green:#22c55e;--red:#f87171;
+  --yellow:#fbbf24;--purple:#a78bfa;--teal:#2dd4bf;--orange:#fb923c;color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0f172a;--surface:#1e293b;--border:#334155;--fg:#f1f5f9;--fg2:#94a3b8;
+  --accent:#3b82f6;--accent2:#60a5fa;--green:#22c55e;--red:#f87171;
+  --yellow:#fbbf24;--purple:#a78bfa;--teal:#2dd4bf;--orange:#fb923c;color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--fg);
+  padding:0 max(16px,env(safe-area-inset-left,0px));
+  padding-bottom:max(32px,env(safe-area-inset-bottom,0px));
+  line-height:1.6;font-size:15px;
+}
+header{
+  background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 50%,#0891b2 100%);
+  color:#fff;text-align:center;
+  padding:28px max(16px,env(safe-area-inset-left,0px));
+  margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));
+  padding-top:max(28px,calc(env(safe-area-inset-top,0px)+20px));
+}
+header h1{font-size:clamp(1.3rem,5vw,1.8rem);font-weight:800;letter-spacing:-.02em}
+header p{opacity:.85;font-size:.9rem;margin-top:4px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#fff;opacity:.8;
+  font-size:.85rem;text-decoration:none;margin-bottom:8px;}
+.back-link:hover{opacity:1}
+
+/* ─── NAV TABS ─── */
+nav{
+  display:flex;overflow-x:auto;gap:4px;
+  padding:14px 0 10px;border-bottom:2px solid var(--border);
+  scrollbar-width:none;position:sticky;top:0;background:var(--bg);z-index:10;
+}
+nav::-webkit-scrollbar{display:none}
+nav button{
+  flex-shrink:0;padding:9px 16px;border-radius:8px;border:none;
+  background:transparent;color:var(--fg2);font-size:.85rem;font-weight:500;
+  cursor:pointer;transition:.2s;white-space:nowrap;
+}
+nav button:hover{background:var(--border);color:var(--fg)}
+nav button.active{background:var(--accent);color:#fff}
+
+/* ─── PANELS ─── */
+.panel{display:none;padding-top:20px}
+.panel.active{display:block}
+
+/* ─── CARDS ─── */
+.card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px;margin-bottom:14px;box-shadow:var(--shadow);
+}
+.card h3{font-size:1rem;font-weight:700;margin-bottom:8px;color:var(--accent)}
+.card p,.card li{font-size:.9rem;color:var(--fg2);margin-bottom:5px}
+.card ul{padding-left:1.2em}
+
+/* ─── INTERACTIVE BOX ─── */
+.sim-box{
+  background:var(--surface);border:2px solid var(--accent);border-radius:var(--radius);
+  padding:20px;margin:14px 0;
+}
+.sim-box h4{color:var(--accent);font-size:.95rem;font-weight:700;margin-bottom:14px;
+  display:flex;align-items:center;gap:8px}
+.sim-label{
+  display:inline-block;background:var(--accent);color:#fff;border-radius:6px;
+  padding:2px 8px;font-size:.75rem;font-weight:700;
+}
+canvas{display:block;width:100%;border-radius:8px}
+.slider-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.slider-row label{font-size:.85rem;color:var(--fg2);min-width:130px}
+input[type=range]{flex:1;min-width:100px;accent-color:var(--accent)}
+.val-badge{
+  background:var(--accent);color:#fff;border-radius:6px;
+  padding:2px 10px;font-size:.85rem;font-weight:700;min-width:70px;text-align:center;
+}
+.result-box{
+  background:linear-gradient(135deg,#eff6ff,#dbeafe);
+  border:2px solid #93c5fd;border-radius:10px;
+  padding:12px 16px;margin-top:12px;
+  font-size:.95rem;font-weight:700;color:#1e3a8a;text-align:center;
+}
+:root[data-theme="dark"] .result-box,
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .result-box}{
+  background:linear-gradient(135deg,#1e3a5f,#1e40af);
+  border-color:#3b82f6;color:#bfdbfe;
+}
+
+/* ─── MEASUREMENT TABLE ─── */
+.meas-table{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:10px}
+.meas-table th{background:var(--accent);color:#fff;padding:7px 10px;text-align:left}
+.meas-table td{padding:7px 10px;border-bottom:1px solid var(--border);color:var(--fg2)}
+.meas-table tr:last-child td{border-bottom:none}
+.meas-val{font-weight:700;color:var(--fg)}
+
+/* ─── BUTTONS ─── */
+.btn{
+  padding:8px 18px;border-radius:8px;border:none;font-size:.88rem;font-weight:600;
+  cursor:pointer;transition:.2s;
+}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent2)}
+.btn-green{background:var(--green);color:#fff}
+.btn-red{background:var(--red);color:#fff}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+
+/* ─── CIRCUIT ─── */
+.circuit-controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.circuit-controls label{font-size:.85rem;color:var(--fg2)}
+.circuit-controls input{accent-color:var(--accent)}
+.status-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 14px;border-radius:20px;font-size:.85rem;font-weight:600;
+}
+.status-ok{background:#dcfce7;color:#16a34a}
+.status-warn{background:#fef9c3;color:#854d0e}
+.status-danger{background:#fee2e2;color:#dc2626}
+
+/* ─── MOTOR / GENERATOR ─── */
+.anim-controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.speed-display{
+  background:var(--surface);border:2px solid var(--border);border-radius:8px;
+  padding:6px 14px;font-size:.9rem;font-weight:700;min-width:100px;text-align:center;
+}
+
+/* ─── INFO CALLOUT ─── */
+.info{
+  background:#f0f9ff;border-left:4px solid var(--accent);
+  border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0;font-size:.88rem;color:var(--fg2);
+}
+:root[data-theme="dark"] .info{background:#1e3a5f}
+.info strong{color:var(--accent)}
+
+/* ─── ΦΥΛΛΟ ΕΡΓΑΣΙΑΣ ─── */
+.worksheet{
+  background:var(--surface);border:2px dashed var(--accent);
+  border-radius:var(--radius);padding:18px;margin-top:16px;
+}
+.worksheet h4{color:var(--accent);font-weight:700;margin-bottom:12px;font-size:.95rem}
+.ws-q{margin-bottom:14px}
+.ws-q p{font-size:.88rem;font-weight:600;color:var(--fg);margin-bottom:6px}
+.ws-input{
+  width:100%;border:1px solid var(--border);border-radius:6px;
+  padding:8px 10px;font-size:.88rem;background:var(--bg);color:var(--fg);
+  resize:vertical;min-height:36px;
+}
+.ws-input:focus{outline:2px solid var(--accent);border-color:transparent}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="back-link" href="/games/">← Αρχική</a>
+  <h1>🔬 Εικονικές Προσομοιώσεις</h1>
+  <p>Όμιλος Φυσικών Επιστημών — Γυμνάσιο Γούριας</p>
+</header>
+
+<nav id="mainNav">
+  <button class="active" onclick="showPanel('dr6',this)">🌡️ Δρ.6 Θερμόμετρο</button>
+  <button onclick="showPanel('dr7',this)">🔥 Δρ.7 Θερμική Ισορροπία</button>
+  <button onclick="showPanel('dr8',this)">⚡ Δρ.8 Βραχυκύκλωμα</button>
+  <button onclick="showPanel('dr9',this)">🔄 Δρ.9 Κινητήρας DC</button>
+  <button onclick="showPanel('dr10',this)">💡 Δρ.10 Γεννήτρια</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════
+     ΔΡ. 6 — ΘΕΡΜΟΜΕΤΡΟ
+════════════════════════════════════════════════ -->
+<div class="panel active" id="dr6">
+
+  <div class="card">
+    <h3>🌡️ Δρ.6 — Μέτρηση Θερμοκρασίας με Θερμόμετρο</h3>
+    <p>Χρησιμοποίησε το εικονικό θερμόμετρο για να μετρήσεις τη θερμοκρασία τριών διαφορετικών σωμάτων. Παρατήρησε πώς η στήλη του θερμομέτρου ανεβαίνει ή κατεβαίνει.</p>
+    <ul>
+      <li>Επίλεξε κάθε σώμα με τα κουμπιά</li>
+      <li>Βύθισε το θερμόμετρο (κάνε κλικ <strong>Μέτρηση</strong>)</li>
+      <li>Κατέγραψε τη θερμοκρασία στον πίνακα</li>
+    </ul>
+  </div>
+
+  <div class="sim-box">
+    <h4><span class="sim-label">ΕΙΚΟΝΙΚΟ ΕΡΓΑΣΤΗΡΙΟ</span> Θερμόμετρο</h4>
+
+    <div class="btn-row" style="margin-bottom:14px">
+      <button class="btn btn-primary" onclick="selectObj(0)">🧊 Παγωμένο Νερό</button>
+      <button class="btn btn-primary" onclick="selectObj(1)">💧 Νερό Δωματίου</button>
+      <button class="btn btn-primary" onclick="selectObj(2)">☕ Ζεστό Νερό</button>
+    </div>
+
+    <canvas id="thermCanvas" style="height:280px"></canvas>
+
+    <div class="btn-row">
+      <button class="btn btn-green" onclick="measureTemp()">📏 Μέτρηση!</button>
+      <button class="btn" style="background:var(--border);color:var(--fg)" onclick="resetTherm()">↺ Επαναφορά</button>
+    </div>
+
+    <div class="result-box" id="thermResult">Επίλεξε ένα σώμα και πάτα Μέτρηση</div>
+
+    <table class="meas-table" style="margin-top:14px">
+      <thead><tr><th>Σώμα</th><th>Θερμοκρασία (°C)</th><th>Παρατήρηση</th></tr></thead>
+      <tbody>
+        <tr><td>🧊 Παγωμένο νερό</td><td class="meas-val" id="t0">—</td><td>Πολύ ψυχρό, T &lt; 20°C</td></tr>
+        <tr><td>💧 Νερό δωματίου</td><td class="meas-val" id="t1">—</td><td>Θερμοκρασία περιβάλλοντος</td></tr>
+        <tr><td>☕ Ζεστό νερό</td><td class="meas-val" id="t2">—</td><td>Θερμό, T &gt; 60°C</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info">
+    <strong>Γνωρίζεις ότι...</strong> Το θερμόμετρο δείχνει τη θερμοκρασία μόνο όταν φτάσει σε <strong>θερμική ισορροπία</strong> με το σώμα που μετράμε. Γι' αυτό χρειάζεται λίγα δευτερόλεπτα!
+  </div>
+
+  <div class="worksheet">
+    <h4>✏️ Φύλλο Εργασίας — Δρ.6</h4>
+    <div class="ws-q">
+      <p>1. Ποιο σώμα έχει την υψηλότερη θερμοκρασία; Πόσες μονάδες διαφέρει από το ψυχρότερο;</p>
+      <textarea class="ws-input" rows="2" placeholder="Γράψε εδώ την απάντησή σου..."></textarea>
+    </div>
+    <div class="ws-q">
+      <p>2. Τι παρατηρείς στη στήλη του θερμομέτρου όταν αλλάζεις από ψυχρό σε θερμό σώμα;</p>
+      <textarea class="ws-input" rows="2" placeholder="Γράψε εδώ την απάντησή σου..."></textarea>
+    </div>
+    <div class="ws-q">
+      <p>3. Σε ποιες μονάδες μετράμε τη θερμοκρασία; Γνωρίζεις κι άλλες μονάδες;</p>
+      <textarea class="ws-input" rows="2" placeholder="Γράψε εδώ την απάντησή σου..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     ΔΡ. 7 — ΘΕΡΜΙΚΗ ΙΣΟΡΡΟΠΙΑ
+════════════════════════════════════════════════ -->
+<div class="panel" id="dr7">
+
+  <div class="card">
+    <h3>🔥 Δρ.7 — Θερμική Ισορροπία</h3>
+    <p>Δύο σώματα με διαφορετική θερμοκρασία έρχονται σε επαφή. Παρακολούθησε πώς ανταλλάσσουν θερμότητα μέχρι να φτάσουν στην <strong>κοινή τελική θερμοκρασία ισορροπίας</strong>.</p>
+    <ul>
+      <li>Ρύθμισε τις αρχικές θερμοκρασίες και μάζες</li>
+      <li>Πάτα <strong>Εκκίνηση</strong> για να δεις το γράφημα T–t</li>
+      <li>Υπολόγισε θεωρητικά την T<sub>ισορροπίας</sub></li>
+    </ul>
+  </div>
+
+  <div class="sim-box">
+    <h4><span class="sim-label">ΕΙΚΟΝΙΚΟ ΕΡΓΑΣΤΗΡΙΟ</span> Θερμική Ισορροπία</h4>
+
+    <div class="slider-row">
+      <label>🔵 Ψυχρό σώμα T₁ (°C)</label>
+      <input type="range" id="t1Slider" min="0" max="40" value="10" oninput="updateEq()">
+      <span class="val-badge" id="t1Val">10 °C</span>
+    </div>
+    <div class="slider-row">
+      <label>🔵 Μάζα m₁ (kg)</label>
+      <input type="range" id="m1Slider" min="0.1" max="2" value="0.5" step="0.1" oninput="updateEq()">
+      <span class="val-badge" id="m1Val">0.5 kg</span>
+    </div>
+    <div class="slider-row">
+      <label>🔴 Θερμό σώμα T₂ (°C)</label>
+      <input type="range" id="t2Slider" min="40" max="100" value="80" oninput="updateEq()">
+      <span class="val-badge" id="t2Val">80 °C</span>
+    </div>
+    <div class="slider-row">
+      <label>🔴 Μάζα m₂ (kg)</label>
+      <input type="range" id="m2Slider" min="0.1" max="2" value="1" step="0.1" oninput="updateEq()">
+      <span class="val-badge" id="m2Val">1.0 kg</span>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-green" onclick="startEq()">▶ Εκκίνηση</button>
+      <button class="btn" style="background:var(--border);color:var(--fg)" onclick="resetEq()">↺ Επαναφορά</button>
+    </div>
+
+    <canvas id="eqCanvas" style="height:260px;margin-top:12px"></canvas>
+    <div class="result-box" id="eqResult">Ρύθμισε παραμέτρους και πάτα Εκκίνηση</div>
+  </div>
+
+  <div class="info">
+    <strong>Τύπος Θερμικής Ισορροπίας:</strong>
+    T<sub>τελ</sub> = (m₁·c·T₁ + m₂·c·T₂) / (m₁·c + m₂·c) = (m₁·T₁ + m₂·T₂) / (m₁ + m₂)
+    <br><em style="font-size:.8rem">(για υλικά με ίδια ειδική θερμοχωρητικότητα)</em>
+  </div>
+
+  <div class="worksheet">
+    <h4>✏️ Φύλλο Εργασίας — Δρ.7</h4>
+    <div class="ws-q">
+      <p>1. Υπολόγισε θεωρητικά την T<sub>ισορροπίας</sub> για τα αρχικά δεδομένα σου. Συμφωνεί με το γράφημα;</p>
+      <textarea class="ws-input" rows="3" placeholder="Γράψε τον υπολογισμό σου..."></textarea>
+    </div>
+    <div class="ws-q">
+      <p>2. Τι παρατηρείς όταν αυξάνεις πολύ τη μάζα του ψυχρού σώματος; Γιατί;</p>
+      <textarea class="ws-input" rows="2" placeholder="Γράψε εδώ..."></textarea>
+    </div>
+    <div class="ws-q">
+      <p>3. Ποιο σώμα χάνει θερμότητα και ποιο κερδίζει; Πώς φαίνεται αυτό στο γράφημα;</p>
+      <textarea class="ws-input" rows="2" placeholder="Γράψε εδώ..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     ΔΡ. 8 — ΒΡΑΧΥΚΥΚΛΩΜΑ
+════════════════════════════════════════════════ -->
+<div class="panel" id="dr8">
+
+  <div class="card">
+    <h3>⚡ Δρ.8 — Βραχυκύκλωμα</h3>
+    <p>Εξερεύνησε τι συμβαίνει σε ένα ηλεκτρικό κύκλωμα όταν δημιουργείται <strong>βραχυκύκλωμα</strong>. Παρατήρησε την απότομη αύξηση της έντασης του ρεύματος και τον ρόλο της ασφάλειας.</p>
+    <ul>
+      <li>Στο κανονικό κύκλωμα: λαμπτήρας και αντίσταση σε σειρά</li>
+      <li>Στο βραχυκύκλωμα: καλώδιο παρακάμπτει τον λαμπτήρα → I↑↑ → κίνδυνος!</li>
+      <li>Η ασφάλεια διακόπτει το ρεύμα όταν I &gt; I<sub>ονομαστικό</sub></li>
+    </ul>
+  </div>
+
+  <div class="sim-box">
+    <h4><span class="sim-label">ΕΙΚΟΝΙΚΟ ΕΡΓΑΣΤΗΡΙΟ</span> Βραχυκύκλωμα</h4>
+
+    <div class="slider-row">
+      <label>🔋 Τάση πηγής V (V)</label>
+      <input type="range" id="scVSlider" min="1" max="12" value="6" oninput="drawShortCircuit()">
+      <span class="val-badge" id="scVVal">6 V</span>
+    </div>
+    <div class="slider-row">
+      <label>💡 Αντίσταση λαμπτήρα R (Ω)</label>
+      <input type="range" id="scRSlider" min="5" max="100" value="30" step="5" oninput="drawShortCircuit()">
+      <span class="val-badge" id="scRVal">30 Ω</span>
+    </div>
+
+    <div class="btn-row" style="margin-bottom:12px">
+      <button class="btn btn-primary" id="scNormalBtn" onclick="setScMode('normal')">✅ Κανονικό Κύκλωμα</button>
+      <button class="btn btn-red" id="scShortBtn" onclick="setScMode('short')">⚠️ Βραχυκύκλωμα!</button>
+      <button class="btn" style="background:var(--yellow);color:#fff" id="scFuseBtn" onclick="setScMode('fuse')">🔌 Με Ασφάλεια</button>
+    </div>
+
+    <canvas id="scCanvas" style="height:300px"></canvas>
+
+    <div id="scStatus" class="status-badge status-ok" style="margin-top:12px">✅ Κύκλωμα ΟΚ</div>
+    <div class="result-box" id="scResult">Επίλεξε κατάσταση κυκλώματος</div>
+  </div>
+
+  <div class="info">
+    <strong>Βραχυκύκλωμα:</strong> Όταν δύο σημεία κυκλώματος συνδεθούν απευθείας (R→0), το ρεύμα γίνεται θεωρητικά άπειρο: I = V/R → ∞. Αυτό προκαλεί υπερθέρμανση των καλωδίων και κίνδυνο πυρκαγιάς!
+  </div>
+
+  <div class="worksheet">
+    <h4>✏️ Φύλλο Εργασίας — Δρ.8</h4>
+    <div class="ws-q">
+      <p>1. Τι παρατηρείς στον λαμπτήρα και στην ένταση ρεύματος στο βραχυκύκλωμα;</p>
+      <textarea class="ws-input" rows="2" placeholder="Γράψε εδώ..."></textarea>
+    </div>
+    <div class="ws-q">
+      <p>2. Γιατί το βραχυκύκλωμα είναι επικίνδυνο; Ποια συσκευή μας προστατεύει;</p>
+      <textarea class="ws-input" rows="2" placeholder="Γράψε εδώ..."></textarea>
+    </div>
+    <div class="ws-q">
+      <p>3. Υπολόγισε το ρεύμα στο κανονικό κύκλωμα και συγκρίνε το με το βραχυκύκλωμα (R=0.1Ω).</p>
+      <textarea class="ws-input" rows="3" placeholder="Υπολογισμός: I = V/R = ..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     ΔΡ. 9 — ΚΙΝΗΤΗΡΑΣ DC
+════════════════════════════════════════════════ -->
+<div class="panel" id="dr9">
+
+  <div class="card">
+    <h3>🔄 Δρ.9 — Ηλεκτρικός Κινητήρας DC</h3>
+    <p>Ο ηλεκτρικός κινητήρας μετατρέπει <strong>ηλεκτρική ενέργεια σε κινητική</strong>. Βασίζεται στη δύναμη που ασκείται σε ρευματοφόρο αγωγό μέσα σε μαγνητικό πεδίο (Δύναμη Lorentz).</p>
+    <ul>
+      <li>Ο περιστρεφόμενος βρόχος (πηνίο) βρίσκεται ανάμεσα σε μαγνήτες</li>
+      <li>Το ρεύμα + μαγνητικό πεδίο → δύναμη → στρέψη</li>
+      <li>Αύξησε τάση ή μαγνητικό πεδίο για πιο γρήγορη περιστροφή</li>
+    </ul>
+  </div>
+
+  <div class="sim-box">
+    <h4><span class="sim-label">ΕΙΚΟΝΙΚΟ ΕΡΓΑΣΤΗΡΙΟ</span> Κινητήρας DC</h4>
+
+    <div class="slider-row">
+      <label>🔋 Τάση V (V)</label>
+      <input type="range" id="motorV" min="0" max="12" value="6" step="0.5" oninput="updateMotor()">
+      <span class="val-badge" id="motorVVal">6 V</span>
+    </div>
+    <div class="slider-row">
+      <label>🧲 Μαγνητικό Πεδίο B</label>
+      <input type="range" id="motorB" min="1" max="5" value="3" oninput="updateMotor()">
+      <span class="val-badge" id="motorBVal">3 (σχετ.)</span>
+    </div>
+
+    <div class="anim-controls">
+      <button class="btn btn-green" id="motorPlayBtn" onclick="toggleMotor()">▶ Εκκίνηση</button>
+      <button class="btn btn-red" onclick="stopMotor()">⏹ Στοπ</button>
+      <span class="speed-display">⚡ <span id="motorRPM">0</span> rpm</span>
+    </div>
+
+    <canvas id="motorCanvas" style="height:300px"></canvas>
+    <div class="result-box" id="motorResult">Ρύθμισε τάση και πεδίο, μετά πάτα Εκκίνηση</div>
+  </div>
+
+  <div class="info">
+    <strong>Δύναμη Lorentz:</strong> F = B·I·L — η δύναμη που ασκείται σε αγωγό μήκους L που φέρει ρεύμα I σε μαγνητικό πεδίο B. Αυτή η δύναμη κάνει τον βρόχο να περιστρέφεται!
+  </div>
+
+  <div class="worksheet">
+    <h4>✏️ Φύλλο Εργασίας — Δρ.9</h4>
+    <div class="ws-q">
+      <p>1. Τι συμβαίνει στην ταχύτητα περιστροφής όταν αυξάνεις την τάση; Γιατί;</p>
+      <textarea class="ws-input" rows="2" placeholder="Γράψε εδώ..."></textarea>
+    </div>
+    <div class="ws-q">
+      <p>2. Τι μετατροπή ενέργειας γίνεται στον ηλεκτρικό κινητήρα;</p>
+      <textarea class="ws-input" rows="2" placeholder="Γράψε εδώ..."></textarea>
+    </div>
+    <div class="ws-q">
+      <p>3. Πού χρησιμοποιούμε κινητήρες DC στην καθημερινή ζωή; Δώσε 3 παραδείγματα.</p>
+      <textarea class="ws-input" rows="2" placeholder="Γράψε εδώ..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     ΔΡ. 10 — ΓΕΝΝΗΤΡΙΑ
+════════════════════════════════════════════════ -->
+<div class="panel" id="dr10">
+
+  <div class="card">
+    <h3>💡 Δρ.10 — Ηλεκτρογεννήτρια</h3>
+    <p>Η γεννήτρια κάνει το <strong>αντίστροφο του κινητήρα</strong>: μετατρέπει <strong>κινητική ενέργεια σε ηλεκτρική</strong>. Βασίζεται στην ηλεκτρομαγνητική επαγωγή (Νόμος Faraday).</p>
+    <ul>
+      <li>Περιστρεφόμενος μαγνήτης μέσα σε πηνίο → μεταβαλλόμενη μαγνητική ροή</li>
+      <li>Μεταβαλλόμενη ροή → επαγόμενο ρεύμα (εναλλασσόμενο)</li>
+      <li>Παρατήρησε το σήμα AC στον «οσκιλοσκόπιο»</li>
+    </ul>
+  </div>
+
+  <div class="sim-box">
+    <h4><span class="sim-label">ΕΙΚΟΝΙΚΟ ΕΡΓΑΣΤΗΡΙΟ</span> Γεννήτρια</h4>
+
+    <div class="slider-row">
+      <label>💨 Ταχύτητα περιστροφής</label>
+      <input type="range" id="genSpeed" min="0" max="10" value="5" oninput="updateGen()">
+      <span class="val-badge" id="genSpeedVal">5 (σχετ.)</span>
+    </div>
+    <div class="slider-row">
+      <label>🧲 Ισχύς Μαγνήτη B</label>
+      <input type="range" id="genB" min="1" max="5" value="3" oninput="updateGen()">
+      <span class="val-badge" id="genBVal">3 (σχετ.)</span>
+    </div>
+
+    <div class="anim-controls">
+      <button class="btn btn-green" id="genPlayBtn" onclick="toggleGen()">▶ Εκκίνηση</button>
+      <button class="btn btn-red" onclick="stopGen()">⏹ Στοπ</button>
+      <span class="speed-display">🌊 <span id="genFreq">0</span> Hz</span>
+    </div>
+
+    <canvas id="genCanvas" style="height:160px;margin-top:8px"></canvas>
+
+    <div style="margin-top:8px">
+      <div style="font-size:.78rem;color:var(--fg2);margin-bottom:4px;font-weight:600">📺 Οσκιλοσκόπιο — Σήμα AC:</div>
+      <canvas id="oscCanvas" style="height:100px;background:#000;border-radius:8px"></canvas>
+    </div>
+
+    <div class="result-box" id="genResult">Ρύθμισε ταχύτητα και πεδίο, μετά πάτα Εκκίνηση</div>
+  </div>
+
+  <div class="info">
+    <strong>Νόμος Faraday:</strong> Όταν η μαγνητική ροή Φ μέσα σε ένα πηνίο μεταβάλλεται, επάγεται τάση: ε = −ΔΦ/Δt. Όσο πιο γρήγορα περιστρέφεται ο μαγνήτης, τόσο μεγαλύτερη η επαγόμενη τάση!
+  </div>
+
+  <div class="worksheet">
+    <h4>✏️ Φύλλο Εργασίας — Δρ.10</h4>
+    <div class="ws-q">
+      <p>1. Τι παρατηρείς στο σήμα του οσκιλοσκοπίου όταν αυξάνεις την ταχύτητα;</p>
+      <textarea class="ws-input" rows="2" placeholder="Γράψε εδώ..."></textarea>
+    </div>
+    <div class="ws-q">
+      <p>2. Σε τι διαφέρει η γεννήτρια από τον κινητήρα; (μετατροπή ενέργειας)</p>
+      <textarea class="ws-input" rows="2" placeholder="Γράψε εδώ..."></textarea>
+    </div>
+    <div class="ws-q">
+      <p>3. Πού χρησιμοποιούμε γεννήτριες στην καθημερινή ζωή / ηλεκτρική ενέργεια;</p>
+      <textarea class="ws-input" rows="2" placeholder="Γράψε εδώ..."></textarea>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══ UTILITIES ═══
+function $(id){return document.getElementById(id)}
+function setupCV(id){
+  const cv=$(''+id);if(!cv)return null;
+  const dpr=window.devicePixelRatio||1;
+  const W=cv.clientWidth||cv.offsetWidth||300;
+  const H=cv.clientHeight||cv.offsetHeight||200;
+  if(cv.width!==W*dpr||cv.height!==H*dpr){cv.width=W*dpr;cv.height=H*dpr;}
+  const ctx=cv.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);
+  const dark=document.documentElement.getAttribute('data-theme')==='dark'||
+    (window.matchMedia('(prefers-color-scheme:dark)').matches&&
+     document.documentElement.getAttribute('data-theme')!=='light');
+  const fg=dark?'#f1f5f9':'#1a202c';
+  const surface=dark?'#1e293b':'#ffffff';
+  const border=dark?'#334155':'#e2e8f0';
+  return{ctx,W,H,fg,dark,surface,border};
+}
+function showPanel(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#mainNav button').forEach(b=>b.classList.remove('active'));
+  $(id).classList.add('active');
+  btn.classList.add('active');
+  setTimeout(()=>{
+    if(id==='dr6')drawTherm();
+    if(id==='dr7')drawEqGraph();
+    if(id==='dr8')drawShortCircuit();
+    if(id==='dr9')drawMotorFrame();
+    if(id==='dr10'){drawGenFrame();drawOsc();}
+  },50);
+}
+
+// ═══════════════════════════════════════════════════════
+// ΔΡ. 6 — ΘΕΡΜΟΜΕΤΡΟ
+// ═══════════════════════════════════════════════════════
+const BODIES=[
+  {name:'Παγωμένο Νερό',temp:4,color:'#3b82f6',emoji:'🧊'},
+  {name:'Νερό Δωματίου',temp:23,color:'#16a34a',emoji:'💧'},
+  {name:'Ζεστό Νερό',temp:75,color:'#dc2626',emoji:'☕'},
+];
+let selectedBody=null;
+let measuredTemps=[null,null,null];
+let thermAnim=null,thermCurrent=20;
+
+function selectObj(i){
+  selectedBody=i;
+  thermCurrent=measuredTemps[i]!==null?measuredTemps[i]:20;
+  $('thermResult').textContent='Πάτα "Μέτρηση!" για να μετρήσεις: '+BODIES[i].emoji+' '+BODIES[i].name;
+  drawTherm();
+}
+
+function measureTemp(){
+  if(selectedBody===null){$('thermResult').textContent='⚠️ Επίλεξε πρώτα ένα σώμα!';return;}
+  const target=BODIES[selectedBody].temp;
+  if(thermAnim)clearInterval(thermAnim);
+  thermAnim=setInterval(()=>{
+    thermCurrent+=(target-thermCurrent)*0.12;
+    drawTherm();
+    if(Math.abs(thermCurrent-target)<0.3){
+      thermCurrent=target;
+      clearInterval(thermAnim);
+      measuredTemps[selectedBody]=target;
+      $('t'+selectedBody).textContent=target+' °C';
+      $('thermResult').textContent='✅ '+BODIES[selectedBody].emoji+' '+BODIES[selectedBody].name+': '+target+' °C';
+      drawTherm();
+    }
+  },40);
+}
+
+function resetTherm(){
+  if(thermAnim)clearInterval(thermAnim);
+  selectedBody=null;thermCurrent=20;
+  measuredTemps=[null,null,null];
+  ['t0','t1','t2'].forEach(id=>$(id).textContent='—');
+  $('thermResult').textContent='Επίλεξε ένα σώμα και πάτα Μέτρηση';
+  drawTherm();
+}
+
+function drawTherm(){
+  const s=setupCV('thermCanvas');if(!s)return;
+  const{ctx,W,H,fg,dark,surface,border}=s;
+  ctx.clearRect(0,0,W,H);
+
+  // Draw bodies on left
+  const bodyW=60,bodyH=80,bodyY=H/2-30;
+  BODIES.forEach((b,i)=>{
+    const x=10+i*(bodyW+14);
+    // container
+    ctx.fillStyle=dark?'#334155':'#e2e8f0';
+    ctx.beginPath();ctx.roundRect(x,bodyY,bodyW,bodyH,8);ctx.fill();
+    // liquid fill
+    ctx.fillStyle=b.color+'66';
+    ctx.beginPath();ctx.roundRect(x+4,bodyY+4,bodyW-8,bodyH-8,6);ctx.fill();
+    ctx.strokeStyle=b.color;ctx.lineWidth=2;
+    ctx.beginPath();ctx.roundRect(x+4,bodyY+4,bodyW-8,bodyH-8,6);ctx.stroke();
+    // emoji & label
+    ctx.font='22px system-ui';ctx.textAlign='center';
+    ctx.fillText(b.emoji,x+bodyW/2,bodyY+44);
+    ctx.font=`bold 9px system-ui`;ctx.fillStyle=fg;
+    ctx.fillText(b.name.split(' ')[0],x+bodyW/2,bodyY+bodyH+14);
+    // selection ring
+    if(selectedBody===i){
+      ctx.strokeStyle=b.color;ctx.lineWidth=3;
+      ctx.beginPath();ctx.roundRect(x-2,bodyY-2,bodyW+4,bodyH+4,10);ctx.stroke();
+    }
+  });
+
+  // Thermometer on right
+  const tx=W-80,ty=20,th=H-50,tw=22;
+  const bulbR=16,tubeW=10;
+  const tubeH=th-bulbR*2-10;
+  const tubeX=tx+tw/2;
+  const tubeTop=ty+10;
+  const bulbY=tubeTop+tubeH;
+
+  // Tube outline
+  ctx.fillStyle=dark?'#334155':'#f1f5f9';
+  ctx.beginPath();
+  ctx.roundRect(tubeX-tubeW/2,tubeTop,tubeW,tubeH,tubeW/2);
+  ctx.fill();
+  ctx.strokeStyle=dark?'#64748b':'#94a3b8';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.roundRect(tubeX-tubeW/2,tubeTop,tubeW,tubeH,tubeW/2);ctx.stroke();
+
+  // Bulb outline
+  ctx.fillStyle=dark?'#334155':'#f1f5f9';
+  ctx.beginPath();ctx.arc(tubeX,bulbY+bulbR,bulbR,0,2*Math.PI);ctx.fill();
+  ctx.strokeStyle=dark?'#64748b':'#94a3b8';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.arc(tubeX,bulbY+bulbR,bulbR,0,2*Math.PI);ctx.stroke();
+
+  // Mercury color (by temp)
+  const t=thermCurrent;
+  const mercury=t<10?'#3b82f6':t<30?'#22c55e':t<60?'#f59e0b':'#dc2626';
+
+  // Mercury fill in bulb
+  ctx.fillStyle=mercury;
+  ctx.beginPath();ctx.arc(tubeX,bulbY+bulbR,bulbR-2,0,2*Math.PI);ctx.fill();
+
+  // Mercury rise in tube
+  const minT=-10,maxT=100;
+  const fillFrac=Math.max(0,Math.min(1,(t-minT)/(maxT-minT)));
+  const fillH=fillFrac*(tubeH-4);
+  ctx.fillStyle=mercury;
+  ctx.fillRect(tubeX-tubeW/2+2,tubeTop+tubeH-2-fillH,tubeW-4,fillH+4);
+
+  // Scale ticks
+  ctx.strokeStyle=fg;ctx.fillStyle=fg;ctx.font='8px system-ui';ctx.textAlign='left';
+  for(let temp=0;temp<=100;temp+=10){
+    const frac=(temp-minT)/(maxT-minT);
+    const y=tubeTop+tubeH-(frac*(tubeH-4));
+    const tickLen=temp%50===0?12:6;
+    ctx.lineWidth=temp%50===0?1.5:0.8;
+    ctx.beginPath();ctx.moveTo(tubeX+tubeW/2,y);ctx.lineTo(tubeX+tubeW/2+tickLen,y);ctx.stroke();
+    if(temp%20===0)ctx.fillText(temp+'°',tubeX+tubeW/2+14,y+3);
+  }
+
+  // Current temp label
+  ctx.fillStyle=mercury;ctx.font='bold 14px system-ui';ctx.textAlign='center';
+  ctx.fillText(thermCurrent.toFixed(1)+'°C',tubeX,H-8);
+}
+
+// ═══════════════════════════════════════════════════════
+// ΔΡ. 7 — ΘΕΡΜΙΚΗ ΙΣΟΡΡΟΠΙΑ
+// ═══════════════════════════════════════════════════════
+let eqAnim=null,eqData={cold:[],hot:[],time:[]};
+
+function updateEq(){
+  $('t1Val').textContent=+$('t1Slider').value+' °C';
+  $('m1Val').textContent=(+$('m1Slider').value).toFixed(1)+' kg';
+  $('t2Val').textContent=+$('t2Slider').value+' °C';
+  $('m2Val').textContent=(+$('m2Slider').value).toFixed(1)+' kg';
+  const m1=+$('m1Slider').value,t1=+$('t1Slider').value;
+  const m2=+$('m2Slider').value,t2=+$('t2Slider').value;
+  const teq=(m1*t1+m2*t2)/(m1+m2);
+  $('eqResult').textContent='T_ισορροπίας = ('+m1+'×'+t1+' + '+m2+'×'+t2+') / ('+m1+'+'+m2+') = '+teq.toFixed(1)+' °C';
+}
+updateEq();
+
+function startEq(){
+  if(eqAnim)clearInterval(eqAnim);
+  const m1=+$('m1Slider').value,t1=+$('t1Slider').value;
+  const m2=+$('m2Slider').value,t2=+$('t2Slider').value;
+  const teq=(m1*t1+m2*t2)/(m1+m2);
+  eqData={cold:[t1],hot:[t2],time:[0]};
+  let tc=t1,th=t2,step=0;
+  eqAnim=setInterval(()=>{
+    step++;
+    tc+=(teq-tc)*0.08;
+    th+=(teq-th)*0.08;
+    eqData.cold.push(tc);
+    eqData.hot.push(th);
+    eqData.time.push(step*0.5);
+    drawEqGraph();
+    if(Math.abs(tc-teq)<0.3&&Math.abs(th-teq)<0.3){
+      clearInterval(eqAnim);
+      $('eqResult').textContent='✅ Ισορροπία: T = '+teq.toFixed(1)+' °C — και τα δύο σώματα φτάνουν την ίδια θερμοκρασία!';
+    }
+  },80);
+}
+
+function resetEq(){
+  if(eqAnim)clearInterval(eqAnim);
+  eqData={cold:[],hot:[],time:[]};
+  updateEq();
+  drawEqGraph();
+}
+
+function drawEqGraph(){
+  const s=setupCV('eqCanvas');if(!s)return;
+  const{ctx,W,H,fg,dark}=s;
+  ctx.clearRect(0,0,W,H);
+  const ml=44,mr=16,mt=16,mb=44;
+  const cw=W-ml-mr,ch=H-mt-mb;
+  const baseY=mt+ch;
+  const m1=+$('m1Slider').value,t1=+$('t1Slider').value;
+  const m2=+$('m2Slider').value,t2=+$('t2Slider').value;
+  const teq=(m1*t1+m2*t2)/(m1+m2);
+  const minT=Math.min(t1,t2)-10,maxT=Math.max(t1,t2)+10;
+
+  // Grid
+  ctx.strokeStyle=dark?'#334155':'#e2e8f0';ctx.lineWidth=1;
+  for(let i=1;i<=4;i++){
+    const y=baseY-i*ch/4;
+    ctx.beginPath();ctx.moveTo(ml,y);ctx.lineTo(ml+cw,y);ctx.stroke();
+  }
+  // Axes
+  ctx.strokeStyle=fg;ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(ml,mt);ctx.lineTo(ml,baseY);ctx.lineTo(ml+cw,baseY);ctx.stroke();
+
+  // Labels
+  ctx.fillStyle=fg;ctx.font='9px system-ui';ctx.textAlign='right';
+  for(let i=0;i<=4;i++){
+    const T=minT+i*(maxT-minT)/4;
+    ctx.fillText(T.toFixed(0)+'°',ml-3,baseY-i*ch/4+3);
+  }
+  ctx.textAlign='center';
+  ctx.fillText('Χρόνος (s)',ml+cw/2,baseY+32);
+  ctx.save();ctx.translate(12,mt+ch/2);ctx.rotate(-Math.PI/2);
+  ctx.fillText('T (°C)',0,0);ctx.restore();
+
+  // Equilibrium line
+  const teqY=baseY-(teq-minT)/(maxT-minT)*ch;
+  ctx.strokeStyle=dark?'#94a3b8':'#64748b';ctx.lineWidth=1;ctx.setLineDash([4,4]);
+  ctx.beginPath();ctx.moveTo(ml,teqY);ctx.lineTo(ml+cw,teqY);ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle=dark?'#94a3b8':'#64748b';ctx.font='9px system-ui';ctx.textAlign='left';
+  ctx.fillText('T_ισορρ='+teq.toFixed(1)+'°',ml+4,teqY-4);
+
+  if(eqData.time.length<2)return;
+  const n=eqData.time.length;
+  const tMax=eqData.time[n-1]||1;
+
+  function plotLine(data,color){
+    ctx.strokeStyle=color;ctx.lineWidth=2.5;ctx.beginPath();
+    data.forEach((T,i)=>{
+      const x=ml+eqData.time[i]/tMax*cw;
+      const y=baseY-(T-minT)/(maxT-minT)*ch;
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+  }
+  plotLine(eqData.cold,'#3b82f6');
+  plotLine(eqData.hot,'#dc2626');
+
+  // Legend
+  ctx.font='9px system-ui';ctx.textAlign='left';
+  ctx.fillStyle='#3b82f6';ctx.fillRect(ml+4,mt,12,8);
+  ctx.fillStyle=fg;ctx.fillText('Ψυχρό ('+t1+'°C)',ml+20,mt+8);
+  ctx.fillStyle='#dc2626';ctx.fillRect(ml+90,mt,12,8);
+  ctx.fillStyle=fg;ctx.fillText('Θερμό ('+t2+'°C)',ml+106,mt+8);
+}
+
+// ═══════════════════════════════════════════════════════
+// ΔΡ. 8 — ΒΡΑΧΥΚΥΚΛΩΜΑ
+// ═══════════════════════════════════════════════════════
+let scMode='normal';
+
+function setScMode(m){
+  scMode=m;
+  ['scNormalBtn','scShortBtn','scFuseBtn'].forEach(id=>$(id).style.opacity='0.6');
+  const btnMap={normal:'scNormalBtn',short:'scShortBtn',fuse:'scFuseBtn'};
+  $(btnMap[m]).style.opacity='1';
+  drawShortCircuit();
+}
+$('scNormalBtn').style.opacity='1';
+$('scShortBtn').style.opacity='0.6';
+$('scFuseBtn').style.opacity='0.6';
+
+function drawShortCircuit(){
+  const V=+$('scVSlider').value;
+  const Rload=+$('scRSlider').value;
+  $('scVVal').textContent=V+' V';
+  $('scRVal').textContent=Rload+' Ω';
+  const s=setupCV('scCanvas');if(!s)return;
+  const{ctx,W,H,fg,dark,surface}=s;
+  ctx.clearRect(0,0,W,H);
+
+  const Rwire=0.1;
+  let Rtotal,I,fuseBlown=false;
+  if(scMode==='normal'){Rtotal=Rload;I=V/Rtotal;}
+  else if(scMode==='short'){Rtotal=Rwire;I=V/Rwire;}
+  else{// fuse: I_nominal = 0.5A
+    Rtotal=Rwire;I=V/Rwire;
+    if(I>0.5){fuseBlown=true;}
+  }
+  const P=V*I;
+
+  // Circuit box
+  const cx=W/2,cy=H/2;
+  const bx=40,by=40,bw=W-80,bh=H-80;
+  const wireColor=scMode==='short'?'#dc2626':dark?'#94a3b8':'#475569';
+
+  function drawWire(x1,y1,x2,y2){
+    if(fuseBlown&&scMode==='fuse'){ctx.strokeStyle='#9ca3af';ctx.lineWidth=1;}
+    else{ctx.strokeStyle=wireColor;ctx.lineWidth=scMode==='short'?3.5:2.5;}
+    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  }
+
+  // Battery (left side)
+  const batX=bx+12,batY=cy;
+  drawWire(bx+24,by,bx+24,cy-30);  // top wire
+  drawWire(bx+24,cy+30,bx+24,by+bh); // bottom wire
+  drawWire(bx+24,by,bw+bx,by);        // top horizontal
+  drawWire(bx+24,by+bh,bw+bx,by+bh); // bottom horizontal
+
+  // Battery symbol
+  ctx.strokeStyle=fg;ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(batX,cy-30);ctx.lineTo(batX,cy+30);ctx.stroke();
+  [[-20,6],[-12,4],[0,6],[12,4],[20,6]].forEach(([dy,lw],i)=>{
+    ctx.lineWidth=i%2===0?4:2;
+    ctx.beginPath();ctx.moveTo(batX-8,cy+dy);ctx.lineTo(batX+8,cy+dy);ctx.stroke();
+  });
+  // Battery label
+  ctx.fillStyle=fg;ctx.font='bold 11px system-ui';ctx.textAlign='center';
+  ctx.fillText(V+'V',batX,cy+50);
+  ctx.font='9px system-ui';ctx.fillText('Πηγή',batX,cy+62);
+
+  // Right side: bulb + switch/short
+  const bulbX=bw+bx-30,bulbY=cy;
+  // Bulb on top wire
+  const blbX=cx,blbY=by;
+
+  // Bulb (circle)
+  const bulbBright=scMode==='short'?0:(I/0.5);
+  const brightness=Math.min(1,bulbBright);
+  const grd=ctx.createRadialGradient(blbX,blbY,2,blbX,blbY,16);
+  grd.addColorStop(0,`rgba(255,220,0,${brightness})`);
+  grd.addColorStop(1,`rgba(255,180,0,0)`);
+  ctx.fillStyle=grd;
+  ctx.beginPath();ctx.arc(blbX,blbY,16,0,2*Math.PI);ctx.fill();
+  ctx.strokeStyle=brightness>0.1?'#f59e0b':'#64748b';ctx.lineWidth=2;
+  ctx.beginPath();ctx.arc(blbX,blbY,14,0,2*Math.PI);ctx.stroke();
+  ctx.fillStyle=fg;ctx.font='9px system-ui';ctx.textAlign='center';
+  ctx.fillText('💡',blbX,blbY+4);
+  ctx.fillText('R='+Rload+'Ω',blbX,blbY+26);
+
+  // Short circuit wire (bypass)
+  if(scMode==='short'||scMode==='fuse'){
+    ctx.strokeStyle='#dc2626';ctx.lineWidth=3;ctx.setLineDash([]);
+    const sy=by+50;
+    ctx.beginPath();
+    ctx.moveTo(cx-40,by);ctx.lineTo(cx-40,sy);
+    ctx.lineTo(cx+40,sy);ctx.lineTo(cx+40,by);
+    ctx.stroke();
+    ctx.fillStyle='#dc2626';ctx.font='bold 9px system-ui';ctx.textAlign='center';
+    ctx.fillText('ΒΡΑΧΥΚΥΚΛΩΜΑ',cx,sy+14);
+  }
+
+  // Fuse (on short wire, top-right)
+  if(scMode==='fuse'){
+    const fx=bw+bx-50,fy=by;
+    if(fuseBlown){
+      ctx.strokeStyle='#dc2626';ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(fx-16,fy);ctx.lineTo(fx-8,fy-8);ctx.lineTo(fx+8,fy+8);ctx.lineTo(fx+16,fy);ctx.stroke();
+      ctx.fillStyle='#dc2626';ctx.font='9px system-ui';ctx.textAlign='center';ctx.fillText('✂️ ΔΙΕΚΟΠΗ',fx,fy+18);
+    } else {
+      ctx.strokeStyle='#f59e0b';ctx.lineWidth=2.5;
+      ctx.beginPath();ctx.roundRect(fx-16,fy-5,32,10,3);ctx.stroke();
+      ctx.strokeStyle=fg;ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(fx-16,fy);ctx.lineTo(fx+16,fy);ctx.stroke();
+      ctx.fillStyle=fg;ctx.font='9px system-ui';ctx.textAlign='center';ctx.fillText('🔌 Ασφάλεια',fx,fy+18);
+    }
+  }
+
+  // Status
+  const statusEl=$('scStatus');
+  if(fuseBlown){
+    statusEl.className='status-badge status-danger';
+    statusEl.textContent='❌ ΑΣΦΑΛΕΙΑ ΤΑΡΑΞΕ — Κύκλωμα ανοιχτό';
+  } else if(scMode==='short'){
+    statusEl.className='status-badge status-danger';
+    statusEl.textContent='🔥 ΒΡΑΧΥΚΥΚΛΩΜΑ — Υπέρταση ρεύματος!';
+  } else {
+    statusEl.className='status-badge status-ok';
+    statusEl.textContent='✅ Κύκλωμα ΟΚ — Λαμπτήρας λάμπει';
+  }
+
+  // Result
+  if(fuseBlown){
+    $('scResult').textContent='⚡ Προ ρήξης: I = '+V+'/'+Rwire.toFixed(1)+' = '+I.toFixed(1)+' A > I_ασφαλείας → Διακοπή!';
+  } else if(scMode==='short'){
+    $('scResult').textContent='⚠️ Βραχυκύκλωμα: I = '+V+'/0.1 = '+I.toFixed(0)+' A !! (φυσιολογικό: '+( V/Rload).toFixed(2)+' A)  P = '+P.toFixed(0)+' W!';
+  } else {
+    $('scResult').textContent='✅ I = '+V+'/'+Rload+' = '+(V/Rload).toFixed(2)+' A  |  P = '+V+'×'+(V/Rload).toFixed(2)+' = '+(V*V/Rload).toFixed(1)+' W';
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// ΔΡ. 9 — ΚΙΝΗΤΗΡΑΣ DC
+// ═══════════════════════════════════════════════════════
+let motorRAF=null,motorAngle=0,motorRunning=false;
+
+function updateMotor(){
+  const V=+$('motorV').value;
+  const B=+$('motorB').value;
+  $('motorVVal').textContent=V+' V';
+  $('motorBVal').textContent=B+' (σχετ.)';
+  const rpm=Math.round(V*B*18);
+  $('motorRPM').textContent=rpm;
+  if(!motorRunning)$('motorResult').textContent='🔋 '+V+'V × B='+B+' → Ταχύτητα: '+rpm+' rpm';
+}
+updateMotor();
+
+function toggleMotor(){
+  if(motorRunning){stopMotor();return;}
+  motorRunning=true;
+  $('motorPlayBtn').textContent='⏸ Παύση';
+  const V=+$('motorV').value,B=+$('motorB').value;
+  const rpm=Math.round(V*B*18);
+  $('motorResult').textContent='✅ Κινητήρας εν λειτουργία: '+rpm+' rpm  |  Ηλ.Ενέργεια → Κινητική Ενέργεια';
+  animMotor();
+}
+
+function stopMotor(){
+  motorRunning=false;
+  if(motorRAF)cancelAnimationFrame(motorRAF);
+  $('motorPlayBtn').textContent='▶ Εκκίνηση';
+  updateMotor();
+}
+
+function animMotor(){
+  const V=+$('motorV').value,B=+$('motorB').value;
+  const speed=V*B*0.003;
+  motorAngle+=speed;
+  drawMotorFrame();
+  if(motorRunning)motorRAF=requestAnimationFrame(animMotor);
+}
+
+function drawMotorFrame(){
+  const s=setupCV('motorCanvas');if(!s)return;
+  const{ctx,W,H,fg,dark}=s;
+  ctx.clearRect(0,0,W,H);
+  const cx=W/2,cy=H/2;
+  const R=Math.min(W,H)*0.32;
+
+  // Stator (magnets)
+  const magColors=['#ef4444','#3b82f6'];
+  [[0],[Math.PI]].forEach((a,i)=>{
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(a[0]);
+    ctx.fillStyle=magColors[i];
+    ctx.beginPath();
+    ctx.arc(0,0,R+28,Math.PI*0.35,Math.PI*0.65);
+    ctx.arc(0,0,R+6,Math.PI*0.65,Math.PI*0.35,true);
+    ctx.closePath();ctx.fill();
+    ctx.fillStyle='#fff';ctx.font='bold 11px system-ui';ctx.textAlign='center';
+    ctx.fillText(i===0?'N':'S',0,-(R+17));
+    ctx.restore();
+  });
+
+  // Magnetic field arrows (background)
+  ctx.strokeStyle=dark?'#475569':'#cbd5e1';ctx.lineWidth=1;
+  for(let y=cy-R*0.7;y<=cy+R*0.7;y+=18){
+    const arr=10;
+    ctx.beginPath();ctx.moveTo(cx-R*0.6,y);ctx.lineTo(cx+R*0.6,y);
+    ctx.moveTo(cx+R*0.6-arr,y-4);ctx.lineTo(cx+R*0.6,y);ctx.lineTo(cx+R*0.6-arr,y+4);
+    ctx.stroke();
+  }
+
+  // Rotor (coil)
+  const V=+$('motorV').value,B=+$('motorB').value;
+  const I=V/10;
+  ctx.save();ctx.translate(cx,cy);ctx.rotate(motorAngle);
+  // Coil rectangle
+  const cw2=R*0.6,ch2=R*0.35;
+  ctx.fillStyle=dark?'#1e293b':'#f8fafc';
+  ctx.strokeStyle='#f59e0b';ctx.lineWidth=3;
+  ctx.beginPath();ctx.roundRect(-cw2,-ch2,cw2*2,ch2*2,4);
+  ctx.fill();ctx.stroke();
+  // Current direction arrows
+  ctx.fillStyle='#f59e0b';ctx.font='bold 13px system-ui';ctx.textAlign='center';
+  ctx.fillText('→',0,-ch2+10);
+  ctx.fillText('←',0,ch2-4);
+  // Lorentz force arrows
+  ctx.fillStyle='#dc2626';ctx.font='bold 12px system-ui';
+  ctx.fillText('↑',-cw2+10,0);
+  ctx.fillText('↓',cw2-10,0);
+  // Axis
+  ctx.fillStyle=fg;ctx.beginPath();ctx.arc(0,0,6,0,2*Math.PI);ctx.fill();
+  ctx.restore();
+
+  // Commutator
+  ctx.fillStyle=dark?'#b45309':'#d97706';
+  ctx.beginPath();ctx.arc(cx,cy+R*0.1,8,0,Math.PI);ctx.fill();
+  ctx.fillStyle=dark?'#1d4ed8':'#2563eb';
+  ctx.beginPath();ctx.arc(cx,cy+R*0.1,8,Math.PI,2*Math.PI);ctx.fill();
+
+  // Labels
+  ctx.fillStyle=fg;ctx.font='10px system-ui';ctx.textAlign='center';
+  ctx.fillText('I = '+I.toFixed(1)+' A',cx,H-8);
+  ctx.fillText('F = B·I·L',cx,H-20);
+}
+
+// ═══════════════════════════════════════════════════════
+// ΔΡ. 10 — ΓΕΝΝΗΤΡΙΑ
+// ═══════════════════════════════════════════════════════
+let genRAF=null,genAngle=0,genRunning=false,genTime=0;
+
+function updateGen(){
+  const sp=+$('genSpeed').value,B=+$('genB').value;
+  $('genSpeedVal').textContent=sp+' (σχετ.)';
+  $('genBVal').textContent=B+' (σχετ.)';
+  const freq=(sp*0.5).toFixed(1);
+  const emf=(sp*B*2).toFixed(1);
+  $('genFreq').textContent=freq;
+  if(!genRunning)$('genResult').textContent='⚙️ Ταχύτητα='+sp+', B='+B+' → f='+freq+' Hz, ε_max='+emf+' V';
+}
+updateGen();
+
+function toggleGen(){
+  if(genRunning){stopGen();return;}
+  genRunning=true;
+  $('genPlayBtn').textContent='⏸ Παύση';
+  animGen();
+}
+
+function stopGen(){
+  genRunning=false;
+  if(genRAF)cancelAnimationFrame(genRAF);
+  $('genPlayBtn').textContent='▶ Εκκίνηση';
+  updateGen();
+}
+
+function animGen(){
+  const sp=+$('genSpeed').value,B=+$('genB').value;
+  genAngle+=sp*0.025;
+  genTime+=0.016;
+  const emf=(sp*B*2*Math.sin(genAngle)).toFixed(2);
+  $('genResult').textContent='✅ ε = ε_max · sin(ωt) = '+(sp*B*2).toFixed(1)+'·sin(ωt) = '+emf+' V';
+  drawGenFrame();
+  drawOsc();
+  if(genRunning)genRAF=requestAnimationFrame(animGen);
+}
+
+function drawGenFrame(){
+  const s=setupCV('genCanvas');if(!s)return;
+  const{ctx,W,H,fg,dark}=s;
+  ctx.clearRect(0,0,W,H);
+  const cx=W/2,cy=H/2;
+  const R=Math.min(W,H)*0.35;
+  const sp=+$('genSpeed').value,B=+$('genB').value;
+
+  // Stator / Field
+  ['#ef4444','#3b82f6'].forEach((c,i)=>{
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(i*Math.PI);
+    ctx.fillStyle=c;
+    ctx.beginPath();
+    ctx.arc(0,0,R+24,Math.PI*0.3,Math.PI*0.7);
+    ctx.arc(0,0,R+6,Math.PI*0.7,Math.PI*0.3,true);
+    ctx.closePath();ctx.fill();
+    ctx.fillStyle='#fff';ctx.font='bold 10px system-ui';ctx.textAlign='center';
+    ctx.fillText(i===0?'N':'S',0,-(R+15));
+    ctx.restore();
+  });
+
+  // Rotating magnet/coil
+  ctx.save();ctx.translate(cx,cy);ctx.rotate(genAngle);
+  ctx.strokeStyle='#7c3aed';ctx.lineWidth=3;
+  ctx.beginPath();ctx.moveTo(0,-R*0.7);ctx.lineTo(0,R*0.7);ctx.stroke();
+  // Arrow heads
+  ctx.fillStyle='#7c3aed';
+  [[0,-R*0.7,-6,-R*0.7+10,6,-R*0.7+10],[0,R*0.7,-6,R*0.7-10,6,R*0.7-10]].forEach(([x1,y1,x2,y2,x3,y3])=>{
+    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.lineTo(x3,y3);ctx.closePath();ctx.fill();
+  });
+  // Induced current sense
+  const sinA=Math.sin(genAngle);
+  ctx.strokeStyle=sinA>0?'#dc2626':'#3b82f6';ctx.lineWidth=2;
+  ctx.beginPath();ctx.arc(0,0,R*0.3,0,2*Math.PI);ctx.stroke();
+  ctx.restore();
+
+  // Axis
+  ctx.fillStyle=fg;ctx.beginPath();ctx.arc(cx,cy,5,0,2*Math.PI);ctx.fill();
+  // EMF output symbol
+  ctx.fillStyle=fg;ctx.font='10px system-ui';ctx.textAlign='center';
+  ctx.fillText('ε = ε_max·sin(ωt)',cx,H-6);
+}
+
+function drawOsc(){
+  const s=setupCV('oscCanvas');if(!s)return;
+  const{ctx,W,H}=s;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#001100';ctx.fillRect(0,0,W,H);
+  const sp=+$('genSpeed').value,B=+$('genB').value;
+  const amp=H*0.38;
+  const freq=sp*0.025;
+
+  // Grid
+  ctx.strokeStyle='#1a4a1a';ctx.lineWidth=1;
+  for(let x=0;x<=W;x+=W/8){{ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}}
+  for(let y=0;y<=H;y+=H/4){{ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}}
+  // Center line
+  ctx.strokeStyle='#1a5a1a';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,H/2);ctx.lineTo(W,H/2);ctx.stroke();
+
+  // Signal
+  if(sp===0){
+    ctx.strokeStyle='#22c55e';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(0,H/2);ctx.lineTo(W,H/2);ctx.stroke();
+  } else {
+    ctx.strokeStyle='#22c55e';ctx.lineWidth=2;ctx.beginPath();
+    for(let px=0;px<W;px++){
+      const t=(px/W)*4*Math.PI+genAngle;
+      const y=H/2-amp*B*0.3*Math.sin(t*freq*8);
+      px===0?ctx.moveTo(px,y):ctx.lineTo(px,y);
+    }
+    ctx.stroke();
+  }
+  // Labels
+  ctx.fillStyle='#22c55e';ctx.font='9px system-ui';ctx.textAlign='left';
+  ctx.fillText('AC',4,14);
+  ctx.textAlign='right';
+  ctx.fillText((sp*B*2).toFixed(1)+'V pk',W-4,14);
+}
+
+// ═══ INIT ═══
+window.addEventListener('load',()=>{
+  drawTherm();
+  drawEqGraph();
+  drawShortCircuit();
+  drawMotorFrame();
+  drawGenFrame();
+  drawOsc();
+});
+window.addEventListener('resize',()=>{
+  drawTherm();drawEqGraph();drawShortCircuit();drawMotorFrame();drawGenFrame();drawOsc();
+});
+</script>
+</body>
+</html>

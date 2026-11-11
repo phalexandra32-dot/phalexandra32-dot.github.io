@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ποιος θέλει να γίνει... Χημικός! - InclusiLab</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #134e5e, #71b280);
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .game-container {
+            width: 100%;
+            max-width: 700px;
+            background: rgba(19, 78, 94, 0.95);
+            border: 3px solid #f1c40f;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+            text-align: center;
+        }
+        h1 {
+            color: #f1c40f;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        .subtitle {
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .coins { color: #f1c40f; }
+        .question-box {
+            background: #0f303f;
+            border: 2px solid #38b2ac;
+            border-radius: 10px;
+            padding: 20px;
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        @media (max-width: 600px) {
+            .options-grid { grid-template-columns: 1fr; }
+        }
+        .option-btn {
+            background: linear-gradient(135deg, #2c7a7b, #285e61);
+            color: white;
+            border: 2px solid #319795;
+            padding: 15px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-weight: 500;
+        }
+        .option-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #319795, #2c7a7b);
+            border-color: #f1c40f;
+            transform: translateY(-2px);
+        }
+        .option-btn.correct { background: #2f855a !important; border-color: #48bb78 !important; }
+        .option-btn.wrong   { background: #9b2c2c !important; border-color: #f56565 !important; }
+        .message-box {
+            margin-top: 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            min-height: 30px;
+        }
+        .btn-restart {
+            background: #f1c40f;
+            color: #134e5e;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: none;
+        }
+        .btn-restart:hover { background: #d4ac0d; }
+        .back-link {
+            display: inline-block;
+            margin-top: 18px;
+            color: #e2e8f0;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+        .back-link:hover { color: #f1c40f; }
+    </style>
+</head>
+<body>
+<div class="game-container">
+    <h1>🧪 Ποιος θέλει να γίνει... Χημικός!</h1>
+    <p class="subtitle">Όμιλος Φυσικής & Χημείας Γουριάς • Ύλη Β' & Γ' Γυμνασίου</p>
+
+    <div class="stats-bar">
+        <span id="question-counter">Ερώτηση 1 / 6</span>
+        <span class="coins">🪙 <span id="score">0</span> Coins</span>
+    </div>
+
+    <div class="question-box" id="question-text">Φόρτωση ερώτησης...</div>
+
+    <div class="options-grid" id="options-container"></div>
+
+    <div class="message-box" id="message"></div>
+    <button class="btn-restart" id="restart-btn" onclick="startGame()">Νέο Παιχνίδι</button>
+    <br>
+    <a class="back-link" href="/games/">← Επιστροφή στην κεντρική σελίδα</a>
+</div>
+
+<script>
+const chemQuizData = [
+    {
+        question: "Ποια σωματίδια βρίσκονται στον πυρήνα ενός ατόμου;",
+        options: ["Α. Μόνο ηλεκτρόνια", "Β. Πρωτόνια και νετρόνια", "Γ. Πρωτόνια και ηλεκτρόνια", "Δ. Μόνο ηλεκτρόνια και νετρόνια"],
+        correct: 1,
+        reward: 100
+    },
+    {
+        question: "Τι δείχνει η τιμή του pH ενός υδατικού διαλύματος ίσια με 7;",
+        options: ["Α. Ότι το διάλυμα είναι όξινο", "Β. Ότι το διάλυμα είναι βασικό", "Γ. Ότι το διάλυμα είναι ουδέτερο", "Δ. Ότι περιέχει μόνο μέταλλα"],
+        correct: 2,
+        reward: 250
+    },
+    {
+        question: "Ποιο από τα παρακάτω χημικά στοιχεία αντιπροσωπεύεται από το σύμβολο Na;",
+        options: ["Α. Άζωτο", "Β. Νάτριο", "Γ. Χαλκός", "Δ. Άργυρος"],
+        correct: 1,
+        reward: 500
+    },
+    {
+        question: "Πώς ονομάζεται ο δεσμός που σχηματίζεται με τη μεταφορά ηλεκτρονίων μεταξύ ατόμων (π.χ. στο NaCl);",
+        options: ["Α. Ομοιοπολικός δεσμός", "Β. Ιοντικός δεσμός", "Γ. Μεταλλικός δεσμός", "Δ. Δεσμός υδρογόνου"],
+        correct: 1,
+        reward: 1000
+    },
+    {
+        question: "Ποια ένωση προκύπτει συνήθως από την εξουδετέρωση ενός οξέος με μια βάση;",
+        options: ["Α. Νερό και Άλας", "Β. Μόνο Οξυγόνο", "Γ. Μόνο Υδρογόνο", "Δ. Αλκοόλη"],
+        correct: 0,
+        reward: 2500
+    },
+    {
+        question: "Ποιος νόμος αποτελεί τη βάση για τη χημική εξίσωση και τη διατήρηση της μάζας στις χημικές αντιδράσεις;",
+        options: ["Α. Νόμος του Ohm", "Β. Αρχή διατήρησης της ενέργειας", "Γ. Αρχή διατήρησης της μάζας (Lavoisier)", "Δ. Νόμος του Coulomb"],
+        correct: 2,
+        reward: 5000
+    }
+];
+
+let currentQuestionIndex = 0;
+let totalCoins = 0;
+let answerLocked = false;
+
+function startGame() {
+    currentQuestionIndex = 0;
+    totalCoins = 0;
+    document.getElementById('restart-btn').style.display = 'none';
+    loadQuestion();
+}
+
+function loadQuestion() {
+    answerLocked = false;
+    document.getElementById('message').innerText = '';
+    const currentQ = chemQuizData[currentQuestionIndex];
+    document.getElementById('question-counter').innerText = `Ερώτηση ${currentQuestionIndex + 1} / ${chemQuizData.length}`;
+    document.getElementById('score').innerText = totalCoins;
+    document.getElementById('question-text').innerText = currentQ.question;
+
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = '';
+    currentQ.options.forEach((option, index) => {
+        const btn = document.createElement('button');
+        btn.classList.add('option-btn');
+        btn.innerText = option;
+        btn.onclick = () => selectAnswer(index, btn);
+        optionsContainer.appendChild(btn);
+    });
+}
+
+function selectAnswer(selectedIndex, selectedBtn) {
+    if (answerLocked) return;
+    answerLocked = true;
+    const currentQ = chemQuizData[currentQuestionIndex];
+    const buttons = document.querySelectorAll('.option-btn');
+
+    if (selectedIndex === currentQ.correct) {
+        selectedBtn.classList.add('correct');
+        totalCoins += currentQ.reward;
+        document.getElementById('score').innerText = totalCoins;
+        document.getElementById('message').style.color = '#48bb78';
+        document.getElementById('message').innerText = `🎉 Σωστό! Κέρδισες +${currentQ.reward} Χρυσά Coins!`;
+        currentQuestionIndex++;
+        setTimeout(() => {
+            if (currentQuestionIndex < chemQuizData.length) loadQuestion();
+            else endGame(true);
+        }, 1500);
+    } else {
+        selectedBtn.classList.add('wrong');
+        buttons[currentQ.correct].classList.add('correct');
+        document.getElementById('message').style.color = '#f56565';
+        document.getElementById('message').innerText = '❌ Λάθος απάντηση!';
+        setTimeout(() => endGame(false), 2000);
+    }
+}
+
+function endGame(won) {
+    document.getElementById('options-container').innerHTML = '';
+    const msg = document.getElementById('message');
+    if (won) {
+        msg.style.color = '#f1c40f';
+        msg.innerHTML = `🌟 Συγχαρητήρια! Έγινες ο Απόλυτος Χημικός του Ομίλου με συνολικά <b>${totalCoins} Χρυσά Coins</b>!`;
+    } else {
+        msg.style.color = '#e2e8f0';
+        msg.innerHTML = `Τέλος παιχνιδιού! Μάζεψες συνολικά <b>${totalCoins} Χρυσά Coins</b>. Ξαναδοκίμασε για το 6/6!`;
+    }
+    document.getElementById('restart-btn').style.display = 'inline-block';
+}
+
+startGame();
+</script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+---
+
+<ArticleLayout
+  title="Παιχνίδια & Σταυρόλεξα"
+  eyebrow="Διαδραστική Μάθηση"
+  description="Quiz γνώσεων Φυσικής & Χημείας και διαδραστικά σταυρόλεξα — μάθε παίζοντας!"
+  heroIcon="🎮"
+>
+  <section class="games-intro">
+    <p>
+      Δοκίμασε τις γνώσεις σου με διαδραστικά παιχνίδια φυσικής και χημείας.
+      Από quiz στυλ «Ποιος θέλει να γίνει εκατομμυριούχος» μέχρι σταυρόλεξα
+      με επιστημονικούς όρους — μάθηση που μοιάζει με παιχνίδι!
+    </p>
+  </section>
+
+  <section class="games-grid">
+
+    <!-- Quiz Φυσικής -->
+    <div class="game-card physics">
+      <div class="game-icon">🏆</div>
+      <div class="game-body">
+        <span class="game-tag">Φυσική Β' &amp; Γ' Γυμνασίου</span>
+        <h2>Ποιος θέλει να γίνει… Φυσικός!</h2>
+        <p>
+          6 ερωτήσεις Φυσικής με αυξανόμενη δυσκολία. Κέρδισε Χρυσά Coins
+          απαντώντας σωστά — από ταχύτητα και νόμο Ohm μέχρι σωματίδια ατόμου!
+        </p>
+        <div class="game-meta">
+          <span>⏱ ~5 λεπτά</span>
+          <span>❓ 6 ερωτήσεις</span>
+          <span>🪙 Coins</span>
+        </div>
+        <a href="/games/quiz-fysiki.html" class="btn btn-physics">
+          🎮 Παίξε τώρα!
+        </a>
+      </div>
+    </div>
+
+    <!-- Quiz Χημείας -->
+    <div class="game-card chemistry">
+      <div class="game-icon">⚗️</div>
+      <div class="game-body">
+        <span class="game-tag">Χημεία Β' &amp; Γ' Γυμνασίου</span>
+        <h2>Ποιος θέλει να γίνει… Χημικός!</h2>
+        <p>
+          6 ερωτήσεις Χημείας — άτομα, pH, χημικοί δεσμοί, νόμος διατήρησης
+          μάζας. Πόσα Χρυσά Coins μπορείς να μαζέψεις;
+        </p>
+        <div class="game-meta">
+          <span>⏱ ~5 λεπτά</span>
+          <span>❓ 6 ερωτήσεις</span>
+          <span>🪙 Coins</span>
+        </div>
+        <a href="/games/quiz-ximeias.html" class="btn btn-chemistry">
+          🎮 Παίξε τώρα!
+        </a>
+      </div>
+    </div>
+
+    <!-- Σταυρόλεξα -->
+    <div class="game-card crossword">
+      <div class="game-icon">📝</div>
+      <div class="game-body">
+        <span class="game-tag">Φυσική &amp; Χημεία · Β' &amp; Γ' Γυμνασίου</span>
+        <h2>Σταυρόλεξα Επιστήμης</h2>
+        <p>
+          4 διαδραστικά σταυρόλεξα με επιστημονικούς όρους — Φυσική Β', Φυσική Γ',
+          Χημεία Β' και Χημεία Γ' Γυμνασίου. Αποθήκευση προόδου αυτόματα!
+        </p>
+        <div class="game-meta">
+          <span>📋 4 παζλ</span>
+          <span>💾 Αποθήκευση</span>
+          <span>🧩 14×14</span>
+        </div>
+        <a href="/games/stavrolexo.html" class="btn btn-crossword">
+          🧩 Λύσε το σταυρόλεξο!
+        </a>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="accessibility-note">
+    <div class="note-box">
+      <span class="note-icon">♿</span>
+      <div>
+        <strong>Πρόσβαση για όλους</strong>
+        <p>
+          Τα παιχνίδια είναι σχεδιασμένα για χρήση σε tablet, υπολογιστή ή
+          κινητό. Δεν απαιτείται εγγραφή ή σύνδεση.
+        </p>
+      </div>
+    </div>
+  </section>
+</ArticleLayout>
+
+<style>
+  .games-intro {
+    font-size: 1.1rem;
+    color: var(--text-secondary, #555);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .game-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #e0e0e0;
+  }
+
+  .game-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  }
+
+  .game-card.physics  { border-top: 5px solid #0d47a1; }
+  .game-card.chemistry { border-top: 5px solid #00796b; }
+  .game-card.crossword { border-top: 5px solid #6a1b9a; }
+
+  .game-icon {
+    font-size: 2.5rem;
+    padding: 1.2rem 1.5rem 0.5rem;
+  }
+
+  .game-body {
+    padding: 0 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    flex: 1;
+  }
+
+  .game-tag {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #888;
+  }
+
+  .game-body h2 {
+    font-size: 1.15rem;
+    margin: 0;
+    color: var(--text-primary, #1a1a1a);
+  }
+
+  .game-body p {
+    font-size: 0.95rem;
+    color: var(--text-secondary, #555);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .game-meta {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+    color: #777;
+    margin-top: 0.3rem;
+  }
+
+  .btn {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.65rem 1.4rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    transition: opacity 0.2s, transform 0.2s;
+    align-self: flex-start;
+  }
+
+  .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  .btn-physics  { background: #0d47a1; color: #fff; }
+  .btn-chemistry { background: #00796b; color: #fff; }
+  .btn-crossword { background: #6a1b9a; color: #fff; }
+
+  .accessibility-note {
+    margin-top: 1rem;
+  }
+
+  .note-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: #f0f7ff;
+    border-left: 4px solid #1565c0;
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.25rem;
+  }
+
+  .note-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .note-box strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: #1565c0;
+  }
+
+  .note-box p {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    .games-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

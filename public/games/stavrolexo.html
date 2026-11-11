@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Σταυρόλεξο Φυσικής & Χημείας — Όμιλος Φυσικών Επιστημών Γουριάς</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root {
+    --bg: #f3f5f9; --surface: #fff; --fg: #1c2733; --muted: #5a6778; --line: #d7dde6;
+    --accent: #0d47a1; --accent2: #1976d2; --accent-soft: #e3ecfb;
+    --ok: #2e7d32; --ok-soft: #e4f3e5; --bad: #c62828; --bad-soft: #fde7e7;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--fg);
+    padding: 20px max(14px, env(safe-area-inset-left, 0px)) 48px; min-height: 100vh;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+  .back { color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+  .back:hover { color: var(--fg); }
+  .school { font-size: 0.8rem; color: var(--muted); }
+  .school a { color: var(--accent); font-weight: 600; text-decoration: none; }
+  .school a:hover { text-decoration: underline; }
+  header.hero {
+    background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border-radius: 14px;
+    padding: 24px 26px; margin-bottom: 18px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); transition: background .3s;
+  }
+  header.hero h1 { margin: 0 0 6px; font-size: 1.65rem; line-height: 1.2; }
+  header.hero p { margin: 0; opacity: .9; font-size: 0.95rem; }
+
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tab {
+    flex: 1 1 180px; border: 2px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 10px;
+    padding: 12px 14px; font: inherit; font-weight: 700; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 10px; min-height: 48px;
+  }
+  .tab .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--tab-color); flex-shrink: 0; }
+  .tab small { display: block; font-weight: 400; color: var(--muted); font-size: 0.78rem; }
+  .tab[aria-selected="true"] { border-color: var(--tab-color); background: color-mix(in srgb, var(--tab-color) 10%, #fff); }
+  .tab:focus-visible { outline: 3px solid var(--tab-color); outline-offset: 2px; }
+
+  .panel { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 20px; align-items: start; }
+  @media (max-width: 860px) { .panel { grid-template-columns: 1fr; } }
+
+  .board { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.04); min-width: 0; }
+  .toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; align-items: center; }
+  .btn {
+    border: 1px solid var(--line); background: #fff; color: var(--fg); border-radius: 8px; padding: 9px 14px; font: inherit; font-size: 0.9rem;
+    font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; min-height: 40px;
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover { background: var(--accent2); color: #fff; }
+  .btn:focus-visible { outline: 3px solid var(--accent2); outline-offset: 2px; }
+  .progress { margin-left: auto; font-size: 0.9rem; color: var(--muted); font-weight: 600; white-space: nowrap; }
+  .progress b { color: var(--accent); }
+
+  .grid-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+  .grid { display: grid; gap: 2px; margin: 0 auto; width: max-content; }
+  .cell { position: relative; width: var(--cell); height: var(--cell); }
+  .cell.block { background: transparent; }
+  .cell input {
+    width: 100%; height: 100%; border: 1.5px solid #b8c2d0; border-radius: 4px; background: #fff; color: var(--fg);
+    text-align: center; font: inherit; font-size: calc(var(--cell) * 0.5); font-weight: 700; text-transform: uppercase; padding: 0; caret-color: transparent; outline: none;
+  }
+  .cell input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 30%, transparent); }
+  .cell.hl input { background: var(--accent-soft); }
+  .cell.cur input { background: color-mix(in srgb, var(--accent) 28%, #fff); }
+  .cell.ok input { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); }
+  .cell.bad input { background: var(--bad-soft); border-color: var(--bad); color: var(--bad); }
+  .cell .num { position: absolute; top: 1px; left: 3px; font-size: calc(var(--cell) * 0.28); font-weight: 700; color: var(--muted); line-height: 1; pointer-events: none; }
+
+  .clues { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.04); max-height: 78vh; overflow: auto; }
+  .clues h2 { font-size: 0.85rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin: 4px 0 8px; display: flex; align-items: center; gap: 8px; }
+  .clues ol { list-style: none; margin: 0 0 16px; padding: 0; }
+  .clues li { padding: 7px 8px 7px 8px; border-radius: 7px; cursor: pointer; font-size: 0.92rem; line-height: 1.45; display: flex; gap: 8px; }
+  .clues li:hover { background: #f1f4f8; }
+  .clues li.active { background: var(--accent-soft); }
+  .clues li.done { color: var(--muted); text-decoration: line-through; }
+  .clues li .n { font-weight: 800; color: var(--accent); min-width: 22px; }
+  .clues li .len { color: var(--muted); font-size: 0.8rem; white-space: nowrap; }
+
+  .current { background: var(--accent-soft); border-radius: 8px; padding: 10px 12px; font-size: 0.92rem; margin-bottom: 12px; min-height: 42px; line-height: 1.45; }
+  .current b { color: var(--accent); }
+  .status { margin-top: 12px; padding: 10px 12px; border-radius: 8px; font-size: 0.92rem; display: none; }
+  .status.show { display: block; }
+  .status.ok { background: var(--ok-soft); color: var(--ok); }
+  .status.info { background: #fff6dc; color: #7a5b00; }
+  .status.bad { background: var(--bad-soft); color: var(--bad); }
+  .legend { font-size: 0.8rem; color: var(--muted); margin-top: 10px; }
+  .sr { position: absolute; left: -9999px; }
+  footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 28px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="back" href="/games/"><i class="fa-solid fa-arrow-left"></i> Επιστροφή στην κεντρική σελίδα</a>
+    <span class="school">Όμιλος Φυσικών Επιστημών · InclusiLab &nbsp;·&nbsp; <span id="other-club"></span></span>
+  </div>
+
+  <header class="hero" id="hero">
+    <h1><i class="fa-solid fa-table-cells"></i> Σταυρόλεξο Φυσικής &amp; Χημείας</h1>
+    <p id="hero-sub">Διάλεξε τάξη και μάθημα. Οι απαντήσεις γράφονται με κεφαλαία, χωρίς τόνους.</p>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Επιλογή σταυρόλεξου" id="tabs"></div>
+
+  <div class="panel">
+    <section class="board" aria-label="Πλέγμα σταυρόλεξου">
+      <div class="toolbar">
+        <button class="btn primary" id="btn-check"><i class="fa-solid fa-check"></i> Έλεγχος</button>
+        <button class="btn" id="btn-reveal-word"><i class="fa-solid fa-lightbulb"></i> Αποκάλυψη λέξης</button>
+        <button class="btn" id="btn-reveal-all"><i class="fa-solid fa-key"></i> Λύση</button>
+        <button class="btn" id="btn-clear"><i class="fa-solid fa-eraser"></i> Καθαρισμός</button>
+        <span class="progress" id="progress"></span>
+      </div>
+      <div class="current" id="current" aria-live="polite">Κάνε κλικ σε ένα κελί ή σε έναν ορισμό για να ξεκινήσεις.</div>
+      <div class="grid-scroll"><div class="grid" id="grid"></div></div>
+      <div class="status" id="status" role="status"></div>
+      <div class="legend">Πληκτρολόγησε το γράμμα και ο δείκτης προχωρά μόνος του. Κλικ στο ίδιο κελί δύο φορές αλλάζει κατεύθυνση (οριζόντια ↔ κάθετα). Backspace σβήνει, βελάκια μετακινούν.</div>
+    </section>
+
+    <aside class="clues" aria-label="Ορισμοί">
+      <h2><i class="fa-solid fa-arrow-right"></i> Οριζόντια</h2>
+      <ol id="clues-A"></ol>
+      <h2><i class="fa-solid fa-arrow-down"></i> Κάθετα</h2>
+      <ol id="clues-D"></ol>
+    </aside>
+  </div>
+
+  <footer>Όμιλος Φυσικών Επιστημών · Ημερήσιο InclusiLab Αιτωλοακαρνανίας · 2026–27</footer>
+</div>
+
+<script>
+const PUZZLES = {"fysiki-b":{"title":"Φυσική Β΄ Γυμνασίου","short":"Φυσική Β΄","color":"#0d47a1","color2":"#1976d2","intro":"Μετρήσεις, κίνηση, δυνάμεις, πίεση, ενέργεια, θερμότητα.","rows":14,"cols":14,"words":[{"answer":"ΕΝΕΡΓΕΙΑ","row":0,"col":5,"dir":"A","clue":"Η ικανότητα ενός σώματος να παράγει έργο· μονάδα το Joule.","num":2},{"answer":"ΤΖΑΟΥΛ","row":1,"col":0,"dir":"A","clue":"Η μονάδα μέτρησης της ενέργειας και του έργου.","num":3},{"answer":"ΘΕΡΜΟΚΡΑΣΙΑ","row":5,"col":3,"dir":"A","clue":"Μετριέται με θερμόμετρο σε βαθμούς Κελσίου.","num":7},{"answer":"ΒΡΑΣΜΟΣ","row":7,"col":0,"dir":"A","clue":"Έντονη εξαέρωση σε όλη τη μάζα του υγρού, σε σταθερή θερμοκρασία.","num":9},{"answer":"ΠΙΕΣΗ","row":7,"col":9,"dir":"A","clue":"Δύναμη ανά μονάδα επιφάνειας· μονάδα το Pascal.","num":10},{"answer":"ΠΥΚΝΟΤΗΤΑ","row":9,"col":1,"dir":"A","clue":"Μάζα ανά μονάδα όγκου (kg/m³).","num":12},{"answer":"ΠΑΣΚΑΛ","row":13,"col":1,"dir":"A","clue":"Η μονάδα της πίεσης — και η αρχή για τα υγρά σε κλειστά δοχεία.","num":14},{"answer":"ΒΑΡΟΣ","row":0,"col":2,"dir":"D","clue":"Η δύναμη με την οποία η Γη έλκει ένα σώμα.","num":1},{"answer":"ΕΛΑΤΗΡΙΟ","row":0,"col":5,"dir":"D","clue":"Παραμορφώνεται ανάλογα με τη δύναμη (νόμος Hooke)· βρίσκεται στο δυναμόμετρο.","num":2},{"answer":"ΤΡΙΒΗ","row":1,"col":0,"dir":"D","clue":"Δύναμη που αντιστέκεται στην ολίσθηση δύο επιφανειών.","num":3},{"answer":"ΕΡΓΟ","row":2,"col":7,"dir":"D","clue":"Δύναμη επί μετατόπιση — μεταφορά ενέργειας.","num":4},{"answer":"ΜΑΖΑ","row":2,"col":10,"dir":"D","clue":"Μέτρο της αδράνειας ενός σώματος· μονάδα το kg.","num":5},{"answer":"ΔΥΝΑΜΗ","row":2,"col":13,"dir":"D","clue":"Αιτία που μεταβάλλει την κίνηση ή παραμορφώνει ένα σώμα· μονάδα το Newton.","num":6},{"answer":"ΤΑΧΥΤΗΤΑ","row":6,"col":2,"dir":"D","clue":"Το πηλίκο της μετατόπισης προς τον χρόνο (m/s).","num":8},{"answer":"ΤΗΞΗ","row":8,"col":7,"dir":"D","clue":"Μετατροπή στερεού σε υγρό.","num":11},{"answer":"ΑΓΩΓΗ","row":9,"col":9,"dir":"D","clue":"Μετάδοση θερμότητας μέσα από τα στερεά, χωρίς μεταφορά ύλης.","num":13}]},"fysiki-g":{"title":"Φυσική Γ΄ Γυμνασίου","short":"Φυσική Γ΄","color":"#1a237e","color2":"#3949ab","intro":"Ηλεκτρισμός, ηλεκτρικό ρεύμα, ταλαντώσεις, κύματα, οπτική, πυρήνας.","rows":14,"cols":14,"words":[{"answer":"ΦΑΚΟΣ","row":1,"col":0,"dir":"A","clue":"Συγκλίνων ή αποκλίνων — υπάρχει στα γυαλιά και στο μάτι.","num":2},{"answer":"ΑΜΠΕΡ","row":2,"col":5,"dir":"A","clue":"Η μονάδα της έντασης του ηλεκτρικού ρεύματος.","num":4},{"answer":"ΗΛΕΚΤΡΟΝΙΟ","row":5,"col":3,"dir":"A","clue":"Αρνητικά φορτισμένο σωματίδιο που κινείται γύρω από τον πυρήνα.","num":10},{"answer":"ΗΧΟΣ","row":6,"col":0,"dir":"A","clue":"Μηχανικό κύμα που αντιλαμβανόμαστε με το αυτί.","num":11},{"answer":"ΚΥΜΑ","row":8,"col":2,"dir":"A","clue":"Διάδοση μιας διαταραχής που μεταφέρει ενέργεια, όχι ύλη.","num":12},{"answer":"ΤΑΣΗ","row":9,"col":10,"dir":"A","clue":"Διαφορά δυναμικού· μετριέται σε Volt.","num":14},{"answer":"ΑΝΤΙΣΤΑΣΗ","row":11,"col":3,"dir":"A","clue":"Η δυσκολία που προβάλλει ένας αγωγός στο ρεύμα· μονάδα το Ohm.","num":15},{"answer":"ΠΡΩΤΟΝΙΟ","row":13,"col":4,"dir":"A","clue":"Θετικά φορτισμένο σωματίδιο του πυρήνα.","num":16},{"answer":"ΜΟΝΩΤΗΣ","row":0,"col":3,"dir":"D","clue":"Υλικό που δεν επιτρέπει τη διέλευση του ρεύματος, π.χ. το πλαστικό.","num":1},{"answer":"ΩΜ","row":1,"col":6,"dir":"D","clue":"Η μονάδα της ηλεκτρικής αντίστασης.","num":3},{"answer":"ΠΛΑΤΟΣ","row":2,"col":7,"dir":"D","clue":"Η μέγιστη απομάκρυνση από τη θέση ισορροπίας.","num":5},{"answer":"ΠΥΡΗΝΑΣ","row":3,"col":0,"dir":"D","clue":"Το κέντρο του ατόμου με πρωτόνια και νετρόνια.","num":6},{"answer":"ΡΕΥΜΑ","row":4,"col":5,"dir":"D","clue":"Προσανατολισμένη κίνηση ηλεκτρονίων μέσα σε αγωγό.","num":7},{"answer":"ΒΟΛΤ","row":4,"col":9,"dir":"D","clue":"Η μονάδα της ηλεκτρικής τάσης.","num":8},{"answer":"ΔΙΑΘΛΑΣΗ","row":4,"col":11,"dir":"D","clue":"Αλλαγή πορείας του φωτός όταν περνά από αέρα σε νερό.","num":9},{"answer":"ΦΟΡΤΙΟ","row":8,"col":8,"dir":"D","clue":"Ιδιότητα της ύλης, θετικό ή αρνητικό· μονάδα το Coulomb.","num":13}]},"ximeia-b":{"title":"Χημεία Β΄ Γυμνασίου","short":"Χημεία Β΄","color":"#004d40","color2":"#00796b","intro":"Ύλη και μίγματα, νερό, ατμοσφαιρικός αέρας, έδαφος.","rows":14,"cols":14,"words":[{"answer":"ΗΛΕΚΤΡΟΛΥΣΗ","row":0,"col":3,"dir":"A","clue":"Διάσπαση του νερού σε υδρογόνο και οξυγόνο με ηλεκτρικό ρεύμα.","num":1},{"answer":"ΡΥΠΑΝΣΗ","row":2,"col":2,"dir":"A","clue":"Η επιβάρυνση του νερού, του αέρα ή του εδάφους με βλαβερές ουσίες.","num":3},{"answer":"ΔΙΑΛΥΜΑ","row":4,"col":2,"dir":"A","clue":"Ομογενές μίγμα διαλύτη και διαλυμένης ουσίας.","num":5},{"answer":"ΧΡΩΜΑΤΟΓΡΑΦΙΑ","row":6,"col":1,"dir":"A","clue":"Μέθοδος διαχωρισμού χρωστικών σε χαρτί — την κάναμε με μαρκαδόρους!","num":7},{"answer":"ΜΙΓΜΑ","row":9,"col":9,"dir":"A","clue":"Αποτελείται από δύο ή περισσότερες ουσίες που διατηρούν τις ιδιότητές τους.","num":11},{"answer":"ΟΖΟΝ","row":10,"col":3,"dir":"A","clue":"Η «ασπίδα» της ατμόσφαιρας από την υπεριώδη ακτινοβολία (O₃).","num":13},{"answer":"ΕΝΩΣΗ","row":11,"col":6,"dir":"A","clue":"Καθαρή ουσία από δύο ή περισσότερα διαφορετικά στοιχεία.","num":15},{"answer":"ΟΓΚΟΣ","row":12,"col":0,"dir":"A","clue":"Ο χώρος που καταλαμβάνει ένα σώμα· μετριέται σε λίτρα ή cm³.","num":16},{"answer":"ΟΞΥΓΟΝΟ","row":13,"col":6,"dir":"A","clue":"Αέριο απαραίτητο για την αναπνοή και την καύση (O₂).","num":17},{"answer":"ΣΤΟΙΧΕΙΟ","row":0,"col":12,"dir":"D","clue":"Ουσία που αποτελείται από ένα μόνο είδος ατόμων.","num":2},{"answer":"ΣΥΜΒΟΛΟ","row":2,"col":7,"dir":"D","clue":"Ένα ή δύο γράμματα που παριστάνουν ένα στοιχείο, π.χ. Fe.","num":4},{"answer":"ΕΞΑΤΜΙΣΗ","row":4,"col":10,"dir":"D","clue":"Αργή μετατροπή υγρού σε αέριο από την επιφάνειά του.","num":6},{"answer":"ΑΖΩΤΟ","row":6,"col":5,"dir":"D","clue":"Περίπου το 78% του ατμοσφαιρικού αέρα.","num":8},{"answer":"ΕΔΑΦΟΣ","row":8,"col":0,"dir":"D","clue":"Το ανώτερο στρώμα του φλοιού της Γης, όπου φυτρώνουν τα φυτά.","num":9},{"answer":"ΑΤΟΜΟ","row":8,"col":3,"dir":"D","clue":"Το μικρότερο σωματίδιο ενός στοιχείου.","num":10},{"answer":"ΜΟΡΙΟ","row":9,"col":12,"dir":"D","clue":"Αποτελείται από δύο ή περισσότερα ενωμένα άτομα.","num":12},{"answer":"ΝΕΡΟ","row":10,"col":6,"dir":"D","clue":"Η ένωση H₂O — ο «παγκόσμιος διαλύτης».","num":14}]},"ximeia-g":{"title":"Χημεία Γ΄ Γυμνασίου","short":"Χημεία Γ΄","color":"#1b5e20","color2":"#43a047","intro":"Οξέα, βάσεις, άλατα, περιοδικός πίνακας, άνθρακας και οργανικές ενώσεις.","rows":14,"cols":14,"words":[{"answer":"ΕΥΓΕΝΗ","row":0,"col":3,"dir":"A","clue":"Τα ___ αέρια: ήλιο, νέον, αργό — δεν αντιδρούν σχεδόν ποτέ.","num":1},{"answer":"ΜΕΤΑΛΛΟ","row":2,"col":7,"dir":"A","clue":"Στοιχείο με λάμψη που άγει τον ηλεκτρισμό, π.χ. ο σίδηρος.","num":4},{"answer":"ΕΞΟΥΔΕΤΕΡΩΣΗ","row":5,"col":0,"dir":"A","clue":"Αντίδραση οξέος με βάση που δίνει άλας και νερό.","num":9},{"answer":"ΙΟΝ","row":7,"col":6,"dir":"A","clue":"Άτομο ή ομάδα ατόμων με ηλεκτρικό φορτίο.","num":11},{"answer":"ΟΜΑΔΑ","row":9,"col":8,"dir":"A","clue":"Κατακόρυφη στήλη του περιοδικού πίνακα με στοιχεία παρόμοιων ιδιοτήτων.","num":13},{"answer":"ΑΜΜΩΝΙΑ","row":10,"col":1,"dir":"A","clue":"Βάση με χαρακτηριστική έντονη οσμή (NH₃).","num":15},{"answer":"ΞΙΔΙ","row":12,"col":1,"dir":"A","clue":"Υδατικό διάλυμα οξικού οξέος που βάζουμε στη σαλάτα.","num":16},{"answer":"ΧΛΩΡΙΟ","row":13,"col":8,"dir":"A","clue":"Αλογόνο με σύμβολο Cl· απολυμαίνει το νερό της πισίνας.","num":17},{"answer":"ΗΛΕΚΤΡΟΝΙΟ","row":0,"col":8,"dir":"D","clue":"Σωματίδιο που χάνει ή κερδίζει ένα άτομο για να γίνει ιόν.","num":2},{"answer":"ΠΟΛΥΜΕΡΗ","row":1,"col":13,"dir":"D","clue":"Τεράστια μόρια από επαναλαμβανόμενες μονάδες, π.χ. τα πλαστικά.","num":3},{"answer":"ΑΛΑΣ","row":2,"col":10,"dir":"D","clue":"Προϊόν της εξουδετέρωσης οξέος και βάσης.","num":5},{"answer":"ΟΞΕΙΔΙΟ","row":3,"col":0,"dir":"D","clue":"Ένωση ενός στοιχείου με οξυγόνο, π.χ. CO₂.","num":6},{"answer":"ΝΑΤΡΙΟ","row":3,"col":6,"dir":"D","clue":"Αλκάλιο με σύμβολο Na· στο μαγειρικό αλάτι.","num":7},{"answer":"ΥΔΡΟΧΛΩΡΙΟ","row":4,"col":4,"dir":"D","clue":"Το ισχυρό οξύ HCl — υπάρχει και στο στομάχι μας.","num":8},{"answer":"ΟΞΥ","row":5,"col":2,"dir":"D","clue":"Ουσία με ξινή γεύση που κοκκινίζει το μπλε της βρωμοθυμόλης· pH < 7.","num":10},{"answer":"ΒΑΣΗ","row":8,"col":10,"dir":"D","clue":"Ουσία με σαπωνοειδή υφή· pH > 7.","num":12},{"answer":"ΑΛΑΤΙ","row":9,"col":12,"dir":"D","clue":"Το χλωριούχο νάτριο της κουζίνας (NaCl).","num":14}]}};
+const ORDER = ['fysiki-b', 'fysiki-g', 'ximeia-b', 'ximeia-g'];
+
+// ── Greek normalisation: accents off, uppercase, final sigma → Σ ──
+function norm(ch) {
+  if (!ch) return '';
+  let s = ch.normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase();
+  s = s.replace('Σ', 'Σ').replace('ς', 'Σ');
+  const m = s.match(/[Α-Ω]/);
+  return m ? m[0] : '';
+}
+
+let cur = null;        // current puzzle key
+let P = null;          // puzzle data
+let cells = [];        // 2D array: {input, el, words:{A:idx,D:idx}, ch}
+let sel = { r: -1, c: -1, dir: 'A' };
+let solved = false;
+
+const $ = (id) => document.getElementById(id);
+const STORE = (k) => 'xword_' + k;
+
+function clubOf(k) { return k.startsWith('ximeia') ? 'chem' : 'physics'; }
+let CLUB = 'physics';
+function buildTabs() {
+  const t = $('tabs');
+  t.innerHTML = '';
+  const h = $('hero').querySelector('h1');
+  h.innerHTML = '<i class="fa-solid fa-table-cells"></i> ' + (CLUB === 'chem' ? 'Σταυρόλεξο Χημείας' : 'Σταυρόλεξο Φυσικής');
+  document.title = (CLUB === 'chem' ? 'Σταυρόλεξο Χημείας' : 'Σταυρόλεξο Φυσικής') + ' — Όμιλος Φυσικών Επιστημών Γουριάς';
+  $('other-club').innerHTML = CLUB === 'chem'
+    ? '<a href="#fysiki-b"><i class="fa-solid fa-atom"></i> Σταυρόλεξα Φυσικής</a>'
+    : '<a href="#ximeia-b"><i class="fa-solid fa-flask"></i> Σταυρόλεξα Χημείας</a>';
+  ORDER.filter(k => clubOf(k) === CLUB).forEach(k => {
+    const p = PUZZLES[k];
+    const b = document.createElement('button');
+    b.className = 'tab'; b.setAttribute('role', 'tab'); b.id = 'tab-' + k;
+    b.style.setProperty('--tab-color', p.color);
+    b.innerHTML = `<span class="dot"></span><span>${p.title}<small>${p.words.length} λέξεις · ${p.intro}</small></span>`;
+    b.addEventListener('click', () => load(k));
+    t.appendChild(b);
+  });
+}
+
+function load(k) {
+  if (clubOf(k) !== CLUB) { CLUB = clubOf(k); buildTabs(); }
+  cur = k; P = PUZZLES[k]; solved = false;
+  document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', b.id === 'tab-' + k ? 'true' : 'false'));
+  document.documentElement.style.setProperty('--accent', P.color);
+  document.documentElement.style.setProperty('--accent2', P.color2);
+  document.documentElement.style.setProperty('--accent-soft', 'color-mix(in srgb, ' + P.color + ' 12%, #fff)');
+  $('hero').style.background = `linear-gradient(135deg, ${P.color}, ${P.color2})`;
+  $('hero-sub').textContent = P.title + ' — ' + P.intro + ' Οι απαντήσεις γράφονται με κεφαλαία, χωρίς τόνους.';
+  try { location.hash = k; } catch (e) {}
+
+  // cells
+  cells = Array.from({ length: P.rows }, () => Array.from({ length: P.cols }, () => null));
+  P.words.forEach((w, idx) => {
+    for (let i = 0; i < w.answer.length; i++) {
+      const r = w.row + (w.dir === 'D' ? i : 0), c = w.col + (w.dir === 'A' ? i : 0);
+      if (!cells[r][c]) cells[r][c] = { ch: w.answer[i], words: {}, num: null };
+      cells[r][c].words[w.dir] = idx;
+      if (i === 0) cells[r][c].num = w.num;
+    }
+  });
+
+  // grid DOM
+  const g = $('grid');
+  g.innerHTML = '';
+  const size = Math.max(26, Math.min(44, Math.floor((Math.min(window.innerWidth, 1080) - 80) / P.cols)));
+  g.style.setProperty('--cell', size + 'px');
+  g.style.gridTemplateColumns = `repeat(${P.cols}, ${size}px)`;
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem(STORE(k)) || 'null'); } catch (e) {}
+  for (let r = 0; r < P.rows; r++) for (let c = 0; c < P.cols; c++) {
+    const d = document.createElement('div');
+    d.className = 'cell' + (cells[r][c] ? '' : ' block');
+    if (cells[r][c]) {
+      const inp = document.createElement('input');
+      inp.type = 'text'; inp.maxLength = 2; inp.autocomplete = 'off'; inp.autocapitalize = 'characters'; inp.spellcheck = false;
+      inp.setAttribute('aria-label', `Γραμμή ${r + 1}, στήλη ${c + 1}`);
+      inp.dataset.r = r; inp.dataset.c = c;
+      if (saved && saved[r] && saved[r][c]) inp.value = saved[r][c];
+      inp.addEventListener('focus', () => onFocus(r, c));
+      inp.addEventListener('mousedown', (e) => { if (sel.r === r && sel.c === c) { toggleDir(); e.preventDefault(); } });
+      inp.addEventListener('input', (e) => onInput(r, c, e));
+      inp.addEventListener('keydown', (e) => onKey(r, c, e));
+      d.appendChild(inp);
+      cells[r][c].input = inp; cells[r][c].el = d;
+      if (cells[r][c].num) { const n = document.createElement('span'); n.className = 'num'; n.textContent = cells[r][c].num; d.appendChild(n); }
+    }
+    g.appendChild(d);
+  }
+
+  // clues
+  ['A', 'D'].forEach(dir => {
+    const ol = $('clues-' + dir); ol.innerHTML = '';
+    P.words.forEach((w, idx) => {
+      if (w.dir !== dir) return;
+      const li = document.createElement('li'); li.id = 'clue-' + idx; li.tabIndex = 0;
+      li.innerHTML = `<span class="n">${w.num}.</span><span>${w.clue} <span class="len">(${w.answer.length})</span></span>`;
+      const go = () => { sel.dir = dir; focusCell(w.row, w.col); };
+      li.addEventListener('click', go);
+      li.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+      ol.appendChild(li);
+    });
+  });
+
+  sel = { r: -1, c: -1, dir: 'A' };
+  $('status').className = 'status';
+  $('current').textContent = 'Κάνε κλικ σε ένα κελί ή σε έναν ορισμό για να ξεκινήσεις.';
+  clearMarks(); refreshDone(); updateProgress();
+}
+
+function save() {
+  try {
+    const v = cells.map(row => row.map(x => x ? x.input.value : ''));
+    localStorage.setItem(STORE(cur), JSON.stringify(v));
+  } catch (e) {}
+}
+
+function wordCells(idx) {
+  const w = P.words[idx]; const out = [];
+  for (let i = 0; i < w.answer.length; i++) out.push(cells[w.row + (w.dir === 'D' ? i : 0)][w.col + (w.dir === 'A' ? i : 0)]);
+  return out;
+}
+function curWordIdx() {
+  const cell = cells[sel.r] && cells[sel.r][sel.c];
+  if (!cell) return -1;
+  if (cell.words[sel.dir] !== undefined) return cell.words[sel.dir];
+  const other = sel.dir === 'A' ? 'D' : 'A';
+  if (cell.words[other] !== undefined) { sel.dir = other; return cell.words[other]; }
+  return -1;
+}
+function highlight() {
+  document.querySelectorAll('.cell.hl, .cell.cur').forEach(e => e.classList.remove('hl', 'cur'));
+  document.querySelectorAll('.clues li.active').forEach(e => e.classList.remove('active'));
+  const idx = curWordIdx(); if (idx < 0) return;
+  wordCells(idx).forEach(x => x.el.classList.add('hl'));
+  cells[sel.r][sel.c].el.classList.add('cur');
+  const li = $('clue-' + idx); li.classList.add('active');
+  if (li.scrollIntoView) li.scrollIntoView({ block: 'nearest' });
+  const w = P.words[idx];
+  $('current').innerHTML = `<b>${w.num} ${w.dir === 'A' ? 'Οριζόντια' : 'Κάθετα'}</b> · ${w.clue} <span style="color:var(--muted)">(${w.answer.length} γράμματα)</span>`;
+}
+function onFocus(r, c) { sel.r = r; sel.c = c; highlight(); }
+function focusCell(r, c) { const x = cells[r] && cells[r][c]; if (x) { sel.r = r; sel.c = c; x.input.focus(); x.input.select(); highlight(); } }
+function toggleDir() {
+  const cell = cells[sel.r][sel.c]; const other = sel.dir === 'A' ? 'D' : 'A';
+  if (cell.words[other] !== undefined) sel.dir = other;
+  highlight();
+}
+function step(r, c, dir, back) {
+  const dr = dir === 'D' ? (back ? -1 : 1) : 0, dc = dir === 'A' ? (back ? -1 : 1) : 0;
+  const nr = r + dr, nc = c + dc;
+  if (cells[nr] && cells[nr][nc]) return [nr, nc];
+  return null;
+}
+function onInput(r, c, e) {
+  const inp = cells[r][c].input;
+  const ch = norm(inp.value.slice(-1)) || norm(inp.value);
+  inp.value = ch;
+  inp.parentElement.classList.remove('ok', 'bad');
+  save(); refreshDone(); updateProgress();
+  if (ch) {
+    const idx = curWordIdx();
+    const n = step(r, c, sel.dir, false);
+    if (n && idx >= 0) {
+      // stay inside the current word
+      const w = P.words[idx];
+      const inWord = sel.dir === 'A' ? (n[1] < w.col + w.answer.length) : (n[0] < w.row + w.answer.length);
+      if (inWord) focusCell(n[0], n[1]);
+    }
+    checkSolved();
+  }
+}
+function onKey(r, c, e) {
+  const k = e.key;
+  if (k === 'Backspace') {
+    const inp = cells[r][c].input;
+    if (inp.value) { inp.value = ''; inp.parentElement.classList.remove('ok', 'bad'); save(); refreshDone(); updateProgress(); }
+    else { const n = step(r, c, sel.dir, true); if (n) { focusCell(n[0], n[1]); cells[n[0]][n[1]].input.value = ''; cells[n[0]][n[1]].el.classList.remove('ok', 'bad'); save(); refreshDone(); updateProgress(); } }
+    e.preventDefault(); return;
+  }
+  const arrows = { ArrowRight: [0, 1, 'A'], ArrowLeft: [0, -1, 'A'], ArrowDown: [1, 0, 'D'], ArrowUp: [-1, 0, 'D'] };
+  if (arrows[k]) {
+    e.preventDefault();
+    const [dr, dc, d] = arrows[k];
+    if (sel.dir !== d && cells[r][c].words[d] !== undefined) { sel.dir = d; highlight(); return; }
+    let nr = r + dr, nc = c + dc;
+    while (nr >= 0 && nc >= 0 && nr < P.rows && nc < P.cols) { if (cells[nr][nc]) { focusCell(nr, nc); return; } nr += dr; nc += dc; }
+    return;
+  }
+  if (k === 'Tab') {
+    e.preventDefault();
+    const idx = curWordIdx(); const n = P.words.length;
+    const next = idx < 0 ? 0 : (idx + (e.shiftKey ? n - 1 : 1)) % n;
+    const w = P.words[next]; sel.dir = w.dir; focusCell(w.row, w.col); return;
+  }
+  if (k === ' ') { e.preventDefault(); toggleDir(); return; }
+  if (k === 'Delete') { cells[r][c].input.value = ''; cells[r][c].el.classList.remove('ok', 'bad'); save(); refreshDone(); updateProgress(); e.preventDefault(); }
+}
+
+function wordCorrect(idx) { return wordCells(idx).every(x => x.input.value === x.ch); }
+function wordFilled(idx) { return wordCells(idx).every(x => x.input.value); }
+function refreshDone() { P.words.forEach((w, i) => $('clue-' + i).classList.toggle('done', wordCorrect(i))); }
+function updateProgress() {
+  const ok = P.words.filter((w, i) => wordCorrect(i)).length;
+  $('progress').innerHTML = `<b>${ok}</b> / ${P.words.length} λέξεις`;
+}
+function clearMarks() { document.querySelectorAll('.cell.ok, .cell.bad').forEach(e => e.classList.remove('ok', 'bad')); }
+function setStatus(kind, html) { const s = $('status'); s.className = 'status show ' + kind; s.innerHTML = html; }
+
+function checkSolved() {
+  if (solved) return;
+  if (P.words.every((w, i) => wordCorrect(i))) {
+    solved = true;
+    setStatus('ok', `<i class="fa-solid fa-trophy"></i> <b>Μπράβο!</b> Έλυσες το σταυρόλεξο «${P.title}» — και τις ${P.words.length} λέξεις. Δοκίμασε και τα υπόλοιπα!`);
+    document.querySelectorAll('.cell input').forEach(i => i.parentElement.classList.add('ok'));
+  }
+}
+
+$('btn-check').addEventListener('click', () => {
+  clearMarks();
+  let wrong = 0, filled = 0;
+  cells.flat().forEach(x => { if (!x) return; if (x.input.value) { filled++; x.el.classList.add(x.input.value === x.ch ? 'ok' : 'bad'); if (x.input.value !== x.ch) wrong++; } });
+  const total = cells.flat().filter(Boolean).length;
+  if (filled === 0) setStatus('info', 'Δεν έχεις γράψει ακόμα κάποιο γράμμα.');
+  else if (wrong === 0 && filled === total) { checkSolved(); }
+  else if (wrong === 0) setStatus('info', `Όλα τα γράμματα που έγραψες είναι σωστά! Μένουν ${total - filled} κελιά.`);
+  else setStatus('bad', `<b>${wrong}</b> λάθος ${wrong === 1 ? 'γράμμα' : 'γράμματα'} (κόκκινα). Τα πράσινα είναι σωστά — συνέχισε!`);
+});
+$('btn-reveal-word').addEventListener('click', () => {
+  const idx = curWordIdx();
+  if (idx < 0) { setStatus('info', 'Διάλεξε πρώτα μια λέξη (κλικ σε κελί ή ορισμό).'); return; }
+  wordCells(idx).forEach(x => { x.input.value = x.ch; x.el.classList.remove('bad'); x.el.classList.add('ok'); });
+  save(); refreshDone(); updateProgress(); checkSolved();
+});
+let confirmAll = false;
+$('btn-reveal-all').addEventListener('click', () => {
+  if (!confirmAll) { confirmAll = true; setStatus('info', 'Σίγουρα; Πάτησε ξανά «Λύση» για να εμφανιστούν όλες οι απαντήσεις.'); setTimeout(() => confirmAll = false, 4000); return; }
+  confirmAll = false;
+  cells.flat().forEach(x => { if (x) { x.input.value = x.ch; x.el.classList.remove('bad'); x.el.classList.add('ok'); } });
+  save(); refreshDone(); updateProgress();
+  setStatus('info', 'Εμφανίστηκε η λύση. Πάτησε «Καθαρισμός» για να ξαναπροσπαθήσεις από την αρχή.');
+});
+$('btn-clear').addEventListener('click', () => {
+  cells.flat().forEach(x => { if (x) x.input.value = ''; });
+  clearMarks(); solved = false; save(); refreshDone(); updateProgress();
+  setStatus('info', 'Το πλέγμα καθαρίστηκε. Καλή επιτυχία!');
+});
+
+const start = (location.hash || '').replace('#', '');
+const startKey = PUZZLES[start] ? start : ORDER[0];
+CLUB = clubOf(startKey);
+buildTabs();
+load(startKey);
+window.addEventListener('hashchange', () => { const k = (location.hash || '').replace('#', ''); if (PUZZLES[k] && k !== cur) load(k); });
+window.addEventListener('resize', () => { const g = $('grid'); const size = Math.max(26, Math.min(44, Math.floor((Math.min(window.innerWidth, 1080) - 80) / P.cols))); g.style.setProperty('--cell', size + 'px'); g.style.gridTemplateColumns = `repeat(${P.cols}, ${size}px)`; });
+</script>
+</body>
+</html>

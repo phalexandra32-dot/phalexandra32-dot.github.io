@@ -1,0 +1,379 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+---
+
+<ArticleLayout
+  title="Ομαδικά Πρότζεκτ & Κατασκευές"
+  eyebrow="Εφαρμοσμένη Επιστήμη"
+  description="Ερευνητικά πρότζεκτ Φυσικής και Χημείας για ομαδική εργασία, με βήματα υλοποίησης και κατασκευές χαμηλού κόστους."
+  heroIcon="🚀"
+>
+
+  <!-- PROJECTS SECTION -->
+  <section class="section-block">
+    <h2 class="section-heading physics-heading">
+      ⚛️ Πρότζεκτ Φυσικής
+    </h2>
+    <p class="section-desc">Ερευνητικά θέματα για ομαδική εργασία — Β' &amp; Γ' Γυμνασίου</p>
+
+    <div class="projects-grid">
+
+      <article class="project-card physics-card">
+        <div class="project-meta">🛩️ Β' Γυμνάσιο · Μηχανική &amp; Αεροδυναμική</div>
+        <h3>Πώς Πετάει ένα Μαχητικό Αεροπλάνο;</h3>
+        <p>Μελέτη αεροδυναμικών δυνάμεων: άντωση, αντίσταση, ώθηση. Προσομοίωση στο PhET «Forces &amp; Motion» και κατασκευή χάρτινου μοντέλου φτερού (αεροτομή).</p>
+        <ol class="project-steps">
+          <li>PhET — Δυνάμεις και Κίνηση</li>
+          <li>Κατασκευή αεροτομής από χαρτόνι</li>
+          <li>Μέτρηση άντωσης με ανεμιστήρα</li>
+          <li>Παρουσίαση με poster ή slides</li>
+        </ol>
+      </article>
+
+      <article class="project-card physics-card">
+        <div class="project-meta">🚗 Β' Γυμνάσιο · Νόμοι Newton</div>
+        <h3>Φυσική της F1: Δυνάμεις στο Αυτοκίνητο</h3>
+        <p>Εφαρμογή 2ου Νόμου Newton σε αγωνιστικό αυτοκίνητο. Μελέτη τριβής, φρεναρίσματος και αεροδυναμικής πτέρυγας. Προσομοίωση τροχιάς με phyphox.</p>
+        <ol class="project-steps">
+          <li>Υπολογισμός επιτάχυνσης F1 (600hp)</li>
+          <li>phyphox — μέτρηση επιτάχυνσης στο δρόμο</li>
+          <li>Σύγκριση με θεωρητικές τιμές</li>
+          <li>Παρουσίαση &amp; infographic</li>
+        </ol>
+      </article>
+
+      <article class="project-card physics-card">
+        <div class="project-meta">⚡ Γ' Γυμνάσιο · Ηλεκτρισμός</div>
+        <h3>Ηλεκτρισμός στην Καθημερινή Ζωή: Έξυπνο Σπίτι</h3>
+        <p>Σχεδιασμός ηλεκτρικού κυκλώματος για «έξυπνο δωμάτιο». Χρήση PhET Circuit Construction Kit, υπολογισμός κατανάλωσης ενέργειας και κόστους.</p>
+        <ol class="project-steps">
+          <li>PhET Circuit Construction Kit</li>
+          <li>Σχεδιασμός κυκλώματος δωματίου</li>
+          <li>Μέτρηση watt, υπολογισμός λογαριασμού</li>
+          <li>Πρόταση εξοικονόμησης ενέργειας</li>
+        </ol>
+      </article>
+
+      <article class="project-card physics-card">
+        <div class="project-meta">🔊 Γ' Γυμνάσιο · Κύματα &amp; Ήχος</div>
+        <h3>Ακουστική: Από τον Ηχείο στην Κιθάρα</h3>
+        <p>Εξερεύνηση ηχητικών κυμάτων, συχνοτήτων και ηχητικής ρύπανσης. Χρήση phyphox για ανάλυση φάσματος ήχου και PhET Wave on a String.</p>
+        <ol class="project-steps">
+          <li>phyphox — καταγραφή φάσματος ήχου</li>
+          <li>PhET Waves — διαφορά εγκάρσιων/διαμήκων</li>
+          <li>Κατασκευή μουσικού οργάνου (φιαλίδια νερού)</li>
+          <li>Παρουσίαση με live demo</li>
+        </ol>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- CHEMISTRY PROJECTS -->
+  <section class="section-block">
+    <h2 class="section-heading chem-heading">
+      🧪 Πρότζεκτ Χημείας
+    </h2>
+    <p class="section-desc">Ερευνητικά θέματα για ομαδική εργασία — Β' &amp; Γ' Γυμνασίου</p>
+
+    <div class="projects-grid">
+
+      <article class="project-card chem-card">
+        <div class="project-meta">🔥 Β' Γυμνάσιο · Χημικές Αντιδράσεις</div>
+        <h3>Χημεία της Καύσης: Τι Καίει ο Κινητήρας;</h3>
+        <p>Μελέτη χημικής αντίδρασης καύσης βενζίνης/αιθανόλης. Σύγκριση ηλεκτρικού κινητήρα vs κινητήρα εσωτερικής καύσης. Εικονικό εργαστήριο ChemLibre.</p>
+        <ol class="project-steps">
+          <li>Εξίσωση καύσης οκτανίου (C₈H₁₈)</li>
+          <li>Υπολογισμός CO₂ ανά km</li>
+          <li>Σύγκριση με ηλεκτρικό όχημα</li>
+          <li>Αφίσα για κλιματική αλλαγή</li>
+        </ol>
+      </article>
+
+      <article class="project-card chem-card">
+        <div class="project-meta">🧪 Β' Γυμνάσιο · Οξέα &amp; Βάσεις</div>
+        <h3>Δείκτες pH στη Φύση: Χρωματομετρία</h3>
+        <p>Παρασκευή φυσικών δεικτών pH από παντζάρι, λάχανο, ανθό. Εικονικό εργαστήριο PhET Acid-Base Solutions. Μέτρηση pH καθημερινών υγρών.</p>
+        <ol class="project-steps">
+          <li>PhET Acid-Base Solutions</li>
+          <li>Παρασκευή δείκτη από κόκκινο λάχανο</li>
+          <li>Μέτρηση pH: καφές, χυμός, σαπούνι</li>
+          <li>Παρουσίαση με πίνακα αποτελεσμάτων</li>
+        </ol>
+      </article>
+
+      <article class="project-card chem-card">
+        <div class="project-meta">⚗️ Γ' Γυμνάσιο · Περιοδικός Πίνακας</div>
+        <h3>Τα Στοιχεία Γύρω μας: Interactive Periodic Table</h3>
+        <p>Εξερεύνηση 20 στοιχείων με πρακτικές εφαρμογές (Fe στα αυτοκίνητα, Al στα αεροπλάνα, Li στις μπαταρίες). Δημιουργία infographic περιοδικού πίνακα.</p>
+        <ol class="project-steps">
+          <li>ptable.com — διαδραστικός πίνακας</li>
+          <li>Κάθε ομάδα αναλαμβάνει 5 στοιχεία</li>
+          <li>Εύρεση εφαρμογών στη βιομηχανία</li>
+          <li>Κατασκευή αφίσας ή digital poster</li>
+        </ol>
+      </article>
+
+      <article class="project-card chem-card">
+        <div class="project-meta">🌍 Γ' Γυμνάσιο · Χημεία Περιβάλλοντος</div>
+        <h3>Ατμοσφαιρική Ρύπανση &amp; Τρύπα Όζοντος</h3>
+        <p>Χημεία της ατμόσφαιρας, φαινόμενο θερμοκηπίου, καταλυτικός μετατροπέας αυτοκινήτου. Εικονικό εργαστήριο με δεδομένα CO₂ NASA.</p>
+        <ol class="project-steps">
+          <li>Γράφημα CO₂ από NASA Mauna Loa</li>
+          <li>Χημεία: πώς δουλεύει το καταλυτικό</li>
+          <li>Πρόταση για μείωση εκπομπών σχολείου</li>
+          <li>Παρουσίαση — «Το Σχολείο μας &amp; το Κλίμα»</li>
+        </ol>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- CONSTRUCTIONS -->
+  <section class="section-block">
+    <h2 class="section-heading make-heading">
+      🔧 Κατασκευές — Φτιάξε τη δική σου!
+    </h2>
+    <p class="section-desc">Πρακτικές κατασκευές με φθηνά υλικά που εξηγούν αρχές φυσικής και χημείας</p>
+
+    <div class="makes-grid">
+
+      <article class="make-card">
+        <div class="make-header">
+          <span class="make-icon">📻</span>
+          <div>
+            <h3>FM Κεραία Λήψης</h3>
+            <span class="difficulty medium">Μέτρια Δυσκολία</span>
+          </div>
+        </div>
+        <p>Κατασκευή κεραίας διπλού τετάρτου κύματος από χαλκόσυρμα. Σύνδεση με ραδιόφωνο και συντονισμός στα 88–108 MHz.</p>
+        <div class="materials">
+          <strong>Υλικά:</strong> χαλκόσυρμα 1.5mm, ταινία, σύνδεσμος IEC/F, ραδιόφωνο
+        </div>
+        <div class="theory-box">
+          <strong>📚 Θεωρία:</strong> Τα ραδιοκύματα FM είναι ηλεκτρομαγνητικά κύματα (88–108 MHz).
+          Η σχέση μήκους κύματος-συχνότητας: <strong>λ = c/f</strong> (c=3×10⁸ m/s).
+          Για 100 MHz: λ = 3m, άρα κάθε στοιχείο της κεραίας = λ/4 = <strong>75 cm</strong>.
+        </div>
+        <ol class="make-steps">
+          <li>Υπολόγισε το μήκος στοιχείου: <strong>75m / f(MHz)</strong></li>
+          <li>Κόψε 2 κομμάτια χαλκόσυρμα ίδιου μήκους (π.χ. 75cm για 100 MHz)</li>
+          <li>Σύνδεσε τα δύο άκρα στον σύνδεσμο IEC σε αντίθετες ακίδες</li>
+          <li>Άπλωσε τα δύο στοιχεία σε ευθεία γραμμή (ανεστραμμένο T)</li>
+          <li>Σύνδεσε τον σύνδεσμο στο ραδιόφωνο και συντονίσου</li>
+          <li>Πειραματίσου με προσανατολισμό — βρες τη θέση με το δυνατότερο σήμα!</li>
+        </ol>
+      </article>
+
+      <article class="make-card">
+        <div class="make-header">
+          <span class="make-icon">🍋</span>
+          <div>
+            <h3>Ηλεκτρογεννήτρια Λεμονιού</h3>
+            <span class="difficulty easy">Εύκολη</span>
+          </div>
+        </div>
+        <p>Χρησιμοποίησε 4 λεμόνια για να ανάψεις ένα LED! Ψευδάργυρος (γαλβανισμένο καρφί) ως άνοδος και χαλκός ως κάθοδος σε κάθε κύτταρο.</p>
+        <div class="materials">
+          <strong>Υλικά:</strong> 4 λεμόνια, 4 γαλβανισμένα καρφιά (Zn), σύρμα χαλκού (Cu), 1 LED, καλώδια
+        </div>
+        <div class="theory-box">
+          <strong>📚 Θεωρία:</strong> Το λεμόνι λειτουργεί ως <strong>γαλβανικό στοιχείο</strong>.
+          Ο Zn οξειδώνεται: <strong>Zn → Zn²⁺ + 2e⁻</strong>.
+          Κάθε κύτταρο παράγει ~0.9V — με 4 σε σειρά: ~3.6V, αρκετό για LED (~2–3V)!
+        </div>
+        <ol class="make-steps">
+          <li>Σφίξε ελαφρά τα λεμόνια για να βγει ο χυμός (ηλεκτρολύτης)</li>
+          <li>Σε κάθε λεμόνι: χώσε ένα γαλβανισμένο καρφί (Zn) και χαλκόσυρμα (Cu)</li>
+          <li>Σύνδεσε τα 4 λεμόνια σε σειρά: Cu του 1ου → Zn του 2ου κ.ο.κ.</li>
+          <li>Σύνδεσε το LED στα ελεύθερα άκρα (+ στον Cu, – στον Zn)</li>
+          <li>Μέτρησε με πολύμετρο την τάση κάθε κυττάρου</li>
+          <li>Δοκίμασε: τι γίνεται αν αντικαταστήσεις ξίδι ή cola αντί λεμονιού;</li>
+        </ol>
+      </article>
+
+      <article class="make-card">
+        <div class="make-header">
+          <span class="make-icon">☀️</span>
+          <div>
+            <h3>Ηλιακός Θερμαντήρας Νερού</h3>
+            <span class="difficulty medium">Μέτρια Δυσκολία</span>
+          </div>
+        </div>
+        <p>Κατασκευή απλού ηλιακού συλλέκτη με μαύρο σωλήνα και κουτί στυρόφομ με αλουμινόχαρτο. Μέτρηση θερμοκρασίας εισόδου/εξόδου.</p>
+        <div class="materials">
+          <strong>Υλικά:</strong> μαύρος σωλήνας κήπου (5–10m), κουτί styrofoam, αλουμινόχαρτο, μεμβράνη, 2 θερμόμετρα
+        </div>
+        <div class="theory-box">
+          <strong>📚 Θεωρία:</strong> Ο Ήλιος στέλνει ~1000 W/m² στην επιφάνεια.
+          Τα <strong>μαύρα σώματα</strong> απορροφούν ακτινοβολία σχεδόν πλήρως (ε≈0.95).
+          Υπολογισμός ισχύος: <strong>P = m × c × ΔΤ / t</strong> (c νερού = 4.18 J/g·°C).
+        </div>
+        <ol class="make-steps">
+          <li>Κάλυψε εσωτερικά το κουτί styrofoam με αλουμινόχαρτο</li>
+          <li>Τυλίξε τον μαύρο σωλήνα σε σπείρα μέσα στο κουτί</li>
+          <li>Κάλυψε το κουτί με διαφανή μεμβράνη αεροστεγώς</li>
+          <li>Στρέψε τον συλλέκτη προς τον Ήλιο υπό γωνία 30–45°</li>
+          <li>Μέτρησε θερμοκρασία εισόδου και εξόδου μετά από 30'</li>
+          <li>Υπολόγισε ισχύ: P = m × c × ΔΤ / t</li>
+        </ol>
+      </article>
+
+    </div>
+  </section>
+
+</ArticleLayout>
+
+<style>
+  .section-block {
+    margin-bottom: 3rem;
+  }
+
+  .section-heading {
+    font-size: 1.3rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid;
+    margin-bottom: 0.4rem;
+  }
+
+  .physics-heading { color: #0d47a1; border-color: #0d47a1; }
+  .chem-heading    { color: #004d40; border-color: #00796b; }
+  .make-heading    { color: #bf360c; border-color: #bf360c; }
+
+  .section-desc {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 1.2rem;
+  }
+
+  /* Project cards */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .project-card {
+    border-radius: 0 10px 10px 0;
+    padding: 1.1rem 1.2rem;
+    border-left: 5px solid;
+  }
+
+  .physics-card { border-color: #0d47a1; background: #f3f7ff; }
+  .chem-card    { border-color: #00796b; background: #f0faf8; }
+
+  .project-meta {
+    font-size: 0.8rem;
+    color: #777;
+    margin-bottom: 0.4rem;
+  }
+
+  .project-card h3 {
+    font-size: 1.05rem;
+    margin: 0 0 0.5rem;
+    color: #1a1a1a;
+  }
+
+  .physics-card h3 { color: #0d47a1; }
+  .chem-card h3    { color: #004d40; }
+
+  .project-card p {
+    font-size: 0.93rem;
+    color: #444;
+    line-height: 1.65;
+    margin-bottom: 0.6rem;
+  }
+
+  .project-steps {
+    margin: 0;
+    padding-left: 1.2rem;
+    font-size: 0.88rem;
+    color: #555;
+  }
+
+  .project-steps li { margin-bottom: 2px; }
+
+  /* Constructions */
+  .makes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .make-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 1.25rem;
+    background: #fdf8f4;
+  }
+
+  .make-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .make-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .make-card h3 {
+    font-size: 1.05rem;
+    margin: 0 0 0.2rem;
+    color: #bf360c;
+  }
+
+  .difficulty {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+
+  .easy   { background: #e8f5e9; color: #2e7d32; }
+  .medium { background: #fff3e0; color: #e65100; }
+
+  .make-card p {
+    font-size: 0.93rem;
+    color: #444;
+    line-height: 1.65;
+    margin-bottom: 0.6rem;
+  }
+
+  .materials {
+    font-size: 0.85rem;
+    color: #555;
+    background: #f5f5f5;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+  }
+
+  .theory-box {
+    font-size: 0.88rem;
+    background: #fffde7;
+    border-left: 3px solid #f9a825;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 0.75rem;
+    line-height: 1.65;
+  }
+
+  .make-steps {
+    margin: 0;
+    padding-left: 1.2rem;
+    font-size: 0.88rem;
+    color: #444;
+  }
+
+  .make-steps li { margin-bottom: 3px; }
+
+  @media (max-width: 600px) {
+    .projects-grid,
+    .makes-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
