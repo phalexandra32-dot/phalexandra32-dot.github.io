@@ -5,18 +5,44 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
 <ArticleLayout
   title="Παιχνίδια & Σταυρόλεξα"
   eyebrow="Διαδραστική Μάθηση"
-  description="Quiz γνώσεων Φυσικής & Χημείας και διαδραστικά σταυρόλεξα — μάθε παίζοντας!"
+  description="Ο Λαβύρινθος του Μινώταυρου, quiz γνώσεων Φυσικής & Χημείας και διαδραστικά σταυρόλεξα — μάθε παίζοντας!"
   heroIcon="🎮"
 >
   <section class="games-intro">
     <p>
       Δοκίμασε τις γνώσεις σου με διαδραστικά παιχνίδια φυσικής και χημείας.
-      Από quiz στυλ «Ποιος θέλει να γίνει εκατομμυριούχος» μέχρι σταυρόλεξα
-      με επιστημονικούς όρους — μάθηση που μοιάζει με παιχνίδι!
+      Από την περιπέτεια του Θησέα στον Λαβύρινθο και quiz στυλ «Ποιος θέλει
+      να γίνει εκατομμυριούχος» μέχρι σταυρόλεξα με επιστημονικούς όρους —
+      μάθηση που μοιάζει με παιχνίδι!
     </p>
   </section>
 
   <section class="games-grid">
+
+    <!-- Ο Λαβύρινθος του Μινώταυρου -->
+    <div class="game-card labyrinth">
+      <div class="game-icon">🏛️</div>
+      <div class="game-body">
+        <span class="game-tag">Φυσική &amp; Χημεία · Β' &amp; Γ' Γυμνασίου</span>
+        <h2>Ο Λαβύρινθος του Μινώταυρου</h2>
+        <p>
+          Γίνε ο Θησέας! Πέρασε 5 αίθουσες του Λαβυρίνθου λύνοντας γρίφους του
+          Μίνωα, κρυπτόλεξα και ακροστιχίδες, με οδηγό τον μίτο της Αριάδνης.
+          Μάζεψε χρυσά νομίσματα και διπλούς πελέκεις και νίκησε τον Μινώταυρο
+          σε μονομαχία γνώσεων!
+        </p>
+        <div class="game-meta">
+          <span>⏱ ~40 λεπτά</span>
+          <span>🗝️ 5 επίπεδα + μονομαχία</span>
+          <span>🪙 Coins &amp; 🪓 πελέκεις</span>
+          <span>💾 Αποθήκευση</span>
+          <span>📲 Εγκαθίσταται σαν εφαρμογή</span>
+        </div>
+        <a href="/games/labyrinthos/" class="btn btn-labyrinth">
+          🏛️ Μπες στον Λαβύρινθο!
+        </a>
+      </div>
+    </div>
 
     <!-- Quiz Φυσικής -->
     <div class="game-card physics">
@@ -90,7 +116,10 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
         <strong>Πρόσβαση για όλους</strong>
         <p>
           Τα παιχνίδια είναι σχεδιασμένα για χρήση σε tablet, υπολογιστή ή
-          κινητό. Δεν απαιτείται εγγραφή ή σύνδεση.
+          κινητό. Δεν απαιτείται εγγραφή ή σύνδεση. Ο Λαβύρινθος παίζεται και
+          στον διαδραστικό πίνακα ή μόνο με το πληκτρολόγιο, έχει κουμπί για
+          μεγαλύτερα γράμματα και, όπου η συσκευή διαθέτει ελληνική φωνή,
+          διαβάζει τους γρίφους φωναχτά.
         </p>
       </div>
     </div>
@@ -127,6 +156,7 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
     box-shadow: 0 6px 20px rgba(0,0,0,0.12);
   }
 
+  .game-card.labyrinth { border-top: 5px solid #a3231d; }
   .game-card.physics  { border-top: 5px solid #0d47a1; }
   .game-card.chemistry { border-top: 5px solid #00796b; }
   .game-card.crossword { border-top: 5px solid #6a1b9a; }
@@ -189,6 +219,7 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
 
   .btn:hover { opacity: 0.88; transform: translateY(-1px); }
 
+  .btn-labyrinth { background: #a3231d; color: #fff; }
   .btn-physics  { background: #0d47a1; color: #fff; }
   .btn-chemistry { background: #00796b; color: #fff; }
   .btn-crossword { background: #6a1b9a; color: #fff; }
