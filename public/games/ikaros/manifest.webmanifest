@@ -1,0 +1,19 @@
+{
+  "name": "Ο Δαίδαλος και ο Ίκαρος",
+  "short_name": "Ίκαρος",
+  "description": "Η απόδραση από τον ουρανό: παιχνίδι Φυσικής για το Γυμνάσιο με γρίφους, κρυπτόλεξα και ακροστιχίδες. Φτιάξε ασφαλή φτερά και βρες τη σωστή διαδρομή.",
+  "lang": "el",
+  "dir": "ltr",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0a1728",
+  "theme_color": "#06101d",
+  "categories": ["education", "games", "kids"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

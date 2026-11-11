@@ -1,0 +1,2115 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ο Δαίδαλος και ο Ίκαρος – Η απόδραση από τον ουρανό — InclusiLab</title>
+<meta name="description" content="Βοήθησε τον Ίκαρο να φτιάξει ασφαλή φτερά και να βρει τη σωστή διαδρομή για την απόδραση! Γρίφοι, κρυπτόλεξα και ακροστιχίδες Φυσικής: δυνάμεις, βαρύτητα, πτήση, θερμότητα, ενέργεια. Παίζεται δωρεάν, χωρίς εγγραφή, σε κινητό, tablet και υπολογιστή.">
+<link rel="canonical" href="https://phalexandra32-dot.github.io/games/ikaros/">
+
+<!-- Εφαρμογή: εγκατάσταση στην οθόνη της συσκευής -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#06101d">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Ίκαρος">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<!-- Κάρτα προεπισκόπησης όταν ο σύνδεσμος κοινοποιείται (Facebook, Messenger, Viber κ.ά.) -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="el_GR">
+<meta property="og:site_name" content="InclusiLab">
+<meta property="og:title" content="Ο Δαίδαλος και ο Ίκαρος – Η απόδραση από τον ουρανό · παιχνίδι Φυσικής">
+<meta property="og:description" content="Βοήθησε τον Ίκαρο να φτιάξει ασφαλή φτερά και να βρει τη σωστή διαδρομή για την απόδραση! Γρίφοι, κρυπτόλεξα και ακροστιχίδες Φυσικής: δυνάμεις, βαρύτητα, πτήση, θερμότητα, ενέργεια. Παίζεται δωρεάν, χωρίς εγγραφή, σε κινητό, tablet και υπολογιστή.">
+<meta property="og:url" content="https://phalexandra32-dot.github.io/games/ikaros/">
+<meta property="og:image" content="https://phalexandra32-dot.github.io/games/ikaros/share.jpg">
+<meta property="og:image:secure_url" content="https://phalexandra32-dot.github.io/games/ikaros/share.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ο Δαίδαλος και ο Ίκαρος – Η απόδραση από τον ουρανό: το σχέδιο των φτερών στο εργαστήριο του Δαίδαλου και οι ήρωες Δαίδαλος, Ίκαρος και Ήλιος.">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+/* ───────── Tokens ───────── */
+:root{
+  --night:#0a1728; --stone:#12294a; --stone-2:#24446f;
+  --cream:#f6ecd6; --cream-2:#ecdcb8; --paper:#fffaf0; --line:#cdb78a;
+  --ink:#2b1a12; --ink-2:#5a4334;
+  --prim:#c2410c; --prim-dark:#9a3412;
+  --gold:#e3b23c; --gold-dark:#b88714; --gold-deep:#8a6410;
+  --blue:#1f6f8b; --blue-dark:#15526a;
+  --ok:#1e7a4d; --ok-bg:#dff3e6; --bad:#a3231d; --bad-bg:#fbe3e0;
+  --font-body:"Segoe UI",system-ui,-apple-system,Roboto,"Noto Sans",Arial,sans-serif;
+  --font-head:Georgia,"Palatino Linotype","Noto Serif","Times New Roman",serif;
+  --waves:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12' viewBox='0 0 24 12'%3E%3Cpath d='M0 8.500q3-5 6 0t6 0 6 0 6 0' fill='none' stroke='%23e3b23c' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{font-size:17px;-webkit-text-size-adjust:100%;color-scheme:dark}
+html.big{font-size:20.5px}
+body{margin:0;min-height:100vh;background:var(--night);color:var(--cream);font-family:var(--font-body);font-size:1rem;line-height:1.55;
+  background-image:radial-gradient(1100px 520px at 50% -8%,#1c4f85 0%,rgba(28,79,133,0) 70%)}
+h1,h2,h3{font-family:var(--font-head);line-height:1.2;margin:0}
+p{margin:0 0 .7rem}
+button{font:inherit}
+svg{display:block}
+:focus-visible{outline:3px solid #ffd166;outline-offset:2px}
+.panel :focus-visible,.modal-card :focus-visible{outline-color:#0b5fa5}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ───────── Top bar ───────── */
+.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:.6rem .9rem;flex-wrap:wrap;
+  padding:max(.5rem,env(safe-area-inset-top,0px)) max(1rem,env(safe-area-inset-right,0px)) .5rem max(1rem,env(safe-area-inset-left,0px));
+  background:#06101d;border-bottom:3px solid var(--gold-dark)}
+.back{color:var(--cream-2);text-decoration:none;font-size:.88rem;padding:.35rem .5rem;border-radius:.4rem}
+.back:hover{background:var(--stone-2)}
+.brand{font-family:var(--font-head);font-weight:700;color:var(--gold);font-size:1.05rem;letter-spacing:.02em;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hud{display:flex;align-items:center;gap:.45rem}
+.chip{position:relative;display:inline-flex;align-items:center;gap:.35rem;background:var(--stone);border:2px solid var(--stone-2);
+  border-radius:99px;padding:.2rem .7rem .2rem .3rem;font-weight:800;color:var(--cream);min-height:2.25rem}
+.chip svg{width:1.55rem;height:1.55rem}
+.chip small{font-weight:600;opacity:.75}
+.chip.golden{border-color:var(--gold);box-shadow:0 0 0 2px rgba(227,178,60,.3);--feather:#f6d36b;--feather-2:#e3b23c}
+.chip.bump{animation:bump .45s}
+.gain{position:absolute;left:50%;top:-4px;transform:translateX(-50%);color:var(--gold);font-weight:800;pointer-events:none;animation:floatUp 1.1s forwards}
+.icon-btn{min-width:2.35rem;height:2.25rem;border-radius:.55rem;border:2px solid var(--stone-2);background:var(--stone);color:var(--cream);
+  font-weight:800;cursor:pointer;display:grid;place-items:center;padding:0 .45rem}
+.icon-btn:hover{border-color:var(--gold-dark)}
+.icon-btn[aria-pressed="true"]{border-color:var(--gold);color:var(--gold)}
+.icon-btn svg{width:1.2rem;height:1.2rem}
+#btn-sound[aria-pressed="false"] .wave{display:none}
+#btn-sound[aria-pressed="true"] .mute{display:none}
+
+/* ───────── Layout ───────── */
+main{max-width:54rem;margin:0 auto;padding:1.25rem max(1rem,env(safe-area-inset-right,0px)) 3rem max(1rem,env(safe-area-inset-left,0px))}
+.screen-title{color:var(--gold);font-size:clamp(1.5rem,4.5vw,2.1rem);text-align:center;margin-bottom:.3rem;text-shadow:0 2px 0 rgba(0,0,0,.4)}
+.screen-sub{text-align:center;color:var(--cream-2);margin-bottom:1.1rem}
+.panel{color-scheme:light;background:var(--cream);color:var(--ink);border:3px solid var(--gold-dark);border-radius:1rem;box-shadow:0 12px 32px rgba(0,0,0,.45)}
+.panel-top{height:16px;background:var(--blue) var(--waves) repeat-x 0 2px;border-radius:calc(1rem - 3px) calc(1rem - 3px) 0 0}
+.panel-body{padding:1.2rem 1.25rem 1.35rem}
+.grid-2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:1.1rem;align-items:start}
+.row-end{display:flex;justify-content:flex-end;gap:.6rem;flex-wrap:wrap;margin-top:1rem}
+.row-mid{display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap;margin-top:1.1rem}
+.tag{display:inline-block;font-size:.76rem;font-weight:800;letter-spacing:.06em;padding:.18rem .6rem;border-radius:99px;background:var(--blue);color:#fff}
+.tag.chem{background:var(--ok)}
+.tag.mix{background:var(--prim)}
+.note{font-size:.88rem;color:var(--ink-2)}
+
+/* ───────── Buttons ───────── */
+.btn{font-weight:800;border:0;border-radius:.65rem;padding:.7rem 1.25rem;min-height:2.7rem;cursor:pointer;display:inline-flex;align-items:center;
+  justify-content:center;gap:.5rem;text-decoration:none;transition:transform .12s,box-shadow .12s,background .12s}
+.btn svg{width:1.3rem;height:1.3rem}
+.btn-primary{background:var(--prim);color:#fff;box-shadow:0 4px 0 var(--prim-dark)}
+.btn-primary:hover{background:#d04a12}
+.btn-gold{background:var(--gold);color:var(--ink);box-shadow:0 4px 0 var(--gold-dark)}
+.btn-gold:hover{background:#edc157}
+.btn-ghost{background:transparent;color:inherit;border:2px solid #8a765a}
+.btn-ghost:hover{background:rgba(125,95,45,.14)}
+.btn-plan{background:var(--paper);color:var(--blue-dark);border:2px dashed var(--blue);min-height:2.5rem;padding:.5rem .9rem;max-width:100%}
+.btn-plan:hover{background:#e7f1f5}
+.btn:active{transform:translateY(3px);box-shadow:none}
+.btn[disabled]{opacity:.5;cursor:not-allowed;box-shadow:none}
+.link-btn{background:none;border:0;color:var(--blue-dark);font-weight:700;text-decoration:underline;cursor:pointer;padding:.25rem 0}
+.lbl-short{display:none}
+.resume{display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;background:#e7f1f5;border:2px solid var(--blue);border-radius:.8rem;padding:.7rem .9rem;margin-bottom:1rem}
+.resume p{margin:0;flex:1;min-width:16ch;font-weight:700;color:var(--blue-dark)}
+.app-box{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;background:var(--paper);border:2px solid var(--gold-dark);border-radius:.8rem;padding:.7rem .9rem;margin:1rem 0 0}
+.app-box img{flex:none;width:3rem;height:3rem;border-radius:.7rem}
+.app-text{flex:1;min-width:14ch;font-size:.92rem}
+.app-text strong{display:block;font-family:var(--font-head);color:var(--prim-dark)}
+/* όταν τρέχει ως εγκατεστημένη εφαρμογή δεν χρειάζεται το «πίσω στο site» */
+@media (display-mode:standalone){.back{display:none}}
+/* μέσα στην εφαρμογή Android δεν υπάρχει site γύρω από το παιχνίδι */
+.in-app .back,.in-app .site-link,.in-app .app-box{display:none!important}
+.tts-btn{display:none}
+.has-tts .tts-btn{display:inline-block}
+
+/* ───────── Characters & speech ───────── */
+.avatar{flex:none;width:4.2rem;height:4.2rem;border-radius:50%;border:3px solid var(--gold-dark);overflow:hidden;background:#fff}
+.avatar svg{width:100%;height:100%}
+.speech{display:flex;gap:.85rem;align-items:flex-start}
+.bubble{position:relative;flex:1;min-width:0;background:var(--paper);border:2px solid var(--line);border-radius:.9rem;padding:.75rem 1rem .8rem}
+.bubble::before{content:"";position:absolute;left:-11px;top:24px;border:9px solid transparent;border-right-color:var(--line);border-left:0}
+.bubble p:last-child{margin-bottom:0}
+.who{font-weight:800;font-size:.8rem;letter-spacing:.05em;color:var(--prim);margin-bottom:.15rem}
+.riddle{font-size:1.12rem;line-height:1.65;font-weight:500}
+.bubble .riddle{margin-bottom:.15rem}
+.bubble .riddle:focus{outline:none}
+.cast{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem;margin:1.1rem 0}
+.cast-card{background:var(--paper);border:2px solid var(--line);border-radius:.9rem;padding:.8rem .5rem;text-align:center}
+.cast-card .avatar{margin:0 auto .45rem;width:4.6rem;height:4.6rem}
+.cast-card b{display:block;font-family:var(--font-head);font-size:1.02rem}
+.cast-card span{font-size:.84rem;color:var(--ink-2)}
+.how{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem;margin:.9rem 0;padding:0;list-style:none}
+.how li{background:var(--cream-2);border-radius:.8rem;padding:.7rem .8rem;font-size:.92rem}
+.how b{display:block;color:var(--prim-dark);font-family:var(--font-head)}
+.rewards{display:flex;gap:1rem;flex-wrap:wrap;margin:.9rem 0}
+.reward{flex:1 1 240px;display:flex;gap:.7rem;align-items:center;background:var(--paper);border:2px solid var(--line);border-radius:.8rem;padding:.6rem .8rem;font-size:.92rem}
+.reward svg{flex:none;width:2.6rem;height:2.6rem}
+.fact{border-left:5px solid var(--gold-dark);background:var(--cream-2);padding:.6rem .8rem;border-radius:0 .6rem .6rem 0;font-size:.92rem;margin:.9rem 0 0}
+.portico{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:1rem;align-items:end;margin-bottom:1.1rem}
+.portico .screen-sub{margin-bottom:.3rem}
+.wing-art svg{width:10.5rem;height:auto}
+.wing-art.flip{transform:scaleX(-1)}
+.title-2{display:block;font-size:.66em;color:var(--cream);font-weight:400;font-style:italic;margin-top:.2em;text-shadow:none}
+
+/* ───────── Το εργαστήριο: το σχέδιο των φτερών ───────── */
+.plan-box{background:#0d2c50;border:3px solid var(--gold-dark);border-radius:1rem;padding:.6rem;box-shadow:0 12px 32px rgba(0,0,0,.45)}
+.plan{width:100%;height:auto}
+@media (min-width:761px){.plan-box{position:sticky;top:4.6rem}}
+.legend{list-style:none;margin:.5rem 0 .2rem;padding:0 .4rem;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.3rem .8rem;font-size:.84rem;color:var(--cream-2)}
+.legend li{display:flex;align-items:center;gap:.5rem}
+.legend i{flex:none;display:inline-block}
+.lg-line{width:1.5rem;border-top:2px dashed #a9cdee}
+.lg-dot{width:1rem;height:1rem;border-radius:50%;border:2px solid}
+.lg-now{background:var(--prim);border-color:#fff}
+.lg-done{background:var(--gold);border-color:var(--gold-deep)}
+.lg-lock{background:#8794a6;border-color:#33455e}
+.bp-bg{fill:#123a66}
+.bp-frame{fill:none;stroke:#cfe3f7;stroke-opacity:.5;stroke-width:.8}
+.bp-note{font:700 6.200px var(--font-body);fill:#cfe3f7;letter-spacing:.05em}
+.bp-title{font:700 7.400px var(--font-head);fill:#eef5fc;letter-spacing:.08em}
+.bp-lead{fill:none;stroke:#cfe3f7;stroke-opacity:.7;stroke-width:.6}
+/* κάθε κομμάτι μένει «σχέδιο» (διακεκομμένη γραμμή) ώσπου να κατασκευαστεί */
+.bp-layer *{fill:none;stroke:#a9cdee;stroke-width:.8;stroke-dasharray:2.600 2;stroke-linejoin:round;stroke-linecap:round}
+.bp-layer.built *{stroke-dasharray:none}
+.bp-big.built *{fill:var(--plume,#cbc4b4);stroke:#77818f;stroke-width:.9}
+.bp-ribs.built *{stroke:#b39a63;stroke-width:1.100}
+.bp-cov.built *{fill:var(--plume-2,#dbd4c4);stroke:#77818f;stroke-width:.9}
+.bp-cov.built .sleeve{fill:none;stroke:var(--plume-2,#dbd4c4);stroke-width:8.500}
+.bp-spar.built .reed{stroke:#d9b56a;stroke-width:3.400}
+.bp-spar.built .knot{fill:#8a6a2f;stroke:none}
+.bp-spar.built .strap{stroke:#7a4a30;stroke-width:1.900}
+.bp-wax.built *{fill:#f1c04f;stroke:#a87508;stroke-width:.8}
+.bp-tower.built .stone{fill:#cdb489;stroke:#5f4d33;stroke-width:1}
+.bp-tower.built .wood{stroke:#8a5a3c;stroke-width:2.600}
+.bp-tower.built .glide{stroke:var(--gold);stroke-width:1.700;stroke-dasharray:4.500 3}
+.bp-tower.built .tip{fill:var(--gold);stroke:none}
+.plan.white,.wing-white{--plume:#fff;--plume-2:#f1eee6}
+.bp-layer.fresh{animation:build 1.2s ease-out}
+.st{cursor:pointer}
+.st .hit,#plan-sun .hit{fill:transparent;stroke:none}
+.st .dot{stroke-width:1.500}
+.st text{font:800 9.500px var(--font-body);text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.st-lock .dot{fill:#8794a6;stroke:#33455e}.st-lock text{fill:#0d1b2e}
+.st-now .dot{fill:var(--prim);stroke:#fff}.st-now text{fill:#fff}
+.st .halo,#plan-sun .halo{fill:none;stroke:var(--gold);stroke-width:1.500;transform-box:fill-box;transform-origin:center;animation:halo 1.6s infinite}
+.st-open .dot{fill:#f4e9cf;stroke:var(--prim);stroke-dasharray:2 1.400}.st-open text{fill:var(--ink)}
+.st-done .dot{fill:var(--gold);stroke:var(--gold-deep)}.st-done text{fill:var(--ink)}
+#plan-sun{cursor:pointer}
+#plan-sun .halo{display:none}
+#plan-sun.lock use{opacity:.42;filter:grayscale(.75)}
+#plan-sun.now .halo{display:inline}
+.levels{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.5rem}
+.lv{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:.7rem;align-items:center;background:var(--paper);border:2px solid var(--line);border-radius:.8rem;padding:.55rem .7rem}
+.lv-num{width:2.2rem;height:2.2rem;border-radius:50%;display:grid;place-items:center;font-weight:800;background:var(--cream-2);color:var(--ink)}
+.lv-num svg{width:1.5rem;height:1.5rem}
+.lv b{display:block;font-family:var(--font-head);line-height:1.25}
+.lv small{color:var(--ink-2)}
+.lv-now{border-color:var(--prim);box-shadow:0 0 0 3px rgba(194,65,12,.16)}
+.lv-now .lv-num{background:var(--prim);color:#fff}
+.lv-done .lv-num{background:var(--gold)}
+.lv-lock{background:#f5eedd;border-style:dashed}
+.lv-lock .lv-num{background:#ddd5c5;color:var(--ink-2)}
+.lv-lock b{color:var(--ink-2)}
+.lv-lock .lv-num svg{opacity:.55;filter:grayscale(1)}
+.lv .btn{min-height:2.35rem;padding:.45rem .85rem;font-size:.9rem}
+.lv-open{border-style:dashed}
+.map-foot{display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;margin-top:1rem}
+.map-foot .btn{min-height:2.35rem;padding:.4rem .8rem;font-size:.86rem}
+.free{display:flex;align-items:flex-start;gap:.5rem;font-size:.9rem;cursor:pointer;flex:1;min-width:13rem}
+.free input{flex:none;width:1.2rem;height:1.2rem;margin:.15rem 0 0;accent-color:var(--prim)}
+
+/* ───────── Level & trials ───────── */
+.level-head{text-align:center;margin-bottom:.9rem}
+.level-head h1{color:var(--gold);font-size:clamp(1.3rem,4vw,1.8rem);margin:.35rem 0 .1rem}
+.level-head p{color:var(--cream-2);margin:0}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.45rem;list-style:none;padding:0;margin:0 0 .9rem}
+.step{display:flex;align-items:center;gap:.5rem;background:var(--stone);border:2px solid var(--stone-2);color:var(--cream-2);border-radius:.7rem;padding:.45rem .6rem;font-weight:700;font-size:.9rem;min-width:0}
+.step i{flex:none;font-style:normal;width:1.6rem;height:1.6rem;border-radius:50%;display:grid;place-items:center;background:var(--stone-2);font-size:.85rem}
+.step span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.step.now{border-color:var(--gold);color:var(--gold)}
+.step.now i{background:var(--gold);color:var(--ink)}
+.step.done{color:#bfe6cf;border-color:#2f6b4c}
+.step.done i{background:var(--ok);color:#fff}
+.trial-head{display:flex;justify-content:space-between;align-items:baseline;gap:.6rem;flex-wrap:wrap;margin-bottom:.8rem}
+.trial-head h2{font-size:1.25rem;color:var(--prim-dark)}
+.count{font-weight:800;font-size:.86rem;color:var(--ink-2)}
+.practice{background:#e7f1f5;border:2px solid var(--blue);color:var(--blue-dark);border-radius:.6rem;padding:.4rem .7rem;font-size:.88rem;font-weight:700;margin-bottom:.8rem}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:1rem 0 .7rem}
+.options.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.options.one{grid-template-columns:minmax(0,1fr)}
+.opt{text-align:left;background:#fff;color:var(--ink);border:2px solid var(--line);border-radius:.7rem;padding:.65rem .8rem;min-height:3.2rem;cursor:pointer;display:flex;gap:.6rem;align-items:center}
+.opt .key{flex:none;width:1.75rem;height:1.75rem;border-radius:50%;background:var(--cream-2);display:grid;place-items:center;font-weight:800;font-size:.9rem}
+.opt:hover:not([disabled]){border-color:var(--blue);background:#f1f9fb}
+.opt[disabled]{cursor:default}
+.opt.is-ok{background:var(--ok-bg);border-color:var(--ok);font-weight:700}
+.opt.is-ok .key{background:var(--ok);color:#fff}
+.opt.is-bad{background:var(--bad-bg);border-color:var(--bad);color:#6b2b27}
+.opt.is-bad .key{background:var(--bad);color:#fff}
+.opt.is-out{opacity:.42;text-decoration:line-through}
+.tools{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+.feedback{margin-top:.8rem}
+.fb{display:flex;gap:.7rem;align-items:flex-start;border-radius:.8rem;padding:.7rem .8rem;border:2px solid}
+.fb .avatar{width:3.05rem;height:3.05rem;border-width:2px}
+.fb p{margin:0}
+.fb-ok{background:var(--ok-bg);border-color:var(--ok)}
+.fb-bad{background:var(--bad-bg);border-color:var(--bad)}
+.fb-info{background:#e7f1f5;border-color:var(--blue)}
+.fb b.lead{display:block}
+
+/* word search */
+.ws-wrap{display:flex;flex-wrap:wrap;gap:1.1rem;align-items:flex-start}
+.ws-wrap > :first-child{flex:1 1 19rem;max-width:25.3rem;min-width:0;margin-inline:auto}
+.ws-wrap > :last-child{flex:1 1 14rem;min-width:0}
+.ws-grid{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:3px;background:var(--line);padding:6px;border-radius:.7rem;user-select:none;-webkit-user-select:none}
+.ws-cell{aspect-ratio:1;border:0;border-radius:5px;background:var(--paper);color:var(--ink);font-weight:800;font-size:clamp(.82rem,3.7vw,1.22rem);cursor:pointer;padding:0;display:grid;place-items:center;line-height:1}
+.ws-cell:hover{background:#fff1c9}
+.ws-cell.preview{background:#ffe08a}
+.ws-cell.anchor{background:var(--gold);box-shadow:inset 0 0 0 3px var(--prim)}
+.ws-cell.found{color:#fff}
+.ws-cell.f0{background:#1f6f8b}.ws-cell.f1{background:#1e7a4d}.ws-cell.f2{background:#7b3f8c}.ws-cell.f3{background:#a3231d}
+.ws-cell.hint{animation:hintPulse .7s 5;background:var(--gold)}
+.ws-cell.nope{animation:shake .35s}
+.ws-words{list-style:none;margin:.5rem 0 0;padding:0;display:flex;flex-direction:column;gap:.35rem}
+.ws-words li{background:var(--paper);border:2px solid var(--line);border-radius:.6rem;padding:.35rem .6rem;font-size:.9rem}
+.ws-words b{letter-spacing:.06em}
+.ws-words li span{display:block;color:var(--ink-2);font-size:.86rem}
+.ws-words li.found{border-color:var(--ok);background:var(--ok-bg)}
+.ws-words li.found b::after{content:" ✓";color:var(--ok)}
+
+/* acrostic */
+.acro-hidden{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.8rem}
+.acro-hidden .boxes{display:flex;gap:3px}
+.acro-hidden .hb{width:2rem;height:2rem;border-radius:5px;display:grid;place-items:center;font-weight:800;background:var(--gold);color:var(--ink);border:2px solid var(--gold-deep)}
+.acro-hidden .hb.empty{background:#fff3cf;color:transparent}
+.acro-rows{display:flex;flex-direction:column;gap:.5rem}
+.acro-row{display:grid;grid-template-columns:2rem minmax(0,1fr);gap:.3rem .6rem;padding:.5rem .6rem;border:2px solid var(--line);border-radius:.7rem;background:var(--paper);cursor:pointer}
+.acro-row.active{border-color:var(--blue);background:#eef8fb;box-shadow:0 0 0 3px rgba(31,111,139,.18)}
+.acro-row.solved{background:var(--ok-bg);border-color:var(--ok);cursor:default}
+.acro-row.shake{animation:shake .35s}
+.acro-num{grid-row:1 / span 2;width:1.9rem;height:1.9rem;border-radius:50%;border:0;padding:0;background:var(--cream-2);color:var(--ink);display:grid;place-items:center;font-weight:800;cursor:pointer}
+.acro-row.solved .acro-num{background:var(--ok);color:#fff;cursor:default;opacity:1}
+.acro-clue{font-size:.96rem}
+.acro-boxes{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,2.05rem);gap:3px}
+.box{aspect-ratio:1;border:2px solid #b9a273;border-radius:5px;background:#fff;display:grid;place-items:center;font-weight:800;font-size:1.02rem;line-height:1}
+.box.first{border-color:var(--gold-deep);background:#fff3cf;box-shadow:inset 0 0 0 2px var(--gold)}
+.box.cursor{outline:3px solid var(--blue);outline-offset:1px}
+.box.given{color:var(--blue-dark)}
+.box.ok{background:#cdeedd;border-color:var(--ok)}
+.box.bad{background:var(--bad-bg);border-color:var(--bad)}
+.dock{position:sticky;bottom:0;z-index:5;margin:1rem -1.25rem 0;padding:.6rem 1.25rem calc(.7rem + env(safe-area-inset-bottom,0px));
+  background:var(--cream-2);border-top:3px solid var(--gold-dark);box-shadow:0 -8px 18px rgba(10,23,40,.22)}
+.dock-top{display:flex;align-items:center;justify-content:space-between;gap:.6rem;flex-wrap:wrap;margin-bottom:.5rem}
+.dock-msg{margin:0;flex:1;min-width:14ch;font-weight:700;font-size:.93rem}
+.dock-msg.ok{color:#14603b}.dock-msg.bad{color:var(--bad)}.dock-msg.info{color:var(--blue-dark)}
+.dock .btn-plan{min-height:2.35rem;padding:.35rem .75rem;font-size:.9rem}
+.kbd{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:5px}
+.kbd button{min-height:2.7rem;font-weight:800;font-size:1.05rem;border-radius:.5rem;border:2px solid #b9a273;background:#fff;color:var(--ink);cursor:pointer;padding:0}
+.kbd button:hover{background:#fff1c9}
+.kbd button:active{transform:translateY(2px)}
+.kbd .wide{grid-column:span 3;background:var(--cream-2)}
+
+/* ───────── Η μεγάλη πτήση ───────── */
+.fly-top{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:1.1rem;align-items:center;margin-bottom:1rem}
+.sky-box{border:3px solid var(--gold-dark);border-radius:.9rem;overflow:hidden;background:#bfe3f7}
+.sky{width:100%;height:auto}
+.sky-name{font:800 9px var(--font-body);fill:#fff;text-anchor:middle}
+.sky-route{fill:none;stroke:#fff;stroke-width:1.400;stroke-dasharray:3 3;stroke-linecap:round;stroke-linejoin:round}
+.sky-done{fill:none;stroke:var(--prim);stroke-width:2.300;stroke-linecap:round;stroke-linejoin:round}
+.sky-stop{fill:#fff;stroke:var(--blue-dark);stroke-width:1}
+.sky-stop.done{fill:var(--gold);stroke:var(--gold-deep)}
+.sky-stop.now{fill:var(--prim);stroke:#fff}
+.flyer-in.hit{animation:shake .4s}
+.meters{display:flex;flex-direction:column;gap:.8rem}
+.meter-label{font-size:.8rem;font-weight:800;letter-spacing:.04em;color:var(--ink-2);margin-bottom:.2rem}
+.meter{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.meter.bump{animation:bump .45s}
+.meter i{width:1.4rem;height:.82rem;border-radius:4px;background:#d9c8a3}
+.meter i.on{background:var(--ok)}
+.meter i.now{background:var(--prim)}
+.meter svg{width:2rem;height:2rem}
+.meter svg.off{opacity:.2;filter:grayscale(1)}
+.sun-say{margin-bottom:.7rem}
+.sun-say .bubble{background:#fff3d1;border-color:#e0b04a}
+.sun-say .bubble::before{border-right-color:#e0b04a}
+
+/* ───────── Victory ───────── */
+.win{text-align:center}
+.win-cast{display:flex;justify-content:center;flex-wrap:wrap;gap:.8rem;margin:.6rem 0 1rem}
+.win-cast .avatar{width:min(4.9rem,24vw);height:min(4.9rem,24vw)}
+.trophy{width:7rem;height:7rem;margin:0 auto .4rem;animation:pop .6s}
+.trophy.gold{--feather:#f6d36b;--feather-2:#e3b23c}
+.stats{display:flex;justify-content:center;gap:.9rem;flex-wrap:wrap;margin:1rem 0}
+.stat{background:var(--paper);border:2px solid var(--line);border-radius:.9rem;padding:.7rem 1.1rem;min-width:9.5rem}
+.stat b{display:block;font-size:1.9rem;font-family:var(--font-head);color:var(--prim-dark);line-height:1.1}
+.stat span{font-size:.86rem;color:var(--ink-2)}
+.rank{display:inline-block;background:var(--gold);color:var(--ink);font-family:var(--font-head);font-weight:700;font-size:1.25rem;padding:.4rem 1.1rem;border-radius:.6rem;border:2px solid var(--gold-deep)}
+
+/* ───────── Modal ───────── */
+.modal{position:fixed;top:0;right:0;bottom:0;left:0;z-index:50;background:rgba(3,9,18,.8);display:grid;place-items:center;overflow:auto;
+  padding:max(1rem,env(safe-area-inset-top,0px)) max(1rem,env(safe-area-inset-right,0px)) max(1rem,env(safe-area-inset-bottom,0px)) max(1rem,env(safe-area-inset-left,0px))}
+.modal-card{width:min(27rem,100%);text-align:center;animation:pop .28s}
+.modal-card h2{color:var(--prim-dark);font-size:1.45rem;margin-bottom:.5rem}
+.modal-art{width:6.5rem;height:6.5rem;margin:0 auto .5rem}
+.modal-art.spin{animation:prize .9s}
+.modal-art.round{border-radius:50%;overflow:hidden;border:3px solid var(--gold-dark)}
+.modal-art svg{width:100%;height:100%}
+
+footer{text-align:center;color:#a9b6c8;font-size:.82rem;padding:0 1rem 2rem}
+footer a{color:var(--cream-2)}
+
+/* παλιότεροι browsers χωρίς aspect-ratio */
+@supports not (aspect-ratio:1){.ws-cell{min-height:2rem}.box{min-height:2rem}}
+
+/* ───────── Motion ───────── */
+@keyframes bump{50%{transform:scale(1.18)}}
+@keyframes floatUp{to{transform:translate(-50%,-34px);opacity:0}}
+@keyframes shake{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+@keyframes pop{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes prize{from{transform:rotate(-200deg) scale(.3);opacity:0}to{transform:none;opacity:1}}
+@keyframes hintPulse{50%{transform:scale(1.18);box-shadow:0 0 0 4px var(--prim)}}
+@keyframes halo{from{transform:scale(1);opacity:1}to{transform:scale(1.75);opacity:0}}
+@keyframes build{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
+
+/* ───────── Μεγάλες οθόνες και διαδραστικοί πίνακες: όλα μεγαλώνουν ───────── */
+@media (min-width:1500px) and (min-height:800px){html{font-size:20px}html.big{font-size:23.5px}}
+@media (min-width:1850px) and (min-height:950px){html{font-size:22.5px}html.big{font-size:26px}}
+
+/* ───────── Small screens ───────── */
+@media (max-width:760px){
+  .grid-2{grid-template-columns:minmax(0,1fr)}
+  .cast{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .portico{grid-template-columns:minmax(0,1fr)}
+  .portico .wing-art{display:none}
+  .how{grid-template-columns:minmax(0,1fr)}
+  .options,.options.three{grid-template-columns:minmax(0,1fr)}
+  .fly-top{grid-template-columns:minmax(0,1fr);gap:.7rem}
+  .meters{flex-direction:row;flex-wrap:wrap;gap:.4rem 1rem}
+  .meter svg{width:1.5rem;height:1.5rem}
+  .meter i{width:1.15rem}
+  #s-flight .level-head p{display:none}
+  .panel-body{padding:1rem .85rem 1.15rem}
+  .avatar{width:3.3rem;height:3.3rem}
+  .brand{display:none}
+  .hud{margin-left:auto}
+  .dock{margin:1rem -.85rem 0;padding-left:.85rem;padding-right:.85rem}
+  .step{flex-direction:column;gap:.2rem;padding:.4rem .25rem;text-align:center}
+  .step span{white-space:normal;font-size:.78rem;line-height:1.15}
+  .back-text{display:none}
+  .back{font-size:20px;min-width:38px;min-height:36px;display:grid;place-items:center;padding:0}
+  .topbar{flex-wrap:nowrap;gap:6px;font-size:16px}
+  .hud{gap:6px}
+  .chip{padding:3px 10px 3px 5px;min-height:36px;gap:5px}
+  .chip svg{width:25px;height:25px}
+  .icon-btn{min-width:38px;height:36px}
+  .icon-btn svg{width:19px;height:19px}
+  .acro-num{grid-row:auto}
+  .acro-boxes{grid-column:1 / -1}
+  .dock-top{flex-wrap:nowrap;align-items:flex-start}
+  .dock-msg{min-width:0}
+  .dock .lbl-long{display:none}
+  .dock .lbl-short{display:inline}
+}
+@media (max-width:1020px) and (min-width:761px){.how{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* στενές δύο στήλες (tablet όρθιο): το κουμπί κάθε σταδίου πάει κάτω από τον τίτλο του, τα βήματα γράφονται σε δύο γραμμές */
+@media (max-width:960px) and (min-width:761px){
+  .lv{grid-template-columns:auto minmax(0,1fr)}
+  .lv .btn{grid-column:1 / -1}
+  .step{flex-direction:column;gap:.2rem;padding:.4rem .25rem;text-align:center}
+  .step span{white-space:normal;font-size:.82rem;line-height:1.15}
+}
+@media (max-width:480px){
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .step{flex-direction:row;gap:.4rem;padding:.3rem .5rem;text-align:left}
+  .step i{width:1.35rem;height:1.35rem;font-size:.78rem}
+  .step span{font-size:.82rem}
+  .topbar{padding-left:max(10px,env(safe-area-inset-left,0px));padding-right:max(10px,env(safe-area-inset-right,0px))}
+  main{padding-left:max(10px,env(safe-area-inset-left,0px));padding-right:max(10px,env(safe-area-inset-right,0px))}
+  .panel-body{padding:1rem .6rem 1.1rem}
+  .dock{margin:1rem -.6rem 0;padding-left:.6rem;padding-right:.6rem}
+  .ws-grid{gap:2px;padding:4px}
+  .box{font-size:.95rem}
+}
+@media (max-width:370px){
+  html.big .step{flex-direction:column;gap:.15rem;padding:.3rem .2rem;text-align:center}
+}
+@media (max-width:420px){
+  .kbd{gap:4px}
+  .kbd button{min-height:44px;font-size:1rem}
+  .lv{grid-template-columns:auto minmax(0,1fr)}
+  .lv .btn{grid-column:1 / -1}
+}
+</style>
+</head>
+<body>
+<noscript><p style="padding:1rem;text-align:center">Το παιχνίδι χρειάζεται JavaScript για να λειτουργήσει.</p></noscript>
+<!-- Εικονίδια & χαρακτήρες (SVG) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4fa9e4"/><stop offset="1" stop-color="#d9effb"/></linearGradient>
+    <pattern id="p-grid" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M12 0H0V12" fill="none" stroke="#fff" stroke-opacity=".1" stroke-width=".6"/></pattern>
+    <symbol id="i-coin" viewBox="0 0 32 32">
+      <circle cx="16" cy="16" r="14" fill="#e3b23c" stroke="#8a6410" stroke-width="2"/>
+      <circle cx="16" cy="16" r="10.2" fill="#f4d374" stroke="#b88714" stroke-width="1"/>
+      <path d="M11.5 20.5v-9h9v7h-6v-4h3" fill="none" stroke="#8a6410" stroke-width="1.7" stroke-linecap="square"/>
+    </symbol>
+    <symbol id="i-feather" viewBox="0 0 48 48">
+      <path d="M11 38C9 27 21 10 37 5.500c4-.500 6 2.500 4.500 6-2 7.500-6.500 14-11 18l-3-2.500.300 4.600C22 35.500 16 38 11 38z" fill="var(--feather,#fffdf6)"/>
+      <path d="M11 38Q22 23 39 9c2 .500 3 1.500 2.500 2.500-2 7.500-6.500 14-11 18l-3-2.500.300 4.600C22 35.500 16 38 11 38z" fill="var(--feather-2,#eadfc4)"/>
+      <path d="M11 38C9 27 21 10 37 5.500c4-.500 6 2.500 4.500 6-2 7.500-6.500 14-11 18l-3-2.500.300 4.600C22 35.500 16 38 11 38z" fill="none" stroke="#8a6410" stroke-width="1.700" stroke-linejoin="round"/>
+      <path d="M4.500 45.500L11 38Q22 23 38.500 9.500" fill="none" stroke="#8a6410" stroke-width="1.800" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M17 20.500l3.300 3M34.500 22.500l-4-1.200" fill="none" stroke="#8a6410" stroke-width="1.200" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-wing" viewBox="26 36 214 114"></symbol>
+    <symbol id="i-sun" viewBox="0 0 100 100">
+      <g fill="#f7a823" stroke="#d9741a" stroke-width="1.200" stroke-linejoin="round">
+        <path d="M50 3l6.500 17h-13z"/><path d="M50 3l6.500 17h-13z" transform="rotate(30 50 50)"/><path d="M50 3l6.500 17h-13z" transform="rotate(60 50 50)"/>
+        <path d="M50 3l6.500 17h-13z" transform="rotate(90 50 50)"/><path d="M50 3l6.500 17h-13z" transform="rotate(120 50 50)"/><path d="M50 3l6.500 17h-13z" transform="rotate(150 50 50)"/>
+        <path d="M50 3l6.500 17h-13z" transform="rotate(180 50 50)"/><path d="M50 3l6.500 17h-13z" transform="rotate(210 50 50)"/><path d="M50 3l6.500 17h-13z" transform="rotate(240 50 50)"/>
+        <path d="M50 3l6.500 17h-13z" transform="rotate(270 50 50)"/><path d="M50 3l6.500 17h-13z" transform="rotate(300 50 50)"/><path d="M50 3l6.500 17h-13z" transform="rotate(330 50 50)"/>
+      </g>
+      <circle cx="50" cy="50" r="29" fill="#ffd23f" stroke="#d9741a" stroke-width="2.400"/>
+      <circle cx="34" cy="57" r="5" fill="#f58a4b" opacity=".5"/><circle cx="66" cy="57" r="5" fill="#f58a4b" opacity=".5"/>
+      <ellipse cx="40" cy="46.500" rx="3.300" ry="4.200" fill="#5a3413"/><ellipse cx="60" cy="46.500" rx="3.300" ry="4.200" fill="#5a3413"/>
+      <circle cx="41.200" cy="45" r="1.100" fill="#fff"/><circle cx="61.200" cy="45" r="1.100" fill="#fff"/>
+      <path d="M34 38.500q5.500-4 11-1M55 36.500q6-3.500 11.500 1" fill="none" stroke="#b5651d" stroke-width="2.400" stroke-linecap="round"/>
+      <path d="M38.500 58q11.500 11 23 0" fill="none" stroke="#b5651d" stroke-width="3" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="c-sun" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#2f86c4"/>
+      <use href="#i-sun" x="5" y="5" width="90" height="90"/>
+    </symbol>
+    <symbol id="c-daedalus" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#2c5f6e"/>
+      <path d="M12 100c2-20 16-29 38-29s36 9 38 29z" fill="#c9a36b"/>
+      <path d="M27 77.500l9-4.500 15 27H37z" fill="#7a4a30"/>
+      <rect x="43" y="57" width="14" height="15" rx="5" fill="#c98f62"/>
+      <ellipse cx="50" cy="47" rx="19.200" ry="14" fill="#e7e5df"/>
+      <ellipse cx="50" cy="44" rx="16.500" ry="18.500" fill="#dba77a"/>
+      <path d="M33.500 46c-1 22 7 35 16.500 35s17.500-13 16.500-35c-2 8-5 11.500-9 12.500q-7.500-3.500-15 0c-4-1-7-4.500-9-12.500z" fill="#e7e5df"/>
+      <path d="M45.500 63q4.500 2.600 9 0" stroke="#9a8a7c" stroke-width="1.700" fill="none" stroke-linecap="round"/>
+      <path d="M34.600 34.500q15.400-8.500 30.800 0" fill="none" stroke="#c2410c" stroke-width="3.200" stroke-linecap="round"/>
+      <ellipse cx="43" cy="46" rx="2.100" ry="2.500" fill="#2b1a12"/><ellipse cx="57" cy="46" rx="2.100" ry="2.500" fill="#2b1a12"/>
+      <path d="M38.500 41.500q4.500-2.800 9 0M52.500 41.500q4.500-2.800 9 0" stroke="#c9c6be" stroke-width="2.300" fill="none" stroke-linecap="round"/>
+      <path d="M37 51q1.800 1.600 4 1.200M63 51q-1.800 1.600-4 1.200" stroke="#b98a62" stroke-width="1" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="c-icarus" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#e58a2b"/>
+      <g fill="#fffdf6" stroke="#b9a37d" stroke-width="1.400" stroke-linejoin="round">
+        <path d="M34 80C18 78 6 66 3 48c6 5 12 7 18 7-5-7-7-14-6-22 6 10 13 16 22 19z"/>
+        <path d="M66 80c16-2 28-14 31-32-6 5-12 7-18 7 5-7 7-14 6-22-6 10-13 16-22 19z"/>
+      </g>
+      <path d="M16 100c2-19 15-28 34-28s32 9 34 28z" fill="#f3e7cf"/>
+      <path d="M36 75q14 10 28 0" fill="none" stroke="#1f6f8b" stroke-width="3.400" stroke-linecap="round"/>
+      <rect x="44" y="58" width="12" height="15" rx="5" fill="#d99a6c"/>
+      <ellipse cx="50" cy="45" rx="16" ry="17.500" fill="#e8b58a"/>
+      <path d="M32.500 45c-3.500-19 6.500-29 17.500-29s21 10 17.500 29c-2-9-8-13.500-17.500-13.500S34.500 36 32.500 45z" fill="#4a2f18"/>
+      <g fill="#4a2f18"><circle cx="35" cy="33" r="4.400"/><circle cx="41" cy="28" r="4.800"/><circle cx="48" cy="26" r="4.800"/><circle cx="55" cy="26.500" r="4.800"/><circle cx="61.500" cy="29.500" r="4.600"/><circle cx="65.500" cy="35" r="4"/></g>
+      <ellipse cx="43.500" cy="46.500" rx="2.500" ry="3.100" fill="#2b1a12"/><ellipse cx="56.500" cy="46.500" rx="2.500" ry="3.100" fill="#2b1a12"/>
+      <circle cx="44.300" cy="45.400" r=".9" fill="#fff"/><circle cx="57.300" cy="45.400" r=".9" fill="#fff"/>
+      <path d="M39.500 41q4-2.400 8 0M52.500 41q4-2.400 8 0" stroke="#4a2f18" stroke-width="1.600" fill="none" stroke-linecap="round"/>
+      <path d="M43 54.500q7 7.500 14 0z" fill="#fff" stroke="#8a3b2a" stroke-width="1.800" stroke-linejoin="round"/>
+      <circle cx="37" cy="52.500" r="3.400" fill="#e9837a" opacity=".45"/><circle cx="63" cy="52.500" r="3.400" fill="#e9837a" opacity=".45"/>
+    </symbol>
+    <symbol id="c-minos" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#4a2c6b"/>
+      <path d="M12 100c2-20 16-29 38-29s36 9 38 29z" fill="#7d1712"/>
+      <path d="M33 74l17 15 17-15" fill="none" stroke="#e3b23c" stroke-width="4.200" stroke-linejoin="round"/>
+      <rect x="43" y="57" width="14" height="15" rx="5" fill="#c98f62"/>
+      <ellipse cx="50" cy="45" rx="16.500" ry="18.500" fill="#dba77a"/>
+      <path d="M33.500 44c-1 24 7 37 16.500 37s17.500-13 16.500-37c-2 9-5 12.500-9 13.500q-7.500-3.500-15 0c-4-1-7-4.500-9-13.500z" fill="#3a2c28"/>
+      <path d="M45.500 62.500q4.500 2.600 9 0" stroke="#e9c3a0" stroke-width="1.700" fill="none" stroke-linecap="round"/>
+      <path d="M33 45c-2-13 4-21 17-21s19 8 17 21c-2-8-8-12-17-12s-15 4-17 12z" fill="#3a2c28"/>
+      <path d="M33 31l3-18 8 10 6-13 6 13 8-10 3 18z" fill="#e3b23c" stroke="#8a6410" stroke-width="1.500" stroke-linejoin="round"/>
+      <rect x="32.500" y="29" width="35" height="5.500" rx="1.600" fill="#f4d374" stroke="#8a6410" stroke-width="1"/>
+      <circle cx="50" cy="21.500" r="2.400" fill="#a3231d"/><circle cx="39.500" cy="25" r="1.500" fill="#3fb8c9"/><circle cx="60.500" cy="25" r="1.500" fill="#3fb8c9"/>
+      <ellipse cx="43" cy="45.500" rx="2.100" ry="2.500" fill="#2b1a12"/><ellipse cx="57" cy="45.500" rx="2.100" ry="2.500" fill="#2b1a12"/>
+      <path d="M38 40.500l9 1.600M62 40.500l-9 1.600" stroke="#3a2c28" stroke-width="2.500" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-plan" viewBox="0 0 24 24">
+      <path d="M4.500 3.500h13a2 2 0 0 1 2 2v12h-13a2 2 0 0 0-2 2z" fill="#eef6fc" stroke="#15526a" stroke-width="1.500" stroke-linejoin="round"/>
+      <path d="M4.500 19.500a2 2 0 0 0 2 2h13v-4" fill="#cfe3f1" stroke="#15526a" stroke-width="1.500" stroke-linejoin="round"/>
+      <path d="M7.500 13.500c1.500-5 4.500-7 9-6.500-1 2.500-2.500 3.700-4.500 4.200 1 .5 2 .5 3 .2-1.800 2.300-4.300 3-7.500 2.100z" fill="#fff" stroke="#1f6f8b" stroke-width="1.100" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-flyer" viewBox="0 0 44 26">
+      <g fill="#fffdf6" stroke="#7b6a48" stroke-width="1" stroke-linejoin="round">
+        <path d="M20 14C15 5 7 2 1 4c3 1.500 4.500 3.500 5.500 5.500-2-.300-4-.200-5.500.800 4.500 4.500 12 6 19 5z"/>
+        <path d="M24 14c5-9 13-12 19-10-3 1.500-4.500 3.500-5.500 5.500 2-.300 4-.200 5.500.800-4.500 4.500-12 6-19 5z"/>
+      </g>
+      <path d="M18.600 13.500h6.800l1.800 9.500a12 12 0 0 1-10.400 0z" fill="#c2410c"/>
+      <circle cx="22" cy="8.500" r="4.600" fill="#e8b58a"/>
+      <path d="M17.300 8.500c-.300-4.500 2-6.600 4.700-6.600s5 2.100 4.700 6.600c-1.200-2.300-2.700-3-4.700-3s-3.500.700-4.700 3z" fill="#4a2f18"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="topbar">
+  <a class="back" href="../" aria-label="Πίσω στα Παιχνίδια"><span aria-hidden="true">&larr;</span><span class="back-text"> Παιχνίδια</span></a>
+  <div class="brand">Ο Δαίδαλος και ο Ίκαρος</div>
+  <div class="hud">
+    <span class="chip" id="hud-coins" title="Χρυσά νομίσματα">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-coin"/></svg>
+      <b id="coins-n">0</b><span class="sr-only">χρυσά νομίσματα</span>
+    </span>
+    <span class="chip" id="hud-feathers" title="Φτερά">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-feather"/></svg>
+      <b id="feathers-n">0</b><small>/5</small><span class="sr-only">φτερά</span>
+    </span>
+    <button class="icon-btn" id="btn-sound" type="button" aria-pressed="true" aria-label="Ήχος" title="Ήχος">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 9.500h3.500L12 5.500v13l-4.500-4H4z" fill="currentColor"/>
+        <path class="wave" d="M15.500 9a4.500 4.500 0 0 1 0 6M18 6.500a8 8 0 0 1 0 11"/>
+        <path class="mute" d="M16 9.500l5 5M21 9.500l-5 5"/>
+      </svg>
+    </button>
+    <button class="icon-btn" id="btn-text" type="button" aria-pressed="false" title="Μεγαλύτερα γράμματα"><span aria-hidden="true">Α+</span><span class="sr-only">Μεγαλύτερα γράμματα</span></button>
+  </div>
+</header>
+
+<main id="app">
+
+  <!-- ═════ Εισαγωγή ═════ -->
+  <section class="screen" id="s-intro">
+    <div class="portico">
+      <div class="wing-art flip" aria-hidden="true"><svg viewBox="0 0 214 114"><use href="#i-wing"/></svg></div>
+      <div>
+        <h1 class="screen-title" tabindex="-1" data-focus>Ο Δαίδαλος και ο Ίκαρος<span class="sr-only"> – </span><span class="title-2">Η απόδραση από τον ουρανό</span></h1>
+        <p class="screen-sub">Ένα παιχνίδι Φυσικής: δυνάμεις, βαρύτητα, πτήση, θερμότητα, ενέργεια</p>
+      </div>
+      <div class="wing-art" aria-hidden="true"><svg viewBox="0 0 214 114"><use href="#i-wing"/></svg></div>
+    </div>
+    <div class="panel">
+      <div class="panel-top"></div>
+      <div class="panel-body">
+        <div class="resume" id="resume" hidden>
+          <p>Καλώς ήρθες ξανά! Τα φτερά σε περιμένουν εκεί που τα άφησες.</p>
+          <button class="btn btn-primary" id="btn-resume" type="button">Συνέχισε το παιχνίδι</button>
+        </div>
+        <p>Ο βασιλιάς <strong>Μίνωας</strong> κρατά κλεισμένους στην Κρήτη τον μεγάλο τεχνίτη <strong>Δαίδαλο</strong> και τον γιο του, τον <strong>Ίκαρο</strong>. Τη στεριά και τη θάλασσα τις φυλάνε οι στρατιώτες του — μόνο ο ουρανός είναι ελεύθερος. Ο Δαίδαλος έχει ένα σχέδιο: φτερά από πούπουλα και κερί. Βοήθησε τον Ίκαρο να τα φτιάξει <strong>ασφαλή</strong> και να βρει τη <strong>σωστή διαδρομή</strong> για την απόδραση!</p>
+        <div class="cast">
+          <div class="cast-card"><div class="avatar"><svg viewBox="0 0 100 100" role="img" aria-label="Ο Δαίδαλος"><use href="#c-daedalus"/></svg></div><b>Δαίδαλος</b><span>Ο μάστορας: βάζει τις δοκιμασίες</span></div>
+          <div class="cast-card"><div class="avatar"><svg viewBox="0 0 100 100" role="img" aria-label="Ο Ίκαρος"><use href="#c-icarus"/></svg></div><b>Ίκαρος</b><span>Ο φίλος σου: μαθαίνει μαζί σου</span></div>
+          <div class="cast-card"><div class="avatar"><svg viewBox="0 0 100 100" role="img" aria-label="Ο Μίνωας"><use href="#c-minos"/></svg></div><b>Μίνωας</b><span>Ο βασιλιάς που τους κρατά στην Κρήτη</span></div>
+          <div class="cast-card"><div class="avatar"><svg viewBox="0 0 100 100" role="img" aria-label="Ο Ήλιος"><use href="#c-sun"/></svg></div><b>Ήλιος</b><span>Λάμπει, ζεσταίνει… και πειράζει!</span></div>
+        </div>
+        <h2 style="font-size:1.15rem;color:var(--prim-dark)">Τέσσερις δοκιμασίες σε κάθε στάδιο</h2>
+        <ol class="how">
+          <li><b>1. Γρίφοι</b>Ο Δαίδαλος ρωτά «Τι είμαι;» και εσύ διαλέγεις τη σωστή απάντηση.</li>
+          <li><b>2. Κρυπτόλεξο</b>Βρες τις κρυμμένες λέξεις: πάτησε το πρώτο και το τελευταίο γράμμα.</li>
+          <li><b>3. Ακροστιχίδα</b>Γράψε τις λέξεις· τα πρώτα τους γράμματα σχηματίζουν μια κρυφή λέξη.</li>
+          <li><b>4. Κατασκευή</b>Πάρε τη σωστή απόφαση για τα φτερά: υλικό, μέγεθος, σχήμα, χρώμα, απογείωση.</li>
+        </ol>
+        <div class="rewards">
+          <div class="reward"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#i-coin"/></svg><div><strong>Χρυσά νομίσματα</strong><br>Τα κερδίζεις με κάθε σωστή απάντηση.</div></div>
+          <div class="reward"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-feather"/></svg><div><strong>Φτερά</strong><br>Ένα για κάθε στάδιο που ολοκληρώνεις. Θα τα χρειαστείς όλα στη μεγάλη πτήση!</div></div>
+        </div>
+        <div class="row-mid">
+          <button class="btn btn-primary" id="btn-start" type="button">Μπες στο εργαστήριο</button>
+          <button class="btn btn-ghost" id="btn-new" type="button" hidden>Νέο παιχνίδι από την αρχή</button>
+        </div>
+        <div class="app-box" id="app-box" hidden>
+          <img src="icon-192.png" alt="" width="48" height="48" loading="lazy">
+          <div class="app-text"><strong>Παίξε το σαν εφαρμογή</strong><span id="app-hint"></span></div>
+          <button class="btn btn-gold js-install" type="button" hidden>Εγκατάσταση</button>
+        </div>
+        <p class="fact"><strong>Το ήξερες;</strong> Το 1988 ο Έλληνας πρωταθλητής ποδηλασίας Κανέλλος Κανελλόπουλος πέταξε από την Κρήτη ως τη Σαντορίνη — 115 χιλιόμετρα πάνω από τη θάλασσα — με ένα αεροσκάφος που το κινούσαν μόνο τα πόδια του. Το αεροσκάφος λεγόταν «Δαίδαλος»!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════ Εργαστήριο ═════ -->
+  <section class="screen" id="s-map" hidden>
+    <h1 class="screen-title" tabindex="-1" data-focus>Το εργαστήριο του Δαίδαλου</h1>
+    <p class="screen-sub" id="map-sub">Κάθε στάδιο προσθέτει ένα κομμάτι στα φτερά του Ίκαρου.</p>
+    <div class="grid-2">
+      <div class="plan-box">
+        <svg class="plan" id="plan" viewBox="0 0 240 236" role="img" aria-label="Το σχέδιο των φτερών. Έχει πέντε κομμάτια που συμπληρώνονται όσο προχωράς: σκελετός, μέγεθος, σχήμα, χρώμα και απογείωση. Επάνω δεξιά ο Ήλιος, όπου σε περιμένει η μεγάλη πτήση."></svg>
+        <ul class="legend" aria-label="Υπόμνημα σχεδίου">
+          <li><i class="lg-line"></i>Κομμάτι που λείπει ακόμη</li>
+          <li><i class="lg-dot lg-now"></i>Επόμενο στάδιο</li>
+          <li><i class="lg-dot lg-done"></i>Στάδιο που ολοκλήρωσες</li>
+          <li><i class="lg-dot lg-lock"></i>Κλειδωμένο στάδιο</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="panel-top"></div>
+        <div class="panel-body">
+          <div class="speech" style="margin-bottom:.9rem">
+            <div class="avatar"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#c-daedalus"/></svg></div>
+            <div class="bubble"><div class="who">ΔΑΙΔΑΛΟΣ</div><p id="map-say" aria-live="polite"></p></div>
+          </div>
+          <ol class="levels" id="levels"></ol>
+          <div class="map-foot">
+            <label class="free"><input type="checkbox" id="chk-free"> <span>Ελεύθερη επιλογή σταδίου <span class="note">(π.χ. για το μάθημα της ημέρας)</span></span></label>
+            <button class="btn btn-gold js-install" type="button" hidden>Εγκατάσταση εφαρμογής</button>
+            <button class="btn btn-ghost" id="btn-reset" type="button">Νέο παιχνίδι</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════ Στάδιο ═════ -->
+  <section class="screen" id="s-level" hidden>
+    <div class="level-head">
+      <span class="tag" id="lv-tag"></span>
+      <h1 id="lv-title" tabindex="-1" data-focus></h1>
+      <p id="lv-topic"></p>
+    </div>
+    <ol class="steps" id="steps" aria-label="Δοκιμασίες του σταδίου"></ol>
+    <div class="panel">
+      <div class="panel-top"></div>
+      <div class="panel-body">
+        <div class="practice" id="practice" hidden>Επανάληψη για εξάσκηση: τα νομίσματα αυτού του σταδίου τα έχεις ήδη κερδίσει.</div>
+        <div id="trial"></div>
+        <div class="row-end">
+          <button class="btn btn-ghost" id="btn-map" type="button">Εργαστήριο</button>
+          <button class="btn btn-gold" id="trial-next" type="button" hidden></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════ Η μεγάλη πτήση ═════ -->
+  <section class="screen" id="s-flight" hidden>
+    <div class="level-head">
+      <span class="tag mix">Η ΑΠΟΔΡΑΣΗ</span>
+      <h1 tabindex="-1" data-focus>Η μεγάλη πτήση</h1>
+      <p>Έξι σταθμοί ως την ελευθερία: σε καθέναν ο Ίκαρος ρωτά κι εσύ διαλέγεις τη σωστή διαδρομή.</p>
+    </div>
+    <div class="panel">
+      <div class="panel-top"></div>
+      <div class="panel-body">
+        <div class="fly-top">
+          <div class="sky-box"><svg class="sky" id="sky" viewBox="0 0 320 128" role="img" aria-label="Η διαδρομή της πτήσης πάνω από το Αιγαίο: Κνωσός, Δία, Θήρα, Νάξος, Δήλος, Ικάριο πέλαγος, Ικαρία."></svg></div>
+          <div class="meters">
+            <div><div class="meter-label">ΤΑ ΦΤΕΡΑ ΣΟΥ</div><div class="meter" id="m-hp" role="img"></div></div>
+            <div><div class="meter-label">Η ΔΙΑΔΡΟΜΗ</div><div class="meter" id="m-route" role="img"></div></div>
+          </div>
+        </div>
+        <div id="flight"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════ Νίκη ═════ -->
+  <section class="screen" id="s-win" hidden>
+    <h1 class="screen-title" tabindex="-1" data-focus>Ελεύθεροι! Ο Ίκαρος έφτασε στην Ικαρία</h1>
+    <p class="screen-sub">Με ασφαλή φτερά και σωστή διαδρομή — χάρη σε εσένα.</p>
+    <div class="panel"><div class="panel-top"></div><div class="panel-body win" id="win"></div></div>
+  </section>
+
+</main>
+
+<footer>InclusiLab · Παιχνίδι για τη Φυσική του Γυμνασίου · <a href="../">Όλα τα παιχνίδια</a></footer>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="panel modal-card">
+    <div class="panel-top"></div>
+    <div class="panel-body">
+      <div id="modal-art"></div>
+      <h2 id="modal-title" tabindex="-1"></h2>
+      <div id="modal-body"></div>
+      <div class="row-mid">
+        <button class="btn btn-ghost" id="modal-secondary" type="button" hidden></button>
+        <button class="btn btn-primary" id="modal-primary" type="button"></button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="sr-only" id="live" aria-live="polite"></div>
+
+<script>
+(() => {
+'use strict';
+const WS_GRIDS = [
+ [
+  "ΑΑΔΡΑΝΕΙΑΛ",
+  "ΝΛΓΑΔΥΝΑΜΗ",
+  "ΤΤΡΙΒΗΡΔΛΡ",
+  "ΙΣΟΡΡΟΠΙΑΝ",
+  "ΔΑΓΕΚΑΝΑΕΙ",
+  "ΡΕΕΧΧΟΝΝΣΟ",
+  "ΑΩΠΑΠΝΩΥΙΥ",
+  "ΣΩΑΣΡΕΟΣΤΤ",
+  "ΗΛΦΠΜΟΓΜΡΟ",
+  "ΑΜΗΝΜΕΝΑΡΝ"
+ ],
+ [
+  "ΒΑΡΥΤΗΤΑΦΤ",
+  "ΣΠΤΩΣΗΓΑΓΞ",
+  "ΑΠΒΗΥΣΑΝΠΩ",
+  "ΚΛΑΒΥΕΛΞΗΘ",
+  "ΡΑΡΣΟΕΙΚΓΛ",
+  "ΕΝΟΕΝΑΛΤΜΟ",
+  "ΘΗΣΛΘΗΑΩΜΑ",
+  "ΝΤΝΗΝΘΙΠΑΑ",
+  "ΤΗΑΝΛΝΟΘΖΕ",
+  "ΖΣΔΗΔΣΣΒΑΣ"
+ ],
+ [
+  "ΑΑΝΤΙΣΤΑΣΗ",
+  "ΠΛΝΑΒΝΕΦΑΚ",
+  "ΙΕΕΤΑΞΟΗΦΓ",
+  "ΕΗΕΞΩΡΡΧΤΩ",
+  "ΣΓΝΡΙΣΑΣΕΘ",
+  "ΗΦΓΚΟΠΗΛΡΗ",
+  "ΒΑΡΟΜΕΤΡΟΣ",
+  "ΝΟΠΕΩΦΧΩΟΗ",
+  "ΡΑΙΟΤΣΜΩΤΡ",
+  "ΑΝΕΜΟΠΤΕΡΟ"
+ ],
+ [
+  "ΔΝΛΚΘΤΗΞΗΑ",
+  "ΙΑΣΑΕΘΣΥΤΜ",
+  "ΑΝΝΓΡΜΧΗΡΕ",
+  "ΣΔΝΩΜΚΤΒΑΤ",
+  "ΤΤΕΓΟΟΑΡΣΑ",
+  "ΟΛΝΗΜΛΟΑΑΦ",
+  "ΛΜΚΡΕΖΚΣΔΟ",
+  "ΗΟΕΕΤΙΑΜΕΡ",
+  "ΛΘΥΘΡΑΩΟΣΑ",
+  "ΙΚΠΕΟΙΩΣΟΤ"
+ ],
+ [
+  "ΕΦΑΙΟΛΙΚΗΝ",
+  "ΟΕΔΥΛΝΤΩΗΔ",
+  "ΚΣΕΓΚΛΗΠΔΙ",
+  "ΟΙΧΕΥΥΟΟΥΑ",
+  "ΛΩΝΟΡΡΛΕΝΤ",
+  "ΘΧΑΗΤΓΑΔΑΗ",
+  "ΟΖΤΑΤΠΟΠΜΡ",
+  "ΤΝΤΕΕΙΥΕΙΗ",
+  "ΑΕΩΓΗΣΚΗΚΣ",
+  "ΜΙΣΧΥΣΥΗΗΗ"
+ ]
+];
+// ═══════════════════════════════════════════════════════════════
+//  ΠΕΡΙΕΧΟΜΕΝΟ — Φυσική Γυμνασίου: δυνάμεις, βαρύτητα, πτήση,
+//  θερμότητα, ενέργεια.
+//  Στους γρίφους, στις αποφάσεις κατασκευής και στους σταθμούς της
+//  πτήσης η ΠΡΩΤΗ επιλογή είναι η σωστή (οι επιλογές ανακατεύονται
+//  όταν εμφανίζονται).
+// ═══════════════════════════════════════════════════════════════
+const LEVELS = [
+  {
+    name: 'Ο πάγκος του μάστορα', tag: 'ΔΥΝΑΜΕΙΣ', label: 'Δυνάμεις', topic: 'Δυνάμεις: συνισταμένη, δράση και αντίδραση, ελατήρια',
+    part: { name: 'ο σκελετός από καλάμια', cap: 'ΣΚΕΛΕΤΟΣ' },
+    intro: 'Καλώς ήρθες στο εργαστήριό μου! Εδώ κάθε υλικό το τραβούν και το σπρώχνουν δυνάμεις. Πριν πιάσουμε τα καλάμια, δείξε μου ότι τις γνωρίζεις.',
+    riddles: [
+      { text: 'Δύο παιδιά σπρώχνουν μαζί το ίδιο κάρο. Εγώ είμαι η μία δύναμη που θα έκανε, μόνη της, ό,τι κάνουν όλες οι άλλες μαζί. Όταν είμαι μηδέν, το σώμα ισορροπεί. Τι είμαι;',
+        options: ['Η συνισταμένη δύναμη', 'Η τριβή', 'Η αδράνεια', 'Η αντίδραση'],
+        why: 'Συνισταμένη είναι η δύναμη που, μόνη της, φέρνει το ίδιο αποτέλεσμα με όλες τις δυνάμεις που ασκούνται σε ένα σώμα. Όταν είναι μηδέν, το σώμα ισορροπεί: μένει ακίνητο ή κινείται με σταθερή ταχύτητα.' },
+      { text: 'Σπρώχνεις έναν τοίχο κι εγώ σε σπρώχνω πίσω, εξίσου δυνατά. Το φτερό σπρώχνει τον αέρα προς τα κάτω κι εγώ σπρώχνω το φτερό προς τα πάνω. Εμφανίζομαι πάντα μαζί με τη δράση. Τι είμαι;',
+        options: ['Η αντίδραση', 'Η αδράνεια', 'Η βαρύτητα', 'Η πίεση'],
+        why: 'Τρίτος νόμος του Νεύτωνα: όταν ένα σώμα ασκεί δύναμη σε ένα άλλο (δράση), το δεύτερο ασκεί στο πρώτο δύναμη ίσου μέτρου και αντίθετης κατεύθυνσης (αντίδραση). Οι δύο δυνάμεις ασκούνται σε διαφορετικά σώματα.' },
+      { text: 'Με τραβάς και μακραίνω· με αφήνεις και ξαναγυρίζω στη θέση μου. Διπλάσια δύναμη, διπλάσια επιμήκυνση — γι\' αυτό κρύβομαι μέσα στο δυναμόμετρο. Τι είμαι;',
+        options: ['Το ελατήριο', 'Το σχοινί', 'Η τροχαλία', 'Ο μοχλός'],
+        why: 'Νόμος του Χουκ: η επιμήκυνση ενός ελατηρίου είναι ανάλογη με τη δύναμη που το τραβά. Χάρη σε αυτό, το δυναμόμετρο «μεταφράζει» την επιμήκυνση σε νιούτον.' },
+    ],
+    ws: {
+      dirs: 'οριζόντια (από αριστερά προς τα δεξιά) και κάθετα (από πάνω προς τα κάτω)',
+      words: [
+        { w: 'ΔΥΝΑΜΗ', fact: 'Η αιτία που αλλάζει την ταχύτητα ενός σώματος ή το παραμορφώνει. Μονάδα της: το νιούτον (N).' },
+        { w: 'ΙΣΟΡΡΟΠΙΑ', fact: 'Όταν η συνισταμένη των δυνάμεων είναι μηδέν, το σώμα ισορροπεί.' },
+        { w: 'ΑΝΤΙΔΡΑΣΗ', fact: 'Η δύναμη που ασκεί το δεύτερο σώμα πίσω στο πρώτο: ίση και αντίθετη με τη δράση.' },
+        { w: 'ΔΙΑΝΥΣΜΑ', fact: 'Το βέλος με το οποίο σχεδιάζουμε μια δύναμη: δείχνει το μέτρο και την κατεύθυνσή της.' },
+        { w: 'ΑΔΡΑΝΕΙΑ', fact: 'Η τάση κάθε σώματος να διατηρεί την κινητική του κατάσταση. Όσο μεγαλύτερη η μάζα, τόσο μεγαλύτερη η αδράνεια.' },
+        { w: 'ΤΡΙΒΗ', fact: 'Δύναμη που αντιστέκεται όταν μια επιφάνεια γλιστρά, ή πάει να γλιστρήσει, πάνω σε μια άλλη.' },
+        { w: 'ΝΙΟΥΤΟΝ', fact: 'Η μονάδα της δύναμης (N), προς τιμήν του Ισαάκ Νεύτωνα. Ένα μήλο έχει βάρος περίπου 1 N.' },
+        { w: 'ΕΠΑΦΗ', fact: 'Το σπρώξιμο, η τριβή και η τάση του νήματος είναι δυνάμεις επαφής. Το βάρος, αντίθετα, ασκείται από απόσταση.' },
+      ],
+    },
+    acro: {
+      word: 'ΦΤΕΡΟ',
+      reveal: 'Ελαφρύ αλλά γερό: πάνω του θα ασκούνται όλες οι δυνάμεις της πτήσης — το βάρος, η άντωση και η αντίσταση του αέρα.',
+      rows: [
+        { a: 'ΦΟΡΑ', clue: 'Τη δείχνει η μύτη του βέλους μιας δύναμης: προς τα δεξιά ή προς τα αριστερά, προς τα πάνω ή προς τα κάτω.' },
+        { a: 'ΤΡΙΒΗ', clue: 'Η δύναμη που φρενάρει ό,τι γλιστρά πάνω σε μια επιφάνεια.' },
+        { a: 'ΕΠΙΜΗΚΥΝΣΗ', clue: 'Πόσο μακραίνει ένα ελατήριο όταν το τραβάμε.' },
+        { a: 'ΡΟΔΑ', clue: 'Χάρη σε αυτήν το κάρο κυλά αντί να σέρνεται — και σπρώχνεται πολύ πιο εύκολα.' },
+        { a: 'ΟΜΟΡΡΟΠΕΣ', clue: 'Έτσι λέγονται δύο δυνάμεις που σπρώχνουν προς την ίδια μεριά· η συνισταμένη τους είναι το άθροισμά τους.' },
+      ],
+    },
+    build: {
+      title: 'ο σκελετός',
+      q: 'Ο σκελετός πρέπει να αντέχει τις δυνάμεις του αέρα, χωρίς όμως να μας βαραίνει. Από τι υλικό θα τον φτιάξουμε;',
+      options: [
+        { t: 'Από καλάμια', why: 'Το καλάμι είναι κούφιο: πολύ ελαφρύ, αλλά γερό και ελαστικό. Όταν το πιέζει ο αέρας λυγίζει λίγο και ξαναγυρίζει στη θέση του, αντί να σπάσει. Κούφια είναι και τα κόκαλα των πουλιών!' },
+        { t: 'Από μπρούντζινες βέργες', why: 'Ο μπρούντζος αντέχει, αλλά είναι πολύ πυκνό υλικό: ο σκελετός θα είχε τόσο μεγάλο βάρος, που κανένα φτερό δεν θα μπορούσε να το σηκώσει.' },
+        { t: 'Από ξερά κλαδάκια', why: 'Τα ξερά κλαδάκια είναι ελαφριά, αλλά εύθραυστα: με την πρώτη δυνατή ριπή του αέρα θα έσπαγαν.' },
+      ],
+    },
+  },
+  {
+    name: 'Το παράθυρο του πύργου', tag: 'ΒΑΡΥΤΗΤΑ', label: 'Βαρύτητα', topic: 'Βαρύτητα: βάρος, μάζα και ελεύθερη πτώση',
+    part: { name: 'τα μεγάλα πούπουλα', cap: 'ΜΕΓΕΘΟΣ' },
+    intro: 'Κοίτα από το παράθυρο: ό,τι αφήσεις, πέφτει. Η Γη μάς τραβά όλους προς το μέρος της — αν δεν τη γνωρίσουμε καλά, δεν θα της ξεφύγουμε.',
+    riddles: [
+      { text: 'Είμαι η δύναμη με την οποία η Γη τραβά κάθε σώμα προς το κέντρο της. Με μετράς σε νιούτον, όχι σε κιλά. Αν ταξιδέψεις στη Σελήνη, θα μικρύνω έξι φορές — κι ας μην έχεις χάσει ούτε γραμμάριο! Τι είμαι;',
+        options: ['Το βάρος', 'Η μάζα', 'Ο όγκος', 'Η πυκνότητα'],
+        why: 'Το βάρος είναι δύναμη: w = m · g. Η μάζα ενός σώματος είναι παντού η ίδια, το βάρος του όμως εξαρτάται από τον τόπο· στη Σελήνη είναι περίπου το ένα έκτο του γήινου.' },
+      { text: 'Το 1971 ένας αστροναύτης άφησε στη Σελήνη, την ίδια στιγμή, ένα σφυρί κι ένα φτερό. Έφτασαν στο έδαφος μαζί, γιατί εκεί δεν υπάρχει αέρας! Είμαι η κίνηση ενός σώματος που πέφτει μόνο εξαιτίας του βάρους του. Τι είμαι;',
+        options: ['Η ελεύθερη πτώση', 'Η ομαλή κίνηση', 'Η κυκλική κίνηση', 'Η ταλάντωση'],
+        why: 'Στην ελεύθερη πτώση όλα τα σώματα πέφτουν με τον ίδιο τρόπο, όποια μάζα κι αν έχουν — το είχε υποστηρίξει ο Γαλιλαίος αιώνες νωρίτερα. Στη Γη το φτερό αργεί μόνο εξαιτίας της αντίστασης του αέρα. Το πείραμα το έκανε ο Ντέιβιντ Σκοτ, στην αποστολή «Απόλλων 15».' },
+      { text: 'Ένα βαρίδι δεμένο σε έναν σπάγκο: τόσο απλό είμαι. Το βάρος με τεντώνει και δείχνω πάντα την κατακόρυφο. Οι χτίστες με κρεμούν δίπλα στον τοίχο για να δουν αν χτίζουν ίσια. Τι είμαι;',
+        options: ['Το νήμα της στάθμης', 'Το αλφάδι', 'Το δυναμόμετρο', 'Το εκκρεμές'],
+        why: 'Το νήμα της στάθμης δείχνει την κατακόρυφη διεύθυνση — τη διεύθυνση του βάρους, που «κοιτάζει» προς το κέντρο της Γης. Το αλφάδι, αντίθετα, δείχνει την οριζόντια.' },
+    ],
+    ws: {
+      dirs: 'οριζόντια (από αριστερά προς τα δεξιά) και κάθετα (από πάνω προς τα κάτω)',
+      words: [
+        { w: 'ΒΑΡΥΤΗΤΑ', fact: 'Η έλξη που ασκεί η Γη, όπως και κάθε ουράνιο σώμα, σε ό,τι βρίσκεται γύρω της.' },
+        { w: 'ΒΑΡΟΣ', fact: 'Η δύναμη με την οποία η Γη έλκει ένα σώμα: w = m · g. Μετριέται σε νιούτον.' },
+        { w: 'ΜΑΖΑ', fact: 'Η ποσότητα της ύλης ενός σώματος. Μετριέται σε κιλά και είναι ίδια παντού — και στη Σελήνη.' },
+        { w: 'ΠΤΩΣΗ', fact: 'Όταν δεν υπάρχει αέρας, όλα τα σώματα πέφτουν μαζί, βαριά και ελαφριά.' },
+        { w: 'ΣΕΛΗΝΗ', fact: 'Εκεί η βαρύτητα είναι περίπου έξι φορές μικρότερη απ\' ό,τι στη Γη.' },
+        { w: 'ΠΛΑΝΗΤΗΣ', fact: 'Η βαρύτητα του Ήλιου κρατά κάθε πλανήτη στην τροχιά του.' },
+        { w: 'ΕΛΞΗ', fact: 'Η βαρύτητα είναι πάντα ελκτική: τραβά, δεν σπρώχνει ποτέ.' },
+        { w: 'ΓΑΛΙΛΑΙΟΣ', fact: 'Έδειξε ότι, αν δεν υπήρχε η αντίσταση του αέρα, όλα τα σώματα θα έπεφταν με τον ίδιο τρόπο.' },
+      ],
+    },
+    acro: {
+      word: 'ΠΤΩΣΗ',
+      reveal: 'Ό,τι αφήσεις ελεύθερο κοντά στη Γη πέφτει προς το κέντρο της. Για να μην πάθει το ίδιο ο Ίκαρος, η άντωση πρέπει να ισορροπεί το βάρος του.',
+      rows: [
+        { a: 'ΠΛΑΝΗΤΗΣ', clue: 'Η Γη είναι ένας τέτοιος· το ίδιο και ο Άρης και ο Δίας.' },
+        { a: 'ΤΡΟΧΙΑ', clue: 'Η καμπύλη διαδρομή που ακολουθεί ένας δορυφόρος γύρω από τη Γη.' },
+        { a: 'ΩΚΕΑΝΟΣ', clue: 'Τα νερά του ανεβοκατεβαίνουν με την παλίρροια, που την προκαλεί κυρίως η βαρύτητα του φεγγαριού.' },
+        { a: 'ΣΕΛΗΝΗ', clue: 'Εκεί ένας αστροναύτης έχει έξι φορές μικρότερο βάρος απ\' ό,τι στη Γη.' },
+        { a: 'ΗΛΙΟΣ', clue: 'Το άστρο που με τη βαρύτητά του κρατά κοντά του τη Γη.' },
+      ],
+    },
+    build: {
+      title: 'το μέγεθος',
+      q: 'Ο Ίκαρος, μαζί με τα φτερά του, έχει μάζα 50 κιλά. Πόση άντωση πρέπει να δίνουν τα φτερά για να τον κρατούν στον αέρα; (Θυμήσου: w = m · g, με g ≈ 10 m/s².)',
+      options: [
+        { t: 'Περίπου 500 N', why: 'w = m · g = 50 kg · 10 m/s² = 500 N. Για να μένει ο Ίκαρος στο ίδιο ύψος, η άντωση πρέπει να είναι ίση με το βάρος του. Γι\' αυτό τα φτερά χρειάζονται μεγάλη επιφάνεια: πολλά και μακριά πούπουλα.' },
+        { t: 'Περίπου 50 N', why: 'Το 50 είναι η μάζα σε κιλά, όχι το βάρος. Το βάρος είναι δύναμη και το βρίσκουμε από τη σχέση w = m · g.' },
+        { t: 'Περίπου 5 N', why: 'Τα 5 N είναι το βάρος μισού κιλού — όσο ένα καρβέλι ψωμί. Ο Ίκαρος είναι πολύ βαρύτερος: υπολόγισε το w = m · g.' },
+      ],
+    },
+  },
+  {
+    name: 'Η αυλή των πουλιών', tag: 'ΠΤΗΣΗ', label: 'Πτήση', topic: 'Πτήση: άντωση, αντίσταση του αέρα και πίεση',
+    part: { name: 'η καμπύλη του φτερού', cap: 'ΣΧΗΜΑ' },
+    intro: 'Χρόνια παρατηρώ τους γλάρους και τα γεράκια. Δεν χτυπούν συνέχεια τα φτερά τους: αφήνουν τον αέρα να δουλεύει γι\' αυτούς. Για να δούμε τι κατάλαβες.',
+    riddles: [
+      { text: 'Γεννιέμαι όταν ο αέρας κυλά γύρω από ένα φτερό και το σπρώχνω προς τα πάνω. Όταν είμαι ίση με το βάρος, το πουλί κρατά το ύψος του· όταν το ξεπερνώ, ανεβαίνει. Τι είμαι;',
+        options: ['Η άντωση', 'Η άνωση', 'Η ώθηση', 'Η τριβή'],
+        why: 'Η άντωση κρατά στον αέρα τα πουλιά και τα αεροπλάνα· εμφανίζεται μόνο όταν το φτερό κινείται μέσα στον αέρα. Μην την μπερδεύεις με την άνωση, τη δύναμη που σπρώχνει προς τα πάνω ό,τι βρίσκεται μέσα σε υγρό ή αέριο — αυτή σηκώνει το αερόστατο.' },
+      { text: 'Όσο πιο γρήγορα τρέχεις, τόσο πιο δυνατά σε σπρώχνω προς τα πίσω. Κουράζω τον ποδηλάτη, αλλά σώζω τον αλεξιπτωτιστή. Τι είμαι;',
+        options: ['Η αντίσταση του αέρα', 'Η βαρύτητα', 'Η άντωση', 'Η αδράνεια'],
+        why: 'Η αντίσταση του αέρα έχει πάντα φορά αντίθετη από την κίνηση. Μεγαλώνει όταν αυξάνεται η ταχύτητα και όταν μεγαλώνει η επιφάνεια που «χτυπά» τον αέρα — γι\' αυτό το ανοιχτό αλεξίπτωτο κατεβαίνει αργά.' },
+      { text: 'Δεν με βλέπεις, μα σε πιέζω από παντού: ο αέρας που βρίσκεται πάνω από το κεφάλι σου έχει βάρος! Στην επιφάνεια της θάλασσας είμαι περίπου 100.000 πασκάλ· όσο ανεβαίνεις στο βουνό, μικραίνω. Τι είμαι;',
+        options: ['Η ατμοσφαιρική πίεση', 'Η υδροστατική πίεση', 'Η θερμοκρασία', 'Η υγρασία'],
+        why: 'Η ατμοσφαιρική πίεση οφείλεται στο βάρος του αέρα που βρίσκεται από πάνω μας. Όσο ανεβαίνουμε, ο αέρας λιγοστεύει και αραιώνει, άρα η πίεση μικραίνει. Τη μετράμε με το βαρόμετρο.' },
+    ],
+    ws: {
+      dirs: 'οριζόντια, κάθετα και διαγώνια προς τα κάτω-δεξιά',
+      words: [
+        { w: 'ΑΝΤΩΣΗ', fact: 'Η δύναμη που σηκώνει το φτερό προς τα πάνω όταν ο αέρας κυλά γύρω του.' },
+        { w: 'ΩΘΗΣΗ', fact: 'Το σπρώξιμο προς τα εμπρός: το δίνουν τα φτερά του πουλιού ή ο κινητήρας του αεροπλάνου. Οι πιλότοι το λένε «ώση».' },
+        { w: 'ΑΝΤΙΣΤΑΣΗ', fact: 'Η δύναμη του αέρα που φρενάρει ό,τι κινείται μέσα του. Οι πιλότοι τη λένε «οπισθέλκουσα».' },
+        { w: 'ΦΤΕΡΟ', fact: 'Το καμπυλωτό του σχήμα στρέφει τον αέρα προς τα κάτω — και ο αέρας το σπρώχνει προς τα πάνω.' },
+        { w: 'ΠΙΕΣΗ', fact: 'Η δύναμη που ασκείται κάθετα σε κάθε μονάδα επιφάνειας: p = F / A. Μονάδα της: το πασκάλ (Pa).' },
+        { w: 'ΑΝΕΜΟΠΤΕΡΟ', fact: 'Αεροσκάφος χωρίς κινητήρα: κερδίζει ύψος με τα ανοδικά ρεύματα του αέρα.' },
+        { w: 'ΑΛΕΞΙΠΤΩΤΟ', fact: 'Μεγάλη επιφάνεια, μεγάλη αντίσταση του αέρα: η πτώση γίνεται αργή και ασφαλής.' },
+        { w: 'ΒΑΡΟΜΕΤΡΟ', fact: 'Το όργανο που μετρά την ατμοσφαιρική πίεση.' },
+      ],
+    },
+    acro: {
+      word: 'ΑΕΡΑΣ',
+      reveal: 'Χωρίς αέρα δεν υπάρχει ούτε άντωση ούτε αντίσταση: κανένα φτερό δεν δουλεύει στο κενό.',
+      rows: [
+        { a: 'ΑΕΡΟΠΛΑΝΟ', clue: 'Το πρώτο με κινητήρα πέταξε το 1903, φτιαγμένο από τους αδελφούς Ράιτ.' },
+        { a: 'ΕΛΙΚΑΣ', clue: 'Γυρίζει σαν ανεμόμυλος, σπρώχνει τον αέρα προς τα πίσω και δίνει ώθηση προς τα εμπρός.' },
+        { a: 'ΡΕΥΜΑ', clue: 'Όταν είναι ζεστό και ανοδικό, σηκώνει τους αετούς ψηλά χωρίς να χτυπούν τα φτερά τους.' },
+        { a: 'ΑΛΕΞΙΠΤΩΤΟ', clue: 'Ανοίγει σαν ομπρέλα και κάνει την πτώση αργή.' },
+        { a: 'ΣΧΗΜΑ', clue: 'Όταν είναι αεροδυναμικό, ο αέρας γλιστρά εύκολα γύρω από το σώμα.' },
+      ],
+    },
+    build: {
+      title: 'το σχήμα',
+      q: 'Τι σχήμα θα δώσουμε στα φτερά, ώστε να γεννούν άντωση όταν ο αέρας κυλά γύρω τους;',
+      options: [
+        { t: 'Καμπυλωτό και λείο, σαν του γλάρου', why: 'Το καμπυλωτό φτερό στρέφει τον αέρα προς τα κάτω και ο αέρας, ως αντίδραση, σπρώχνει το φτερό προς τα πάνω: αυτή είναι η άντωση. Η λεία επιφάνεια κρατά μικρή την αντίσταση του αέρα. Παρόμοιο σχήμα έχουν και τα φτερά των αεροπλάνων.' },
+        { t: 'Επίπεδο και τετράγωνο, σαν πόρτα', why: 'Μια επίπεδη σανίδα «χτυπά» τον αέρα αντί να τον οδηγεί ομαλά: δίνει λίγη άντωση και πολύ μεγάλη αντίσταση.' },
+        { t: 'Μικρό και στρογγυλό, σαν ασπίδα', why: 'Ένα μικρό φτερό συναντά λίγο αέρα και δεν μπορεί να δώσει αρκετή άντωση για το βάρος ενός ανθρώπου.' },
+      ],
+    },
+  },
+  {
+    name: 'Το καμίνι με το κερί', tag: 'ΘΕΡΜΟΤΗΤΑ', label: 'Θερμότητα', topic: 'Θερμότητα: θερμοκρασία, τήξη και διάδοση της θερμότητας',
+    part: { name: 'το κερί και τα λευκά πούπουλα', cap: 'ΧΡΩΜΑ' },
+    intro: 'Το κερί είναι η κόλλα μας. Στο καμίνι πρέπει να λιώσει για να δέσει τα πούπουλα· στον ουρανό όμως δεν πρέπει να λιώσει ποτέ. Μάθε πρώτα πώς ταξιδεύει η θερμότητα.',
+    riddles: [
+      { text: 'Δεν είμαι ύλη· είμαι ενέργεια που ταξιδεύει. Περνώ πάντα από το πιο ζεστό σώμα στο πιο κρύο και σταματώ μόνο όταν γίνουν και τα δύο εξίσου ζεστά. Τι είμαι;',
+        options: ['Η θερμότητα', 'Η θερμοκρασία', 'Η ψύξη', 'Η τήξη'],
+        why: 'Θερμότητα είναι η ενέργεια που μεταφέρεται από ένα σώμα σε άλλο εξαιτίας της διαφοράς θερμοκρασίας τους. «Κρύο» δεν μεταφέρεται ποτέ: όταν κρατάς ένα παγάκι, θερμότητα φεύγει από το χέρι σου προς τον πάγο.' },
+      { text: 'Φτάνω από τον Ήλιο στη Γη περνώντας μέσα από το κενό — δεν χρειάζομαι ούτε αέρα ούτε νερό για να ταξιδέψω. Τα σκούρα σώματα με απορροφούν, τα λευκά και τα γυαλιστερά με ανακλούν. Τι είμαι;',
+        options: ['Η ακτινοβολία', 'Η αγωγή', 'Η μεταφορά', 'Η εξάτμιση'],
+        why: 'Η θερμότητα διαδίδεται με τρεις τρόπους: με αγωγή (κυρίως στα στερεά), με μεταφορά (με ρεύματα, στα υγρά και στα αέρια) και με ακτινοβολία. Μόνο η ακτινοβολία περνά μέσα από το κενό — έτσι φτάνει ως εμάς η ενέργεια του Ήλιου.' },
+      { text: 'Είμαι μια θερμοκρασία, διαφορετική για κάθε υλικό. Όταν ένα στερεό με φτάσει, αρχίζει να γίνεται υγρό. Για τον πάγο είμαι οι 0 °C, για το κερί της μέλισσας περίπου οι 63 °C. Τι είμαι;',
+        options: ['Το σημείο τήξης', 'Το σημείο βρασμού', 'Το απόλυτο μηδέν', 'Η θερμοκρασία δωματίου'],
+        why: 'Στο σημείο τήξης ένα στερεό λιώνει, δηλαδή γίνεται υγρό· όσο διαρκεί η τήξη, η θερμοκρασία του μένει σταθερή. Το κερί της μέλισσας λιώνει γύρω στους 63 °C, αλλά αρχίζει να μαλακώνει πολύ νωρίτερα.' },
+    ],
+    ws: {
+      dirs: 'οριζόντια, κάθετα και διαγώνια (προς τα κάτω-δεξιά ή προς τα πάνω-δεξιά)',
+      words: [
+        { w: 'ΘΕΡΜΟΤΗΤΑ', fact: 'Ενέργεια που μεταφέρεται από το θερμότερο σώμα στο ψυχρότερο.' },
+        { w: 'ΘΕΡΜΟΜΕΤΡΟ', fact: 'Το όργανο που μετρά τη θερμοκρασία, π.χ. σε βαθμούς Κελσίου.' },
+        { w: 'ΤΗΞΗ', fact: 'Η αλλαγή από στερεό σε υγρό: ο πάγος γίνεται νερό, το κερί λιώνει.' },
+        { w: 'ΒΡΑΣΜΟΣ', fact: 'Στην επιφάνεια της θάλασσας το νερό βράζει στους 100 °C και γίνεται ατμός.' },
+        { w: 'ΑΓΩΓΗ', fact: 'Η θερμότητα περνά από σωματίδιο σε σωματίδιο, κυρίως στα στερεά — όπως στο κουτάλι μέσα στη ζεστή σούπα.' },
+        { w: 'ΜΕΤΑΦΟΡΑ', fact: 'Ο ζεστός αέρας ανεβαίνει και ο κρύος κατεβαίνει: η θερμότητα ταξιδεύει με ρεύματα.' },
+        { w: 'ΔΙΑΣΤΟΛΗ', fact: 'Τα περισσότερα υλικά μεγαλώνουν λίγο σε όγκο όταν ζεσταίνονται.' },
+        { w: 'ΚΕΡΙ', fact: 'Το κερί της μέλισσας μαλακώνει στη ζέστη και λιώνει γύρω στους 63 °C.' },
+      ],
+    },
+    acro: {
+      word: 'ΚΑΜΙΝΙ',
+      reveal: 'Ο φούρνος του τεχνίτη. Εκεί το κερί λιώνει για να δέσει τα πούπουλα — στον ουρανό όμως πρέπει να μείνει στερεό!',
+      rows: [
+        { a: 'ΚΕΛΣΙΟΥ', alt: ['ΚΕΛΣΙΟΣ'], clue: 'Η κλίμακα θερμοκρασίας της καθημερινής ζωής: «βαθμοί …».' },
+        { a: 'ΑΓΩΓΟΣ', clue: 'Υλικό που αφήνει τη θερμότητα να περνά εύκολα, όπως ο χαλκός και το σίδερο.' },
+        { a: 'ΜΟΝΩΤΗΣ', clue: 'Υλικό που δυσκολεύει το πέρασμα της θερμότητας, όπως ο φελλός, το μαλλί και τα πούπουλα.' },
+        { a: 'ΙΣΟΡΡΟΠΙΑ', clue: 'Θερμική …: η κατάσταση δύο σωμάτων που ακουμπούν, όταν πια έχουν την ίδια θερμοκρασία.' },
+        { a: 'ΝΕΡΟ', clue: 'Παγώνει στους 0 °C και βράζει στους 100 °C.' },
+        { a: 'ΙΔΡΩΤΑΣ', clue: 'Καθώς εξατμίζεται από το δέρμα μας, παίρνει θερμότητα και μας δροσίζει.' },
+      ],
+    },
+    build: {
+      title: 'το χρώμα',
+      q: 'Ο Ήλιος θα μας βλέπει σε όλη τη διαδρομή. Τι χρώμα πούπουλα θα διαλέξουμε, για να ζεσταίνεται το κερί όσο γίνεται λιγότερο;',
+      options: [
+        { t: 'Λευκά, σαν του κύκνου', why: 'Οι λευκές επιφάνειες ανακλούν το μεγαλύτερο μέρος της ακτινοβολίας του Ήλιου και ζεσταίνονται λιγότερο. Γι\' αυτό ασβεστώνουν τα σπίτια στις Κυκλάδες — και γι\' αυτό το καλοκαίρι προτιμάμε τα ανοιχτόχρωμα ρούχα.' },
+        { t: 'Μαύρα, σαν του κορακιού', why: 'Οι μαύρες επιφάνειες απορροφούν σχεδόν όλη την ακτινοβολία που πέφτει πάνω τους και ζεσταίνονται γρήγορα. Το κερί θα μαλάκωνε πριν καν χαθεί η Κρήτη από τα μάτια μας.' },
+        { t: 'Όποια να \'ναι — το χρώμα δεν έχει σημασία', why: 'Έχει, και μεγάλη! Το χρώμα μιας επιφάνειας καθορίζει πόση ακτινοβολία απορροφά και πόση ανακλά.' },
+      ],
+    },
+  },
+  {
+    name: 'Η κορυφή του πύργου', tag: 'ΕΝΕΡΓΕΙΑ', label: 'Ενέργεια', topic: 'Ενέργεια: έργο, κινητική και δυναμική ενέργεια, ισχύς',
+    part: { name: 'η εξέδρα της απογείωσης', cap: 'ΑΠΟΓΕΙΩΣΗ' },
+    intro: 'Από εδώ ψηλά θα ξεκινήσουμε. Το ύψος δεν είναι μόνο θέα, παιδί μου: είναι αποθηκευμένη ενέργεια. Δείξε μου ότι ξέρεις πώς αλλάζει μορφές.',
+    riddles: [
+      { text: 'Με έχει κάθε σώμα που κινείται. Μεγαλώνω όταν μεγαλώνει η μάζα του, και ακόμη περισσότερο όταν μεγαλώνει η ταχύτητά του: με διπλάσια ταχύτητα γίνομαι τετραπλάσια. Τι είμαι;',
+        options: ['Η κινητική ενέργεια', 'Η δυναμική ενέργεια', 'Η χημική ενέργεια', 'Η ηλεκτρική ενέργεια'],
+        why: 'Κινητική ενέργεια: K = ½ · m · υ². Εξαρτάται από τη μάζα και από το τετράγωνο της ταχύτητας — γι\' αυτό η διπλάσια ταχύτητα δίνει τετραπλάσια κινητική ενέργεια.' },
+      { text: 'Είμαι ενέργεια αποθηκευμένη. Με έχει η πέτρα στην άκρη του γκρεμού και το νερό πίσω από το φράγμα: όσο πιο ψηλά ανεβάσεις ένα σώμα, τόσο μεγαλώνω. Όταν το σώμα πέσει, γίνομαι κίνηση. Τι είμαι;',
+        options: ['Η δυναμική ενέργεια', 'Η κινητική ενέργεια', 'Η θερμική ενέργεια', 'Η φωτεινή ενέργεια'],
+        why: 'Βαρυτική δυναμική ενέργεια: U = m · g · h. Όταν το σώμα πέφτει, η δυναμική του ενέργεια μετατρέπεται σε κινητική: χάνει ύψος και κερδίζει ταχύτητα.' },
+      { text: 'Δύο εργάτες ανεβάζουν τις ίδιες πέτρες στην κορυφή του ίδιου πύργου. Ο ένας τελειώνει σε μία ώρα, ο άλλος σε δύο. Παρήγαγαν το ίδιο έργο, όμως ο πρώτος με έχει διπλάσια. Δείχνω πόσο γρήγορα παράγεται το έργο και με μετράς σε βατ. Τι είμαι;',
+        options: ['Η ισχύς', 'Η ενέργεια', 'Η δύναμη', 'Η ταχύτητα'],
+        why: 'Ισχύς: P = W / t, δηλαδή το έργο που παράγεται σε κάθε δευτερόλεπτο. Μονάδα της είναι το βατ (W). Οι μύες του ανθρώπου έχουν μικρή ισχύ σε σχέση με το βάρος του — γι\' αυτό δεν μπορούμε να πετάξουμε χτυπώντας φτερά, όπως τα πουλιά.' },
+    ],
+    ws: {
+      dirs: 'οριζόντια, κάθετα και διαγώνια (προς τα κάτω-δεξιά ή προς τα πάνω-δεξιά)',
+      words: [
+        { w: 'ΕΡΓΟ', fact: 'Δύναμη επί μετατόπιση: W = F · x. Με το έργο μεταφέρεται ενέργεια από ένα σώμα σε άλλο.' },
+        { w: 'ΚΙΝΗΤΙΚΗ', fact: 'Η ενέργεια που έχει ένα σώμα επειδή κινείται.' },
+        { w: 'ΔΥΝΑΜΙΚΗ', fact: 'Η αποθηκευμένη ενέργεια ενός σώματος εξαιτίας της θέσης του, π.χ. του ύψους του.' },
+        { w: 'ΙΣΧΥΣ', fact: 'Το έργο που παράγεται κάθε δευτερόλεπτο. Μονάδα της: το βατ (W).' },
+        { w: 'ΤΖΑΟΥΛ', fact: 'Η μονάδα της ενέργειας και του έργου (J).' },
+        { w: 'ΜΕΤΑΤΡΟΠΗ', fact: 'Η ενέργεια αλλάζει μορφές: η δυναμική γίνεται κινητική, η κινητική θερμική…' },
+        { w: 'ΔΙΑΤΗΡΗΣΗ', fact: 'Η ενέργεια δεν χάνεται και δεν δημιουργείται από το τίποτα· μόνο αλλάζει μορφή.' },
+        { w: 'ΑΙΟΛΙΚΗ', fact: 'Η ενέργεια του ανέμου: γυρίζει τις ανεμογεννήτριες και φουσκώνει τα πανιά.' },
+      ],
+    },
+    acro: {
+      word: 'ΠΤΗΣΗ',
+      reveal: 'Η δυναμική ενέργεια του ύψους θα γίνει κινητική — και ο Ίκαρος είναι έτοιμος να γλιστρήσει στον αέρα!',
+      rows: [
+        { a: 'ΠΕΤΡΕΛΑΙΟ', clue: 'Ορυκτό καύσιμο με αποθηκευμένη χημική ενέργεια· από αυτό παράγεται η βενζίνη.' },
+        { a: 'ΤΖΑΟΥΛ', clue: 'Η μονάδα μέτρησης της ενέργειας, γραμμένη με ελληνικά γράμματα.' },
+        { a: 'ΗΛΙΑΚΗ', clue: 'Η ενέργεια που φτάνει στη Γη από το άστρο μας.' },
+        { a: 'ΣΤΑΘΕΡΗ', clue: 'Έτσι μένει η μηχανική ενέργεια ενός σώματος που πέφτει, όταν δεν υπάρχουν τριβές: ούτε αυξάνεται ούτε μειώνεται.' },
+        { a: 'ΗΛΕΚΤΡΙΚΗ', clue: 'Η ενέργεια που φτάνει στο σπίτι μας από την πρίζα.' },
+      ],
+    },
+    build: {
+      title: 'η απογείωση',
+      q: 'Για να γεννηθεί άντωση χρειαζόμαστε ταχύτητα. Από πού θα ξεκινήσουμε την πτήση, για να την αποκτήσουμε χωρίς κόπο;',
+      options: [
+        { t: 'Από την κορυφή του πύργου', why: 'Όσο πιο ψηλά βρίσκεται ένα σώμα, τόσο περισσότερη δυναμική ενέργεια έχει: U = m · g · h. Καθώς γλιστράμε προς τα κάτω, αυτή γίνεται κινητική — αποκτάμε ταχύτητα χωρίς να κουραστούμε. Το ίδιο κάνουν οι αετοί από τους γκρεμούς και τα αιωρόπτερα από τις πλαγιές.' },
+        { t: 'Από την αμμουδιά, τρέχοντας γρήγορα', why: 'Στο ύψος της θάλασσας δεν έχουμε δυναμική ενέργεια να «ξοδέψουμε». Όλη την ενέργεια θα έπρεπε να τη δώσουν οι μύες μας — και η ισχύς τους δεν φτάνει.' },
+        { t: 'Από ένα χαμηλό πεζούλι της αυλής', why: 'Λίγο ύψος σημαίνει λίγη δυναμική ενέργεια. Δεν θα προλάβουμε να αποκτήσουμε ταχύτητα πριν φτάσουμε στο έδαφος.' },
+      ],
+    },
+  },
+];
+
+// ── Η μεγάλη πτήση: έξι σταθμοί από την Κνωσό ως την Ικαρία ────
+//    Ρωτά ο Ίκαρος· η πρώτη επιλογή είναι η σωστή διαδρομή.
+const FLIGHT = [
+  { title: 'Η απογείωση', from: 'Κνωσός', to: 'Δία',
+    q: 'Στέκομαι στην άκρη του πύργου και τα γόνατά μου τρέμουν. Πώς να ξεκινήσω;',
+    options: [
+      { t: 'Πήδα με ανοιχτά φτερά και γλίστρα προς τα κάτω με μια ήπια βουτιά', why: 'Η δυναμική ενέργεια του ύψους γίνεται κινητική: ο Ίκαρος αποκτά ταχύτητα, ο αέρας κυλά γύρω από τα φτερά του και γεννιέται άντωση.' },
+      { t: 'Χτύπα δυνατά τα φτερά, για να ανέβεις ίσια προς τα πάνω', why: 'Για να σηκωθεί κανείς κατακόρυφα χρειάζεται πολύ μεγάλη ισχύ — πολύ μεγαλύτερη απ\' όση έχουν οι μύες του ανθρώπου. Ο Ίκαρος εξαντλείται πριν καν φύγει από τον πύργο.' },
+      { t: 'Πήδα με κλειστά φτερά και άνοιξέ τα λίγο πριν από τη θάλασσα', why: 'Με κλειστά φτερά ο Ίκαρος πέφτει σαν πέτρα και η ταχύτητά του μεγαλώνει συνεχώς. Όταν ανοίγει απότομα τα φτερά, η δύναμη του αέρα επάνω τους είναι τόσο μεγάλη, που ο σκελετός τρίζει.' },
+    ] },
+  { title: 'Το ζεστό νησί', from: 'Δία', to: 'Θήρα',
+    q: 'Τα χέρια μου κουράστηκαν και χάνω ύψος. Πώς θα ανέβω χωρίς να χτυπάω τα φτερά;',
+    options: [
+      { t: 'Κάνε κύκλους πάνω από τα σκούρα βράχια του νησιού, που τα ζεσταίνει ο ήλιος', why: 'Τα σκούρα βράχια ζεσταίνονται πολύ και ζεσταίνουν τον αέρα από πάνω τους. Ο ζεστός αέρας είναι πιο αραιός και ανεβαίνει: σχηματίζεται ένα ανοδικό ρεύμα (μεταφορά θερμότητας) που σηκώνει τον Ίκαρο σαν ασανσέρ. Έτσι κερδίζουν ύψος οι αετοί, οι πελαργοί και τα ανεμόπτερα.' },
+      { t: 'Πέτα πάνω από τη δροσερή θάλασσα', why: 'Η θάλασσα ζεσταίνεται πολύ πιο αργά από τη στεριά, γι\' αυτό ο αέρας από πάνω της μένει δροσερός και δεν ανεβαίνει. Εκεί δεν υπάρχει ανοδικό ρεύμα και ο Ίκαρος συνεχίζει να χάνει ύψος.' },
+      { t: 'Κλείσε λίγο τα φτερά, να ξεκουραστούν τα χέρια σου', why: 'Με μισόκλειστα φτερά η άντωση μικραίνει, ενώ το βάρος μένει ίδιο. Ο Ίκαρος βουλιάζει προς τη θάλασσα πιο γρήγορα από πριν.' },
+    ] },
+  { title: 'Το καταμεσήμερο', from: 'Θήρα', to: 'Νάξος',
+    q: 'Ο Ήλιος είναι ακριβώς από πάνω μου και νιώθω το κερί να μαλακώνει! Τι να κάνω;',
+    options: [
+      { t: 'Πέτα στη σκιά των σύννεφων', why: 'Στη σκιά, η ακτινοβολία του Ήλιου δεν πέφτει απευθείας πάνω στα φτερά. Το κερί απορροφά πολύ λιγότερη ενέργεια και μένει κάτω από το σημείο τήξης του.' },
+      { t: 'Χαμήλωσε πάνω από τα καυτά βράχια της ακτής', why: 'Τα βράχια που έχει πυρώσει ο ήλιος ζεσταίνουν τον αέρα από πάνω τους και ακτινοβολούν κι αυτά θερμότητα. Εκεί το κερί ζεσταίνεται ακόμη περισσότερο.' },
+      { t: 'Συνέχισε όπως πας — το κερί αντέχει', why: 'Το κερί της μέλισσας μαλακώνει πολύ πριν φτάσει στο σημείο τήξης του. Όσο απορροφά ακτινοβολία, η θερμοκρασία του ανεβαίνει και τα πούπουλα αρχίζουν να ξεκολλούν.' },
+    ] },
+  { title: 'Οι αφροί των κυμάτων', from: 'Νάξος', to: 'Δήλος',
+    q: 'Σηκώθηκε αέρας και τα κύματα πετούν αφρούς ψηλά. Σε τι ύψος να πετάξω;',
+    options: [
+      { t: 'Στη μέση: πάνω από τους αφρούς και κάτω από τα σύννεφα', why: 'Η μέση διαδρομή είναι η ασφαλής: τα φτερά μένουν στεγνά και ελαφριά, ενώ ο αέρας είναι αρκετά πυκνός για να δίνει άντωση. Αυτή ήταν και η συμβουλή του Δαίδαλου στον μύθο.' },
+      { t: 'Ξυστά πάνω από τα κύματα, για να δροσιστείς', why: 'Τα πούπουλα βρέχονται. Το νερό που συγκρατούν προσθέτει μάζα, άρα το βάρος μεγαλώνει — ενώ η άντωση μένει ίδια. Ο Ίκαρος αρχίζει να χάνει ύψος.' },
+      { t: 'Κάθισε στο νερό να ξεκουραστείς, όπως οι γλάροι', why: 'Οι γλάροι έχουν λαδωμένο, αδιάβροχο φτέρωμα. Τα φτερά του Ίκαρου μουσκεύουν και βαραίνουν τόσο, που δύσκολα ξανασηκώνονται από το νερό.' },
+    ] },
+  { title: 'Ο πειρασμός του Ήλιου', from: 'Δήλος', to: 'Ικάριο πέλαγος',
+    sun: 'Έλα πιο ψηλά, μικρέ! Από εδώ πάνω φαίνεται όλος ο κόσμος!',
+    q: 'Ο Ήλιος με φωνάζει κοντά του… Να ανέβω ψηλότερα;',
+    options: [
+      { t: 'Όχι! Μείνε στη μέση διαδρομή', why: 'Όσο ανεβαίνουμε, ο αέρας αραιώνει: τα φτερά βρίσκουν λιγότερο αέρα να σπρώξουν και η άντωση μικραίνει. Εκεί ψηλά κάνει και παγωνιά — η θερμοκρασία πέφτει περίπου 6,5 °C κάθε 1.000 μέτρα.' },
+      { t: 'Ανέβα! Ψηλά δεν υπάρχει βαρύτητα και θα πετάς χωρίς κόπο', why: 'Η βαρύτητα δεν σβήνει όταν ανεβαίνουμε: ακόμη και στο ύψος όπου πετούν τα αεροπλάνα, το βάρος μας είναι σχεδόν ίδιο με αυτό που έχουμε στο έδαφος.' },
+      { t: 'Ανέβα! Ψηλά ο αέρας είναι πιο πυκνός και θα σε κρατά καλύτερα', why: 'Συμβαίνει το αντίθετο: όσο ανεβαίνουμε, ο αέρας γίνεται πιο αραιός και η ατμοσφαιρική πίεση μικραίνει. Λιγότερος αέρας σημαίνει λιγότερη άντωση.' },
+    ] },
+  { title: 'Η προσγείωση', from: 'Ικάριο πέλαγος', to: 'Ικαρία',
+    q: 'Βλέπω στεριά! Όμως πλησιάζω με μεγάλη ταχύτητα. Πώς θα φρενάρω;',
+    options: [
+      { t: 'Άνοιξε διάπλατα τα φτερά και στρέψε τα κόντρα στον αέρα', why: 'Μεγαλώνει η επιφάνεια που χτυπά ο αέρας, άρα μεγαλώνει και η αντίσταση του αέρα: η ταχύτητα μικραίνει. Έτσι προσγειώνονται τα πουλιά — και τα αεροπλάνα, που ανοίγουν πτερύγια στα φτερά τους.' },
+      { t: 'Κλείσε τα φτερά και πέσε ίσια στην αμμουδιά', why: 'Με κλειστά φτερά χάνονται και η άντωση και η αντίσταση του αέρα: η ταχύτητα μεγαλώνει συνεχώς και όλη η κινητική ενέργεια «ξοδεύεται» στη σύγκρουση με το έδαφος.' },
+      { t: 'Χτύπα τα φτερά πιο γρήγορα, για να φτάσεις νωρίτερα', why: 'Έτσι η ταχύτητα μεγαλώνει, και μαζί της η κινητική ενέργεια. Όσο περισσότερη κινητική ενέργεια έχει ένα σώμα, τόσο πιο δύσκολα σταματά.' },
+    ] },
+];
+
+const SAY = {
+  wrong: ['Χμ… ο πατέρας κουνά το κεφάλι. Δοκίμασε μια άλλη απάντηση!', 'Κι εγώ αυτό θα έλεγα — αλλά δεν είναι. Πάμε ξανά!', 'Κοντά είσαι! Διάβασε πάλι προσεκτικά τον γρίφο.'],
+  right: ['Το βρήκες!', 'Σωστά!', 'Μπράβο — προχωράμε!'],
+  buildOk: ['Αυτό είναι!', 'Σωστή απόφαση!', 'Έτσι θα το φτιάξουμε!'],
+  buildBad: ['Όχι, αυτό δεν θα μας βγάλει από την Κρήτη…', 'Χμ, για ξανασκέψου το.', 'Όχι ακόμα — δες γιατί.'],
+  flyOk: ['Σωστή πορεία!', 'Έτσι μπράβο!', 'Ωραίο πέταγμα!'],
+  flyBad: ['Πρόσεχε!', 'Όχι έτσι!', 'Αυτό ήταν επικίνδυνο!'],
+};
+// ═══════════════════════════════════════════════════════════════
+//  ΤΟ ΦΤΕΡΟ — η γεωμετρία του. Το ίδιο σχέδιο ζωγραφίζει το φτερό
+//  στο εργαστήριο και στα στολίδια της αρχικής οθόνης.
+//  Συντεταγμένες στο πλαίσιο 240 × 236 του σχεδίου.
+// ═══════════════════════════════════════════════════════════════
+const WING = (() => {
+  const rad = a => a * Math.PI / 180, n1 = v => +v.toFixed(1);
+  const S = [40, 96], W = [118, 46], H = [170, 52]; // ώμος, καρπός, άκρη του χεριού
+  const lerp = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
+  // ένα πούπουλο: βάση, γωνία σε μοίρες (90 = ίσια κάτω), μήκος, μισό πλάτος
+  function leaf([x, y], ang, len, w) {
+    const c = Math.cos(rad(ang)), s = Math.sin(rad(ang));
+    const p = (t, k) => `${n1(x + c * len * t - s * w * k)} ${n1(y + s * len * t + c * w * k)}`;
+    return `M${p(0, 0)}C${p(0.28, 1)} ${p(0.9, 1)} ${p(1, 0)}C${p(0.9, -1)} ${p(0.28, -1)} ${p(0, 0)}Z`;
+  }
+  const line = ([x, y], ang, len) => `M${n1(x)} ${n1(y)}L${n1(x + Math.cos(rad(ang)) * len)} ${n1(y + Math.sin(rad(ang)) * len)}`;
+  const path = (d, cls) => `<path${cls ? ` class="${cls}"` : ''} d="${d}"/>`;
+  const big = [];
+  // έξι δευτερεύοντα (ώμος → καρπός) και επτά πρωτεύοντα (καρπός → άκρη)
+  for (let i = 0; i < 6; i++) big.push({ at: lerp(S, W, 0.07 + i * 0.165), ang: 102 - i * 4, len: 54 + i * 4, w: 8.5 });
+  [80, 86, 90, 90, 86, 78, 68].forEach((len, i) => big.push({ at: lerp(W, H, 0.03 + i * 0.16), ang: 78 - i * 10.5, len, w: 8 }));
+  const spar = `M${S.join(' ')}L${W.join(' ')}L${H.join(' ')}`;
+  const strap = t => { const [x, y] = lerp(S, W, t); return `<ellipse class="strap" cx="${n1(x)}" cy="${n1(y)}" rx="3.2" ry="6.5" transform="rotate(-33 ${n1(x)} ${n1(y)})"/>`; };
+  const parts = {
+    // τα μεγάλα πούπουλα: αυτά δίνουν στο φτερό το μέγεθός του
+    big: big.map(f => path(leaf(f.at, f.ang, f.len, f.w))).join(''),
+    // οι «βέργες» κάθε πούπουλου και ο κεντρικός σκελετός από καλάμια
+    ribs: big.map(f => path(line(f.at, f.ang, f.len * 0.9))).join(''),
+    spar: path(spar, 'reed') + [S, lerp(S, W, 0.5), W, H].map(p => `<circle class="knot" cx="${n1(p[0])}" cy="${n1(p[1])}" r="2.4"/>`).join('') + strap(0.16) + strap(0.62),
+    // η καμπυλωτή «μύτη»: μικρά πούπουλα που σκεπάζουν τη βάση των μεγάλων
+    cov: path(spar, 'sleeve') + big.map(f => path(leaf(f.at, f.ang, f.len * 0.36, f.w * 0.94))).join(''),
+    // σταγόνες από κερί εκεί όπου δένουν τα πούπουλα
+    wax: big.map(f => `<circle cx="${n1(f.at[0])}" cy="${n1(f.at[1])}" r="2.3"/>`).join(''),
+  };
+  // ολόκληρο το φτερό, έτοιμο και λευκό (για στολίδι)
+  const whole = `<g class="wing-white"><g class="bp-layer bp-big built">${parts.big}</g><g class="bp-layer bp-ribs built">${parts.ribs}</g><g class="bp-layer bp-cov built">${parts.cov}</g><g class="bp-layer bp-spar built">${parts.spar}</g><g class="bp-layer bp-wax built">${parts.wax}</g></g>`;
+  return { S, W, H, parts, whole };
+})();
+// ═══════════════════════════════════════════════════════════════
+//  ΜΗΧΑΝΗ ΠΑΙΧΝΙΔΙΟΥ — μέρος Α: κατάσταση, ήχος, εργαστήριο, ουρανός
+// ═══════════════════════════════════════════════════════════════
+const $ =(s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const SAVE_KEY = 'inclusilab.ikaros.v1';
+const REDUCED = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+const FLY_HP = 5, FLY_COINS = 3;
+const TRIAL_NAMES = ['Γρίφοι', 'Κρυπτόλεξο', 'Ακροστιχίδα', 'Κατασκευή'];
+const NT = TRIAL_NAMES.length;
+const MAX_COINS = LEVELS.reduce((s, L) => s + L.riddles.length * 3 + L.ws.words.length + L.acro.rows.length * 2 + 3, 0) + FLIGHT.length * FLY_COINS;
+
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const shuffled = a => {
+  const b = a.slice();
+  for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; }
+  return b;
+};
+const use = (id, vb = '0 0 100 100') => `<svg viewBox="${vb}" aria-hidden="true"><use href="#${id}"/></svg>`;
+const avatar = id => `<div class="avatar">${use(id)}</div>`;
+const FEATHER = use('i-feather', '0 0 48 48');
+const coinsWord = n => (n === 1 ? 'χρυσό νόμισμα' : 'χρυσά νομίσματα');
+const HINT_BTN = `<button class="btn btn-plan" type="button" data-act="hint">${use('i-plan', '0 0 24 24')}<span class="lbl-long">Τα σχέδια του Δαίδαλου</span><span class="lbl-short">Σχέδια</span></button>`;
+
+// ── Κατάσταση & αποθήκευση ────────────────────────────────────
+//    s: το κομμάτι του σταδίου έχει ήδη «εμφανιστεί» στο σχέδιο· fl: πόσοι σταθμοί της πτήσης έχουν πληρωθεί
+function freshLevel() { return { done: false, s: false, trials: TRIAL_NAMES.map(() => false), r: 0, f: [], a: [] }; }
+function freshState() { return { v: 1, coins: 0, flight: false, fl: 0, sound: true, big: false, free: false, levels: LEVELS.map(freshLevel) }; }
+function load() {
+  const s = freshState();
+  try {
+    const raw = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null');
+    if (raw && raw.v === 1 && Array.isArray(raw.levels) && raw.levels.length === LEVELS.length) {
+      s.coins = Math.max(0, raw.coins | 0);
+      s.flight = !!raw.flight; s.fl = Math.max(0, Math.min(FLIGHT.length, raw.fl | 0));
+      s.sound = raw.sound !== false; s.big = !!raw.big; s.free = !!raw.free;
+      raw.levels.forEach((l, i) => {
+        const t = s.levels[i];
+        if (!l) return;
+        t.done = !!l.done; t.s = !!l.s;
+        if (Array.isArray(l.trials)) t.trials = TRIAL_NAMES.map((_, k) => !!l.trials[k]);
+        t.r = Math.max(0, l.r | 0);
+        if (Array.isArray(l.f)) t.f = l.f.filter(w => typeof w === 'string');
+        if (Array.isArray(l.a)) t.a = l.a.filter(Number.isInteger);
+      });
+    }
+  } catch (e) { /* χωρίς αποθήκευση το παιχνίδι δουλεύει κανονικά */ }
+  return s;
+}
+let S = load();
+function save() { try { localStorage.setItem(SAVE_KEY, JSON.stringify(S)); } catch (e) { /* αγνόησε */ } }
+const feathers = () => S.levels.filter(l => l.done).length;
+const currentIndex = () => { const i = S.levels.findIndex(l => !l.done); return i === -1 ? LEVELS.length : i; };
+// ένα στάδιο ανοίγει όταν είναι το επόμενο στη σειρά, όταν έχει ήδη ολοκληρωθεί ή όταν ισχύει η «ελεύθερη επιλογή»
+const canEnter = i => S.levels[i].done || i === currentIndex() || S.free;
+const started = l => l.done || l.trials.some(Boolean) || l.r > 0 || l.f.length > 0 || l.a.length > 0;
+const hasProgress = () => S.coins > 0 || S.levels.some(started);
+
+// ── Ανακοινώσεις, HUD ─────────────────────────────────────────
+const live = $('#live');
+function announce(t) { live.textContent = ''; setTimeout(() => { live.textContent = t; }, 40); }
+function bump(sel) { const e = $(sel); e.classList.remove('bump'); void e.offsetWidth; e.classList.add('bump'); }
+function renderHUD() {
+  $('#coins-n').textContent = S.coins;
+  $('#feathers-n').textContent = feathers();
+  const chip = $('#hud-feathers');
+  chip.classList.toggle('golden', S.flight);
+  chip.title = S.flight ? 'Φτερά — και το Χρυσό Φτερό!' : 'Φτερά';
+}
+function addCoins(n) {
+  if (n <= 0) return;
+  S.coins += n; save(); renderHUD(); bump('#hud-coins'); sfx('coin');
+  const g = document.createElement('span');
+  g.className = 'gain'; g.textContent = '+' + n; g.setAttribute('aria-hidden', 'true');
+  $('#hud-coins').appendChild(g);
+  setTimeout(() => g.remove(), 1200);
+}
+
+// ── Ήχοι (Web Audio, χωρίς αρχεία) ────────────────────────────
+let actx = null;
+function tone(freq, dur, type = 'sine', delay = 0, vol = 0.07) {
+  if (!S.sound) return;
+  try {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    if (actx.state === 'suspended') actx.resume();
+    const t0 = actx.currentTime + delay, o = actx.createOscillator(), g = actx.createGain();
+    o.type = type; o.frequency.value = freq;
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(vol, t0 + 0.015);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g); g.connect(actx.destination);
+    o.start(t0); o.stop(t0 + dur + 0.03);
+  } catch (e) { /* χωρίς ήχο */ }
+}
+const SFX = {
+  coin: () => { tone(988, 0.09, 'triangle'); tone(1319, 0.16, 'triangle', 0.08); },
+  ok: () => { tone(523, 0.12); tone(659, 0.12, 'sine', 0.1); tone(784, 0.2, 'sine', 0.2); },
+  bad: () => { tone(220, 0.16, 'triangle'); tone(185, 0.24, 'triangle', 0.13); },
+  tap: () => tone(440, 0.05, 'sine', 0, 0.04),
+  win: () => [523, 659, 784, 1047, 1319].forEach((f, i) => tone(f, 0.26, 'triangle', i * 0.14)),
+  whoosh: () => { tone(330, 0.3, 'sine', 0, 0.05); tone(494, 0.35, 'sine', 0.12, 0.05); tone(659, 0.4, 'sine', 0.26, 0.04); },
+};
+const sfx = n => { if (SFX[n]) SFX[n](); };
+
+// ── Ανάγνωση ερωτήσεων (αν η συσκευή έχει ελληνική φωνή) ──────
+let elVoice = null;
+const canSpeak = 'speechSynthesis' in window && typeof window.SpeechSynthesisUtterance === 'function';
+function pickVoice() {
+  try {
+    elVoice = window.speechSynthesis.getVoices().find(v => /^el([-_]|$)/i.test(v.lang)) || null;
+    document.documentElement.classList.toggle('has-tts', !!elVoice);
+  } catch (e) { elVoice = null; }
+}
+if (canSpeak) {
+  pickVoice();
+  if (window.speechSynthesis.addEventListener) window.speechSynthesis.addEventListener('voiceschanged', pickVoice);
+}
+function hush() { if (canSpeak) { try { window.speechSynthesis.cancel(); } catch (e) { /* αγνόησε */ } } }
+function speak(text) {
+  if (!elVoice) return;
+  hush();
+  const u = new SpeechSynthesisUtterance(text);
+  u.voice = elVoice; u.lang = elVoice.lang; u.rate = 0.9;
+  window.speechSynthesis.speak(u);
+}
+
+// ── Οθόνες & παράθυρο μηνυμάτων ───────────────────────────────
+let acroKey = null; // ενεργό μόνο όσο παίζεται ακροστιχίδα
+function show(id) {
+  hush();
+  $$('.screen').forEach(s => { s.hidden = s.id !== id; });
+  window.scrollTo(0, 0);
+  const h = $('#' + id + ' [data-focus]');
+  if (h) h.focus({ preventScroll: true });
+}
+// φέρνει ένα στοιχείο κάτω από την επάνω μπάρα, μόνο αν δεν φαίνεται ήδη καλά
+function reveal(el) {
+  if (!el) return;
+  const top = $('.topbar').getBoundingClientRect().bottom + 8, r = el.getBoundingClientRect();
+  if (r.top < top || r.top > window.innerHeight * 0.5) window.scrollBy({ top: r.top - top, behavior: REDUCED ? 'auto' : 'smooth' });
+}
+const modal = $('#modal');
+let modalState = null;
+function openModal(o) {
+  modalState = { o, back: document.activeElement };
+  $('#modal-art').innerHTML = o.art || '';
+  $('#modal-title').textContent = o.title;
+  $('#modal-body').innerHTML = o.body || '';
+  const p = $('#modal-primary'), s = $('#modal-secondary');
+  p.textContent = o.primary || 'Συνέχεια';
+  s.hidden = !o.secondary; s.textContent = o.secondary || '';
+  modal.hidden = false;
+  p.focus();
+}
+function closeModal(which) {
+  if (!modalState) return;
+  const { o, back } = modalState;
+  modalState = null; modal.hidden = true;
+  const fn = which === 'primary' ? o.onPrimary : o.onSecondary;
+  if (fn) fn(); else if (back && back.focus) back.focus();
+}
+$('#modal-primary').addEventListener('click', () => closeModal('primary'));
+$('#modal-secondary').addEventListener('click', () => closeModal('secondary'));
+modal.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && modalState && modalState.o.secondary) { e.preventDefault(); closeModal('secondary'); return; }
+  if (e.key !== 'Tab') return;
+  const f = $$('button:not([hidden])', modal);
+  if (!f.length) return;
+  const first = f[0], last = f[f.length - 1];
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+});
+
+// ── Το εργαστήριο: το σχέδιο των φτερών. Κάθε στάδιο που
+//    ολοκληρώνεται «χτίζει» ένα κομμάτι του σχεδίου. ─────────────
+//    [σταθμός x, y, ετικέτα x, y, στοίχιση, γραμμή-οδηγός προς x, y]
+const ST_POS = [
+  [64, 56, 50, 58.2, 'end', 74, 73],
+  [96, 148, 108, 150.2, 'start', 92, 130],
+  [128, 28, 140, 30.2, 'start', 122, 43],
+  [222, 124, 222, 141, 'middle', 213, 106],
+  [34, 160, 46, 162.2, 'start', 0, 0],
+];
+const SUN_POS = [212, 26];
+(function buildPlan() {
+  const P = WING.parts, layer = (cls, k, inner) => `<g class="bp-layer ${cls}" data-layer="${k}">${inner}</g>`;
+  const tower = `<path class="stone" d="M22 228v-46h24v46z"/><path class="stone" d="M18 182v-10h6v4h5v-4h6v4h5v-4h6v10z"/><path class="stone" d="M30 228v-13a4 4 0 0 1 8 0v13z"/>
+    <path class="wood" d="M48 173h15"/><path class="glide" d="M64 171C104 173 122 203 222 199"/><path class="tip" d="M229 198.700l-9-4.500.400 9z"/>`;
+  const notes = LEVELS.map((L, i) => {
+    const [x, y, lx, ly, anchor, tx, ty] = ST_POS[i];
+    return `${tx ? `<path class="bp-lead" d="M${x} ${y}L${tx} ${ty}"/>` : ''}<text class="bp-note" x="${lx}" y="${ly}" text-anchor="${anchor}">${L.part.cap}</text>`;
+  }).join('');
+  $('#plan').innerHTML = `
+    <rect class="bp-bg" width="240" height="236" rx="4"/><rect width="240" height="236" rx="4" fill="url(#p-grid)"/>
+    <rect class="bp-frame" x="5" y="5" width="230" height="226" rx="2"/>
+    <text class="bp-title" x="230" y="216" text-anchor="end">ΤΑ ΦΤΕΡΑ ΤΟΥ ΙΚΑΡΟΥ</text>
+    <text class="bp-note" x="230" y="225.500" text-anchor="end">ΣΧΕΔΙΟ: ΔΑΙΔΑΛΟΣ · ΚΝΩΣΟΣ</text>
+    ${layer('bp-big', 1, P.big)}${layer('bp-ribs', 0, P.ribs)}${layer('bp-cov', 2, P.cov)}${layer('bp-spar', 0, P.spar)}${layer('bp-wax', 3, P.wax)}${layer('bp-tower', 4, tower)}
+    <g aria-hidden="true">${notes}</g>
+    <g id="plan-sun" transform="translate(${SUN_POS[0]},${SUN_POS[1]})"><circle class="hit" r="21"/><circle class="halo" r="15"/><use href="#i-sun" x="-17" y="-17" width="34" height="34"/></g>
+    <g id="plan-stations"></g>`;
+  $('#i-wing').innerHTML = WING.whole;
+})();
+function renderPlan() {
+  const cur = currentIndex(), plan = $('#plan');
+  $$('.bp-layer', plan).forEach(g => { g.classList.remove('fresh'); g.classList.toggle('built', S.levels[+g.dataset.layer].done); });
+  plan.classList.toggle('white', S.levels[3].done);
+  $('#plan-stations').innerHTML = LEVELS.map((L, i) => {
+    const st = S.levels[i].done ? 'done' : i === cur ? 'now' : S.free ? 'open' : 'lock';
+    return `<g class="st st-${st}" data-i="${i}" transform="translate(${ST_POS[i][0]},${ST_POS[i][1]})"><circle class="hit" r="13"/>${st === 'now' ? '<circle class="halo" r="9"/>' : ''}<circle class="dot" r="9"/><text>${i + 1}</text></g>`;
+  }).join('');
+  $('#plan-sun').setAttribute('class', S.flight ? 'done' : cur >= LEVELS.length ? 'now' : 'lock');
+}
+function renderLevelList() {
+  const cur = currentIndex();
+  const items = LEVELS.map((L, i) => {
+    const l = S.levels[i], st = l.done ? 'done' : i === cur ? 'now' : S.free ? 'open' : 'lock';
+    const status = st === 'done' ? 'ολοκληρώθηκε' : st === 'now' ? 'επόμενο στάδιο' : st === 'open' ? 'ανοιχτό' : 'κλειδωμένο';
+    const btn = st === 'done' ? `<button class="btn btn-ghost" type="button" data-enter="${i}">Επανάληψη<span class="sr-only">: ${L.name}</span></button>`
+      : st === 'lock' ? '<button class="btn btn-ghost" type="button" disabled>Κλειδωμένο</button>'
+        : `<button class="btn ${st === 'now' ? 'btn-primary' : 'btn-ghost'}" type="button" data-enter="${i}">${started(l) ? 'Συνέχισε' : 'Ξεκίνα'}<span class="sr-only">: ${L.name}</span></button>`;
+    return `<li class="lv lv-${st}"><span class="lv-num">${st === 'done' ? FEATHER : i + 1}</span><div><b>${L.name}</b><small>${L.label} · ${L.build.title}<span class="sr-only"> (${status})</span></small></div>${btn}</li>`;
+  });
+  const fst = S.flight ? 'done' : cur >= LEVELS.length ? 'now' : 'lock';
+  const fbtn = fst === 'lock' ? '<button class="btn btn-ghost" type="button" disabled>Κλειδωμένη</button>'
+    : `<button class="btn ${fst === 'now' ? 'btn-primary' : 'btn-ghost'}" type="button" data-flight="1">${fst === 'now' ? 'Απογείωση!' : 'Ξανά<span class="sr-only">: Η μεγάλη πτήση</span>'}</button>`;
+  items.push(`<li class="lv lv-${fst}"><span class="lv-num">${use('i-sun')}</span><div><b>Η μεγάλη πτήση</b><small>Η διαδρομή της απόδρασης</small></div>${fbtn}</li>`);
+  $('#levels').innerHTML = items.join('');
+}
+function mapLine(cur) {
+  if (S.flight) return 'Τα καταφέραμε — είμαστε ελεύθεροι! Μπορείς να ξαναπαίξεις όποιο στάδιο θέλεις, για εξάσκηση.';
+  if (cur >= LEVELS.length) return 'Τα φτερά είναι έτοιμα και ο ουρανός μάς περιμένει. Ώρα για τη μεγάλη πτήση!';
+  const n = feathers();
+  if (n === 0) return `Καλώς ήρθες στο εργαστήριό μου! Το σχέδιο έχει πέντε κομμάτια και θα τα φτιάξουμε ένα ένα. Πρώτη δουλειά: «${LEVELS[cur].name}».`;
+  return `Ωραία δουλειά! Έχεις ${n === 1 ? 'ένα φτερό' : n + ' φτερά'}. Επόμενη δουλειά: «${LEVELS[cur].name}».`;
+}
+function showMap() {
+  acroKey = null;
+  const cur = currentIndex();
+  renderPlan(); renderLevelList(); renderHUD();
+  $('#map-say').textContent = mapLine(cur);
+  show('s-map');
+  // ό,τι κατασκευάστηκε από την τελευταία επίσκεψη «ζωγραφίζεται» τώρα στο σχέδιο
+  let fresh = false;
+  S.levels.forEach((l, i) => {
+    if (!l.done || l.s) return;
+    l.s = true; fresh = true;
+    $$(`.bp-layer[data-layer="${i}"]`).forEach(g => g.classList.add('fresh'));
+  });
+  if (fresh) save();
+}
+
+// ── Ο ουρανός της μεγάλης πτήσης: από την Κνωσό ως την Ικαρία ──
+const SKY_STOPS = [['ΚΝΩΣΟΣ', 24], ['ΔΙΑ', 70], ['ΘΗΡΑ', 116], ['ΝΑΞΟΣ', 162], ['ΔΗΛΟΣ', 208], ['ΠΕΛΑΓΟΣ', 251], ['ΙΚΑΡΙΑ', 299]];
+const SKY_PTS = [[24.5, 58], [70, 60], [116, 44], [162, 57], [208, 61], [254, 50], [298, 73]];
+const sky = { cum: [0], total: 0, at: 0, raf: 0 };
+(function buildSky() {
+  for (let i = 1; i < SKY_PTS.length; i++) sky.cum.push(sky.cum[i - 1] + Math.hypot(SKY_PTS[i][0] - SKY_PTS[i - 1][0], SKY_PTS[i][1] - SKY_PTS[i - 1][1]));
+  sky.total = sky.cum[sky.cum.length - 1];
+  const d = 'M' + SKY_PTS.map(p => p.join(' ')).join('L');
+  const wave = (x, y) => `<path d="M${x} ${y}${'q5-3.500 10 0t10 0'.repeat(17)}"/>`;
+  $('#sky').innerHTML = `
+    <rect width="320" height="128" fill="url(#g-sky)"/>
+    <use href="#i-sun" x="230" y="2" width="44" height="44"/>
+    <g fill="#fff" opacity=".93">
+      <ellipse cx="150" cy="30" rx="19" ry="6"/><ellipse cx="142" cy="26" rx="9" ry="6.500"/><ellipse cx="156" cy="24" rx="10" ry="7.500"/>
+      <ellipse cx="62" cy="24" rx="15" ry="5"/><ellipse cx="57" cy="21" rx="7" ry="5"/><ellipse cx="68" cy="19.500" rx="8" ry="6"/>
+      <ellipse cx="198" cy="17" rx="12" ry="4"/><ellipse cx="203" cy="14" rx="6.500" ry="4.500"/>
+    </g>
+    <path d="M-2 108V89q12-7 24-3 15 4 27 22z" fill="#d3ba8d"/>
+    <path d="M19 93V67h11v26z" fill="#b9a17b" stroke="#6f5a3c" stroke-width=".8"/><path d="M17.500 67v-5h3.500v2.500h2.500V62h3v2.500H29V62h3.500v5z" fill="#b9a17b" stroke="#6f5a3c" stroke-width=".8" stroke-linejoin="round"/>
+    <path d="M57 108q13-21 26 0z" fill="#c4ac82"/>
+    <path d="M97 108l8-14 5 4 6-11 6 10 5-3 8 14z" fill="#5d4b45"/><path d="M107.500 93.500h4.500v3.500h-4.500zM118 86.500h4v3.500h-4z" fill="#fff"/><circle cx="120" cy="86" r="1.900" fill="#2f86c4"/>
+    <path d="M139 108q10-22 23-23 13 1 23 23z" fill="#93a873"/>
+    <path d="M192 108q16-14 32 0z" fill="#d3ba8d"/><path d="M203.500 101.500v-7M208 101v-7.500M212.500 101.500v-7M202 93.500h12" fill="none" stroke="#fff" stroke-width="1.300" stroke-linecap="round"/>
+    <path d="M270 108q13-28 29-26 13 2 23 26z" fill="#93a873"/><path d="M280 108q18-7 42 0z" fill="#ecd9ae"/>
+    <rect y="104" width="320" height="24" fill="#1f6f8b"/>
+    <g fill="none" stroke="#8fcbe0" stroke-width="1" stroke-linecap="round" opacity=".55">${wave(0, 108.500)}${wave(-10, 126)}</g>
+    <path d="M245 100.500q9 6.500 18 0l-1.500 4.500h-15z" fill="#7a4a30"/><path d="M254 101v-11" fill="none" stroke="#7a4a30" stroke-width="1.100"/><path d="M255 90.500q5 3 5.500 8.500h-5.500z" fill="#fff"/>
+    ${SKY_STOPS.map(([name, x]) => `<text class="sky-name" x="${x}" y="120">${name}</text>`).join('')}
+    <path class="sky-route" d="${d}"/>
+    <path class="sky-done" id="sky-done" d="${d}"/>
+    <g id="sky-stops"></g>
+    <g id="sky-flyer"><g class="flyer-in"><use href="#i-flyer" x="-15" y="-10" width="30" height="17.700"/></g></g>`;
+})();
+function skyPoint(len) {
+  len = Math.max(0, Math.min(sky.total, len));
+  let i = 1;
+  while (i < sky.cum.length - 1 && sky.cum[i] < len) i++;
+  const a = SKY_PTS[i - 1], b = SKY_PTS[i], seg = sky.cum[i] - sky.cum[i - 1], t = seg ? (len - sky.cum[i - 1]) / seg : 0;
+  return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
+}
+function setFlyer(len) {
+  sky.at = len;
+  const p = skyPoint(len);
+  $('#sky-flyer').setAttribute('transform', `translate(${p[0].toFixed(2)},${p[1].toFixed(2)})`);
+  $('#sky-done').setAttribute('stroke-dasharray', `${Math.max(0.01, len).toFixed(1)} ${sky.total + 40}`);
+}
+// ο Ίκαρος πετά ως τον σταθμό k (0 = ο πύργος της Κνωσού)
+function flyTo(k, instant) {
+  cancelAnimationFrame(sky.raf);
+  const from = sky.at, to = sky.cum[k];
+  if (instant || REDUCED || from === to) { setFlyer(to); return; }
+  const dur = 1500, t0 = performance.now();
+  const step = now => {
+    const q = Math.min(1, (now - t0) / dur), e = q < 0.5 ? 2 * q * q : 1 - Math.pow(-2 * q + 2, 2) / 2;
+    setFlyer(from + (to - from) * e);
+    if (q < 1) sky.raf = requestAnimationFrame(step);
+  };
+  sky.raf = requestAnimationFrame(step);
+}
+function renderSkyStops(reached) {
+  $('#sky-stops').innerHTML = SKY_PTS.map((p, i) => `<circle class="sky-stop${i <= reached ? ' done' : i === reached + 1 ? ' now' : ''}" cx="${p[0]}" cy="${p[1]}" r="2.700"/>`).join('');
+}
+// ═══════════════════════════════════════════════════════════════
+//  ΜΗΧΑΝΗ ΠΑΙΧΝΙΔΙΟΥ — μέρος Β: στάδια, δοκιμασίες και η μεγάλη πτήση
+// ═══════════════════════════════════════════════════════════════
+let ctx = null; // το στάδιο που παίζεται: { i, L, practice, p (πρόοδος), t (δοκιμασία) }
+
+function fbHtml(kind, who, lead, text) {
+  return `<div class="fb fb-${kind}">${avatar(who)}<p><b class="lead">${lead}</b>${text}</p></div>`;
+}
+
+function openLevel(i) {
+  const L = LEVELS[i], st = S.levels[i], practice = st.done;
+  ctx = { i, L, practice, p: practice ? freshLevel() : st, t: 0 };
+  const first = ctx.p.trials.indexOf(false);
+  if (!practice && first === -1) { finishLevel(); return; }
+  $('#lv-tag').textContent = `ΣΤΑΔΙΟ ${i + 1} ΑΠΟ ${LEVELS.length} · ${L.tag}`;
+  $('#lv-title').textContent = L.name;
+  $('#lv-topic').textContent = L.topic;
+  $('#practice').hidden = !practice;
+  show('s-level');
+  openTrial(first === -1 ? 0 : first, true);
+}
+function renderSteps() {
+  $('#steps').innerHTML = TRIAL_NAMES.map((n, k) => {
+    const done = ctx.p.trials[k], now = k === ctx.t;
+    return `<li class="step${done ? ' done' : ''}${now ? ' now' : ''}"${now ? ' aria-current="step"' : ''}><i>${done ? '✓' : k + 1}</i><span>${n}</span>${done ? '<span class="sr-only"> (ολοκληρώθηκε)</span>' : ''}</li>`;
+  }).join('');
+}
+function openTrial(t, initial) {
+  acroKey = null; hush();
+  ctx.t = t; renderSteps();
+  const host = $('#trial');
+  host.onclick = null; host.innerHTML = '';
+  $('#trial-next').hidden = true;
+  [startRiddles, startWS, startAcro, startBuild][t](host);
+  if (!initial) { window.scrollTo(0, 0); $('#lv-title').focus({ preventScroll: true }); }
+}
+function trialDone() {
+  const t = ctx.t;
+  ctx.p.trials[t] = true;
+  if (!ctx.practice) save();
+  renderSteps();
+  const b = $('#trial-next');
+  b.hidden = false;
+  b.textContent = t < NT - 1 ? `Επόμενη δοκιμασία: ${TRIAL_NAMES[t + 1]}` : ctx.practice ? 'Τέλος επανάληψης' : 'Πάρε το φτερό!';
+  b.scrollIntoView({ block: 'nearest', behavior: REDUCED ? 'auto' : 'smooth' });
+}
+function finishLevel() {
+  if (ctx.practice) { showMap(); return; }
+  S.levels[ctx.i].done = true; save(); renderHUD(); bump('#hud-feathers'); sfx('win');
+  const n = feathers(), last = n === LEVELS.length;
+  openModal({
+    art: `<div class="modal-art spin">${FEATHER}</div>`,
+    title: 'Κέρδισες ένα φτερό!',
+    body: `<p>Ολοκλήρωσες το στάδιο «${ctx.L.name}».</p><p>Στο σχέδιο προστέθηκε: <strong>${ctx.L.part.name}</strong>.</p><p>${last ? 'Και τα πέντε φτερά είναι πια δικά σου: ώρα για τη μεγάλη πτήση!' : `Έχεις <strong>${n} από ${LEVELS.length}</strong> φτερά. Ο Ίκαρος ανυπομονεί για το επόμενο στάδιο!`}</p>`,
+    primary: 'Στο εργαστήριο', onPrimary: showMap,
+  });
+}
+
+// ── 1. Γρίφοι ─────────────────────────────────────────────────
+function startRiddles(host, focusRiddle) {
+  const total = ctx.L.riddles.length;
+  if (ctx.p.r >= total) ctx.p.r = 0;
+  const idx = ctx.p.r, R = ctx.L.riddles[idx];
+  const opts = shuffled(R.options.map((text, k) => ({ text, ok: k === 0 })));
+  let wrong = 0, hints = 0, solved = false;
+  host.innerHTML = `
+    <div class="trial-head"><h2>Οι γρίφοι του Δαίδαλου</h2><span class="count">Γρίφος ${idx + 1} από ${total}</span></div>
+    <div class="speech">${avatar('c-daedalus')}
+      <div class="bubble"><div class="who">ΔΑΙΔΑΛΟΣ</div>
+        ${idx === 0 ? `<p class="note">${ctx.L.intro}</p>` : ''}
+        <p class="riddle" tabindex="-1">${R.text}</p>
+        <button class="link-btn tts-btn" type="button" data-act="tts">Άκου τον γρίφο</button>
+      </div>
+    </div>
+    <div class="options" role="group" aria-label="Απαντήσεις">${opts.map((o, k) => `<button class="opt" type="button" data-k="${k}"><span class="key">${'ΑΒΓΔ'[k]}</span><span>${o.text}</span></button>`).join('')}</div>
+    <div class="tools">${HINT_BTN}<span class="note">Σβήνει μία λάθος απάντηση, αλλά κοστίζει 1 νόμισμα από την ανταμοιβή.</span></div>
+    <div class="feedback" aria-live="polite"></div>
+    <div class="row-end" style="justify-content:flex-start"><button class="btn btn-primary" type="button" data-act="next" hidden>Επόμενος γρίφος</button></div>`;
+  const fb = $('.feedback', host), btns = $$('.opt', host), hintBtn = $('[data-act="hint"]', host);
+  if (focusRiddle) { $('.riddle', host).focus({ preventScroll: true }); reveal($('.trial-head', host)); }
+  host.onclick = e => {
+    const b = e.target.closest('button');
+    if (!b || b.disabled || !host.contains(b)) return;
+    const act = b.dataset.act;
+    if (act === 'tts') { speak(R.text + ' ' + opts.map((o, k) => 'ΑΒΓΔ'[k] + '. ' + o.text).join('. ')); return; }
+    if (act === 'next') { hush(); startRiddles(host, true); return; }
+    if (act === 'hint') {
+      const cand = btns.filter((x, k) => !opts[k].ok && !x.disabled);
+      if (!cand.length) return;
+      const x = pick(cand);
+      x.disabled = true; x.classList.add('is-out'); hints++;
+      fb.innerHTML = fbHtml('info', 'c-icarus', 'Κρυφοκοίταξα τα σχέδια του πατέρα…', `Η απάντηση «${opts[+x.dataset.k].text}» δεν είναι η σωστή.`);
+      if (hints >= 2 || cand.length <= 1) hintBtn.disabled = true;
+      return;
+    }
+    if (!b.classList.contains('opt') || solved) return;
+    const o = opts[+b.dataset.k];
+    if (!o.ok) {
+      wrong++; b.disabled = true; b.classList.add('is-bad'); $('.key', b).textContent = '✗'; sfx('bad');
+      fb.innerHTML = fbHtml('bad', 'c-icarus', 'Όχι ακόμα…', pick(SAY.wrong));
+      return;
+    }
+    solved = true; hush();
+    btns.forEach(x => { x.disabled = true; });
+    b.classList.add('is-ok'); $('.key', b).textContent = '✓';
+    hintBtn.disabled = true;
+    const gain = ctx.practice ? 0 : Math.max(1, 3 - wrong - hints);
+    ctx.p.r = idx + 1;
+    if (ctx.practice) sfx('ok'); else { save(); addCoins(gain); }
+    fb.innerHTML = fbHtml('ok', 'c-icarus', `${pick(SAY.right)}${gain ? ` +${gain} ${coinsWord(gain)}.` : ''}`, R.why);
+    if (ctx.p.r < total) { const n = $('[data-act="next"]', host); n.hidden = false; n.focus({ preventScroll: true }); n.scrollIntoView({ block: 'nearest', behavior: REDUCED ? 'auto' : 'smooth' }); }
+    else trialDone();
+  };
+}
+
+// ── 2. Κρυπτόλεξο ─────────────────────────────────────────────
+function startWS(host) {
+  const W = ctx.L.ws, grid = WS_GRIDS[ctx.i], N = grid.length, words = W.words.map(x => x.w);
+  const found = new Set(ctx.p.f.filter(w => words.includes(w))), hinted = new Set();
+  const DIRS = [[0, 1], [1, 0], [1, 1], [-1, 1], [0, -1], [-1, 0], [-1, -1], [1, -1]];
+  let anchor = null, down = null, dragging = false, finished = false;
+  host.innerHTML = `
+    <div class="trial-head"><h2>Το κρυπτόλεξο</h2><span class="count" id="ws-count"></span></div>
+    <p>Βρες τις <strong>${words.length} λέξεις</strong>. Είναι γραμμένες ${W.dirs}. Πάτησε το <strong>πρώτο</strong> και μετά το <strong>τελευταίο</strong> γράμμα κάθε λέξης.</p>
+    <div class="ws-wrap">
+      <div><div class="ws-grid" role="group" aria-label="Πλέγμα γραμμάτων ${N} επί ${N}. Με τα βελάκια αλλάζεις γράμμα."></div><div class="feedback" aria-live="polite"></div></div>
+      <div>
+        <div class="tools">${HINT_BTN}</div>
+        <p class="note" style="margin:.4rem 0 0">Δείχνει το πρώτο γράμμα μιας λέξης (η λέξη αυτή δεν δίνει νόμισμα).</p>
+        <ul class="ws-words" aria-label="Λέξεις που ψάχνεις"></ul>
+      </div>
+    </div>`;
+  const gridEl = $('.ws-grid', host), fb = $('.feedback', host), hintBtn = $('[data-act="hint"]', host);
+  gridEl.innerHTML = grid.map((row, r) => Array.from(row).map((ch, c) =>
+    `<button class="ws-cell" type="button" data-r="${r}" data-c="${c}" tabindex="${r + c ? -1 : 0}" aria-label="${ch}, γραμμή ${r + 1}, στήλη ${c + 1}">${ch}</button>`).join('')).join('');
+  const cell = (r, c) => gridEl.children[r * N + c];
+  const rcOf = el => [+el.dataset.r, +el.dataset.c];
+  function locate(word) {
+    for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) for (const [dr, dc] of DIRS) {
+      const er = r + dr * (word.length - 1), ec = c + dc * (word.length - 1);
+      if (er < 0 || er >= N || ec < 0 || ec >= N) continue;
+      let ok = true;
+      for (let i = 0; i < word.length && ok; i++) ok = grid[r + dr * i][c + dc * i] === word[i];
+      if (ok) return Array.from(word, (_, i) => [r + dr * i, c + dc * i]);
+    }
+    return [];
+  }
+  function line(a, b) {
+    const dr = b[0] - a[0], dc = b[1] - a[1];
+    if (!(dr === 0 || dc === 0 || Math.abs(dr) === Math.abs(dc))) return null;
+    const n = Math.max(Math.abs(dr), Math.abs(dc)), sr = Math.sign(dr), sc = Math.sign(dc);
+    return Array.from({ length: n + 1 }, (_, i) => [a[0] + sr * i, a[1] + sc * i]);
+  }
+  function paint(word) {
+    const k = words.indexOf(word) % 4;
+    locate(word).forEach(([r, c]) => { const e = cell(r, c); e.classList.remove('f0', 'f1', 'f2', 'f3'); e.classList.add('found', 'f' + k); });
+  }
+  function renderWords() {
+    $('.ws-words', host).innerHTML = W.words.map(x => (found.has(x.w)
+      ? `<li class="found"><b>${x.w}</b><span class="sr-only"> (βρέθηκε)</span><span>${x.fact}</span></li>` : `<li><b>${x.w}</b></li>`)).join('');
+    $('#ws-count', host).textContent = `${found.size} από ${words.length} λέξεις`;
+  }
+  function clearPreview() { $$('.preview', gridEl).forEach(e => e.classList.remove('preview')); }
+  function setAnchor(rc) {
+    clearPreview();
+    $$('.anchor', gridEl).forEach(e => e.classList.remove('anchor'));
+    anchor = rc;
+    if (rc) cell(rc[0], rc[1]).classList.add('anchor');
+  }
+  function preview(rc) {
+    clearPreview();
+    if (!anchor) return;
+    const l = line(anchor, rc);
+    if (l) l.slice(1).forEach(([r, c]) => cell(r, c).classList.add('preview'));
+  }
+  function complete() {
+    finished = true; hintBtn.disabled = true; setAnchor(null);
+    fb.innerHTML = fbHtml('ok', 'c-icarus', 'Βρήκες όλες τις λέξεις!', 'Διάβασε δίπλα τι σημαίνει η καθεμία — θα σου χρειαστούν στην ακροστιχίδα.');
+    trialDone();
+  }
+  function tryLine(a, b) {
+    const l = line(a, b);
+    setAnchor(null);
+    const text = l ? l.map(([r, c]) => grid[r][c]).join('') : '';
+    const rev = Array.from(text).reverse().join('');
+    const word = words.find(w => w === text || w === rev);
+    if (word && !found.has(word)) {
+      found.add(word); ctx.p.f = Array.from(found);
+      paint(word); renderWords();
+      const gain = !ctx.practice && !hinted.has(word) ? 1 : 0;
+      if (!ctx.practice) save();
+      if (gain) addCoins(gain); else sfx('ok');
+      fb.innerHTML = fbHtml('ok', 'c-icarus', `Βρήκες τη λέξη ${word}!${gain ? ' +1 χρυσό νόμισμα.' : ''}`, W.words.find(x => x.w === word).fact);
+      if (found.size === words.length) complete();
+      return;
+    }
+    if (word) { fb.innerHTML = fbHtml('info', 'c-icarus', `Τη λέξη ${word} την έχεις ήδη βρει.`, 'Ψάξε τις υπόλοιπες της λίστας.'); return; }
+    sfx('bad');
+    [a, b].forEach(([r, c]) => { const e = cell(r, c); e.classList.add('nope'); setTimeout(() => e.classList.remove('nope'), 400); });
+    fb.innerHTML = fbHtml('bad', 'c-icarus', 'Εδώ δεν κρύβεται λέξη της λίστας.',
+      l ? 'Δοκίμασε ξανά: πρώτο γράμμα και μετά τελευταίο.' : 'Τα δύο γράμματα πρέπει να βρίσκονται στην ίδια ευθεία.');
+  }
+  gridEl.onclick = e => {
+    const b = e.target.closest('.ws-cell');
+    if (!b || finished) return;
+    const rc = rcOf(b);
+    if (!anchor) { setAnchor(rc); sfx('tap'); return; }
+    if (anchor[0] === rc[0] && anchor[1] === rc[1]) { setAnchor(null); return; }
+    tryLine(anchor, rc);
+  };
+  // σύρσιμο με το ποντίκι (στις οθόνες αφής αρκούν δύο αγγίγματα)
+  gridEl.onpointerdown = e => { const b = e.target.closest('.ws-cell'); if (b && e.pointerType === 'mouse' && e.button === 0 && !finished) down = rcOf(b); };
+  gridEl.onpointerover = e => {
+    const b = e.target.closest('.ws-cell');
+    if (!b || e.pointerType !== 'mouse' || finished) return;
+    const rc = rcOf(b);
+    if (down && (e.buttons & 1) && !dragging && (rc[0] !== down[0] || rc[1] !== down[1])) { dragging = true; setAnchor(down); }
+    if (anchor) preview(rc);
+  };
+  gridEl.onpointerup = e => {
+    const b = e.target.closest('.ws-cell');
+    if (dragging && b && anchor) { const rc = rcOf(b); if (rc[0] !== anchor[0] || rc[1] !== anchor[1]) tryLine(anchor, rc); else setAnchor(null); }
+    dragging = false; down = null;
+  };
+  gridEl.onpointerleave = () => { if (dragging) { dragging = false; down = null; setAnchor(null); } else clearPreview(); };
+  gridEl.onkeydown = e => {
+    const b = e.target.closest('.ws-cell');
+    const mv = { ArrowUp: [-1, 0], ArrowDown: [1, 0], ArrowLeft: [0, -1], ArrowRight: [0, 1] }[e.key];
+    if (!b || !mv) return;
+    e.preventDefault();
+    const r = Math.max(0, Math.min(N - 1, +b.dataset.r + mv[0])), c = Math.max(0, Math.min(N - 1, +b.dataset.c + mv[1]));
+    b.tabIndex = -1;
+    const n = cell(r, c);
+    n.tabIndex = 0; n.focus();
+    if (anchor) preview([r, c]);
+  };
+  host.onclick = e => {
+    const b = e.target.closest('[data-act="hint"]');
+    if (!b || b.disabled || finished) return;
+    const left = words.filter(w => !found.has(w));
+    if (!left.length) return;
+    const w = pick(left), [r, c] = locate(w)[0], el = cell(r, c);
+    hinted.add(w);
+    el.classList.remove('hint'); void el.offsetWidth; el.classList.add('hint');
+    setTimeout(() => el.classList.remove('hint'), 3800);
+    fb.innerHTML = fbHtml('info', 'c-icarus', 'Κρυφοκοίταξα τα σχέδια του πατέρα…', `Η λέξη ${w} αρχίζει από το γράμμα που αναβοσβήνει (γραμμή ${r + 1}, στήλη ${c + 1}).`);
+  };
+  found.forEach(paint);
+  renderWords();
+  if (found.size === words.length) complete();
+}
+
+// ── 3. Ακροστιχίδα ────────────────────────────────────────────
+const GREEK = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ';
+// τα πλήκτρα «μεταφράζονται» σε ελληνικά ακόμη κι αν το πληκτρολόγιο είναι στα αγγλικά
+const CODE_MAP = { KeyA: 'Α', KeyB: 'Β', KeyG: 'Γ', KeyD: 'Δ', KeyE: 'Ε', KeyZ: 'Ζ', KeyH: 'Η', KeyU: 'Θ', KeyI: 'Ι', KeyK: 'Κ', KeyL: 'Λ', KeyM: 'Μ',
+  KeyN: 'Ν', KeyJ: 'Ξ', KeyO: 'Ο', KeyP: 'Π', KeyR: 'Ρ', KeyS: 'Σ', KeyT: 'Τ', KeyY: 'Υ', KeyF: 'Φ', KeyX: 'Χ', KeyC: 'Ψ', KeyV: 'Ω', KeyW: 'Σ' };
+function letterFromEvent(e) {
+  const k = e.key || '';
+  if (k.length === 1) {
+    const up = k.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
+    if (up.length === 1 && GREEK.includes(up)) return up;
+  }
+  if (CODE_MAP[e.code] && (/^[a-z]$/i.test(k) || k === 'Process' || k === 'Unidentified')) return CODE_MAP[e.code];
+  return null;
+}
+document.addEventListener('keydown', e => { if (acroKey && modal.hidden && !$('#s-level').hidden) acroKey(e); });
+
+function startAcro(host) {
+  const A = ctx.L.acro;
+  const rows = A.rows.map((row, i) => {
+    const a = Array.from(row.a), solved = ctx.p.a.includes(i);
+    return { a, alt: row.alt || [], clue: row.clue, val: solved ? a.slice() : a.map(() => ''), lock: a.map(() => false), marks: null, solved, errs: 0, hint: false, busy: false };
+  });
+  let cur = rows.findIndex(r => !r.solved), pos = 0;
+  host.innerHTML = `
+    <div class="trial-head"><h2>Η ακροστιχίδα</h2><span class="count" id="acro-count"></span></div>
+    <p>Γράψε τη λέξη που ταιριάζει σε κάθε ορισμό. Τα <strong>πρώτα γράμματα</strong> (στα χρυσά κουτάκια), από πάνω προς τα κάτω, σχηματίζουν την κρυφή λέξη.</p>
+    <div class="acro-hidden"><strong>Κρυφή λέξη:</strong><div class="boxes" id="acro-word"></div></div>
+    <div class="acro-rows">${rows.map((r, i) => `<div class="acro-row" data-row="${i}" role="group" aria-labelledby="acro-clue-${i}"><button class="acro-num" type="button"></button><span class="acro-clue" id="acro-clue-${i}">${r.clue} <span class="note">(${r.a.length} γράμματα)</span></span><span class="acro-boxes" aria-hidden="true"></span><span class="sr-only acro-sr"></span></div>`).join('')}</div>
+    <div class="feedback" aria-live="polite"></div>
+    <div class="dock">
+      <div class="dock-top"><p class="dock-msg info" aria-live="polite">Γράψε τη λέξη με τα πλήκτρα.</p>${HINT_BTN}</div>
+      <div class="kbd" role="group" aria-label="Πληκτρολόγιο με ελληνικά γράμματα">${Array.from(GREEK, ch => `<button type="button" data-ch="${ch}">${ch}</button>`).join('')}<button type="button" class="wide" data-ch="del">Σβήσιμο</button></div>
+    </div>`;
+  const rowsEl = $('.acro-rows', host), fb = $('.feedback', host), dock = $('.dock', host), msgEl = $('.dock-msg', host);
+  const msg = (kind, text) => { msgEl.className = 'dock-msg ' + kind; msgEl.textContent = text; };
+  function ensureVisible(i) {
+    const e = rowsEl.children[i];
+    if (!e || dock.hidden) return;
+    const top = $('.topbar').getBoundingClientRect().bottom + 8, bottom = Math.min(window.innerHeight, dock.getBoundingClientRect().top) - 8, r = e.getBoundingClientRect();
+    if (r.top >= top && r.bottom <= bottom) return;
+    window.scrollBy({ top: r.top - top - Math.max(0, (bottom - top - r.height) / 2), behavior: REDUCED ? 'auto' : 'smooth' });
+  }
+  const firstFree = i => { const r = rows[i], k = r.val.findIndex((v, j) => !v && !r.lock[j]); return k === -1 ? r.lock.lastIndexOf(false) : k; };
+  function paintRow(i) {
+    if (i < 0) return;
+    const r = rows[i], e = rowsEl.children[i];
+    e.className = 'acro-row' + (r.solved ? ' solved' : '') + (i === cur ? ' active' : '');
+    const num = $('.acro-num', e);
+    num.textContent = r.solved ? '✓' : i + 1;
+    num.disabled = r.solved;
+    if (r.solved) num.removeAttribute('aria-label'); else num.setAttribute('aria-label', `Λέξη ${i + 1}: διάλεξέ τη για να γράψεις`);
+    num.setAttribute('aria-pressed', String(!r.solved && i === cur));
+    $('.acro-sr', e).textContent = r.solved ? `Λύθηκε: ${r.val.join('')}.` : `Έχεις γράψει: ${r.val.map(v => v || 'κενό').join(', ')}.`;
+    $('.acro-boxes', e).innerHTML = r.a.map((_, k) => {
+      const cls = ['box'];
+      if (k === 0) cls.push('first');
+      if (r.solved || (r.marks && r.marks[k] === 'ok')) cls.push('ok');
+      if (r.marks && r.marks[k] === 'bad') cls.push('bad');
+      if (r.lock[k] && !r.solved) cls.push('given');
+      if (!r.solved && !r.busy && i === cur && k === pos) cls.push('cursor');
+      return `<span class="${cls.join(' ')}" data-k="${k}">${r.val[k]}</span>`;
+    }).join('');
+  }
+  function paintAll() {
+    rows.forEach((_, i) => paintRow(i));
+    $('#acro-word', host).innerHTML = rows.map(r => `<span class="hb${r.solved ? '' : ' empty'}">${r.solved ? r.a[0] : '?'}</span>`).join('');
+    $('#acro-count', host).textContent = `${rows.filter(r => r.solved).length} από ${rows.length} λέξεις`;
+  }
+  function select(i, k) {
+    const r = rows[i];
+    if (!r || r.solved || r.busy) return;
+    const old = cur;
+    cur = i; pos = k == null || r.lock[k] ? firstFree(i) : k;
+    paintRow(old); paintRow(cur); ensureVisible(cur);
+  }
+  function finish() {
+    acroKey = null;
+    dock.hidden = true;
+    fb.innerHTML = fbHtml('ok', 'c-icarus', `Η κρυφή λέξη είναι ${A.word}!`, A.reveal);
+    trialDone();
+  }
+  function solve(i, text) {
+    const r = rows[i];
+    r.solved = true; r.marks = null; r.val = Array.from(text);
+    if (!ctx.p.a.includes(i)) ctx.p.a.push(i);
+    const gain = ctx.practice ? 0 : r.errs || r.hint ? 1 : 2;
+    if (ctx.practice) sfx('ok'); else { save(); addCoins(gain); }
+    cur = rows.findIndex(x => !x.solved); pos = cur >= 0 ? firstFree(cur) : 0;
+    paintAll();
+    if (cur === -1) { finish(); return; }
+    msg('ok', `${text} — σωστά!${gain ? ` +${gain} ${coinsWord(gain)}.` : ''} Το ${r.a[0]} μπήκε στην κρυφή λέξη.`);
+    ensureVisible(cur);
+  }
+  function check(i) {
+    const r = rows[i], text = r.val.join('');
+    if (text === r.a.join('') || r.alt.includes(text)) { solve(i, text); return; }
+    r.errs++; r.busy = true; sfx('bad');
+    r.marks = r.val.map((v, k) => (v === r.a[k] ? 'ok' : 'bad'));
+    paintRow(i);
+    rowsEl.children[i].classList.add('shake');
+    msg('bad', 'Σχεδόν! Τα πράσινα γράμματα είναι σωστά και μένουν· γράψε ξανά τα υπόλοιπα.');
+    setTimeout(() => {
+      r.val = r.val.map((v, k) => { if (v === r.a[k]) { r.lock[k] = true; return v; } return ''; });
+      r.marks = null; r.busy = false;
+      if (cur === i) pos = firstFree(i);
+      if (rowsEl.isConnected) paintRow(i);
+    }, REDUCED ? 600 : 950);
+  }
+  function type(ch) {
+    const r = rows[cur];
+    if (!r || r.solved || r.busy) return;
+    if (pos < 0 || r.lock[pos]) pos = firstFree(cur);
+    if (pos < 0) return;
+    r.val[pos] = ch; sfx('tap');
+    let n = pos + 1;
+    while (n < r.a.length && r.lock[n]) n++;
+    if (n < r.a.length) pos = n;
+    paintRow(cur); ensureVisible(cur);
+    if (r.val.every(Boolean)) check(cur);
+  }
+  function erase() {
+    const r = rows[cur];
+    if (!r || r.solved || r.busy) return;
+    if (r.val[pos] && !r.lock[pos]) r.val[pos] = '';
+    else { let n = pos - 1; while (n >= 0 && r.lock[n]) n--; if (n >= 0) { pos = n; r.val[n] = ''; } }
+    paintRow(cur);
+  }
+  function hint() {
+    const r = rows[cur];
+    if (!r || r.solved || r.busy) return;
+    const k = r.a.findIndex((ch, j) => !r.lock[j] && r.val[j] !== ch);
+    if (k === -1) return;
+    r.val[k] = r.a[k]; r.lock[k] = true; r.hint = true;
+    pos = firstFree(cur); paintRow(cur);
+    msg('info', `Τα σχέδια δείχνουν: το ${k + 1}ο γράμμα της λέξης είναι το ${r.a[k]}.`);
+    if (r.val.every(Boolean)) check(cur);
+  }
+  rowsEl.onclick = e => {
+    const row = e.target.closest('.acro-row');
+    if (!row) return;
+    const box = e.target.closest('.box');
+    select(+row.dataset.row, box ? +box.dataset.k : null);
+  };
+  host.onclick = e => {
+    const b = e.target.closest('button');
+    if (!b || !host.contains(b)) return;
+    if (b.dataset.ch) { if (b.dataset.ch === 'del') erase(); else type(b.dataset.ch); } else if (b.dataset.act === 'hint') hint();
+  };
+  acroKey = e => {
+    if (e.ctrlKey || e.metaKey || e.altKey || cur < 0) return;
+    const t = e.target, onRow = !!(t && t.closest && t.closest('.acro-row'));
+    if (e.key === 'Backspace') { e.preventDefault(); erase(); return; }
+    if (onRow && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
+      e.preventDefault();
+      const r = rows[cur], step = e.key === 'ArrowLeft' ? -1 : 1;
+      let n = pos + step;
+      while (n >= 0 && n < r.a.length && r.lock[n]) n += step;
+      if (n >= 0 && n < r.a.length) { pos = n; paintRow(cur); }
+      return;
+    }
+    const ch = letterFromEvent(e);
+    if (ch) { e.preventDefault(); type(ch); }
+  };
+  if (cur >= 0) pos = firstFree(cur);
+  paintAll();
+  if (cur === -1) finish(); else requestAnimationFrame(() => ensureVisible(cur));
+}
+
+// ── 4. Κατασκευή: μια απόφαση για τα φτερά ────────────────────
+function startBuild(host) {
+  const B = ctx.L.build;
+  const opts = shuffled(B.options.map((o, k) => ({ t: o.t, why: o.why, ok: k === 0 })));
+  let wrong = 0, solved = false;
+  host.innerHTML = `
+    <div class="trial-head"><h2>Κατασκευή: ${B.title}</h2><span class="count">Η απόφαση του μάστορα</span></div>
+    <div class="speech">${avatar('c-daedalus')}
+      <div class="bubble"><div class="who">ΔΑΙΔΑΛΟΣ</div>
+        <p class="riddle" tabindex="-1">${B.q}</p>
+        <button class="link-btn tts-btn" type="button" data-act="tts">Άκου την ερώτηση</button>
+      </div>
+    </div>
+    <div class="options three" role="group" aria-label="Επιλογές">${opts.map((o, k) => `<button class="opt" type="button" data-k="${k}"><span class="key">${'ΑΒΓ'[k]}</span><span>${o.t}</span></button>`).join('')}</div>
+    <p class="note">Σκέψου καλά πριν διαλέξεις: με την πρώτη προσπάθεια κερδίζεις 3 νομίσματα, με τη δεύτερη 2, με την τρίτη 1.</p>
+    <div class="feedback" aria-live="polite"></div>`;
+  const fb = $('.feedback', host), btns = $$('.opt', host);
+  host.onclick = e => {
+    const b = e.target.closest('button');
+    if (!b || b.disabled || !host.contains(b)) return;
+    if (b.dataset.act === 'tts') { speak(B.q + ' ' + opts.map((o, k) => 'ΑΒΓ'[k] + '. ' + o.t).join('. ')); return; }
+    if (!b.classList.contains('opt') || solved) return;
+    const o = opts[+b.dataset.k];
+    if (!o.ok) {
+      wrong++; b.disabled = true; b.classList.add('is-bad'); $('.key', b).textContent = '✗'; sfx('bad');
+      fb.innerHTML = fbHtml('bad', 'c-icarus', pick(SAY.buildBad), o.why);
+      return;
+    }
+    solved = true; hush();
+    btns.forEach(x => { x.disabled = true; });
+    b.classList.add('is-ok'); $('.key', b).textContent = '✓';
+    const gain = ctx.practice ? 0 : Math.max(1, 3 - wrong);
+    if (ctx.practice) sfx('ok'); else addCoins(gain);
+    fb.innerHTML = fbHtml('ok', 'c-icarus', `${pick(SAY.buildOk)}${gain ? ` +${gain} ${coinsWord(gain)}.` : ''}`, o.why);
+    trialDone();
+  };
+}
+
+// ── Η μεγάλη πτήση ────────────────────────────────────────────
+//    Έξι σταθμοί. Σε καθέναν ο Ίκαρος ρωτά και ο παίκτης διαλέγει ώσπου
+//    να βρει τη σωστή διαδρομή· κάθε λάθος κοστίζει ένα φτερό.
+let fly = null;
+function startFlight() {
+  if (currentIndex() < LEVELS.length) return;
+  acroKey = null;
+  fly = { hp: FLY_HP, k: 0, practice: S.flight };
+  show('s-flight');
+  flyTo(0, true);
+  renderLeg(true);
+}
+function flyMeters(reached) {
+  $('#m-hp').innerHTML = Array.from({ length: FLY_HP }, (_, i) => `<svg viewBox="0 0 48 48"${i < fly.hp ? '' : ' class="off"'}><use href="#i-feather"/></svg>`).join('');
+  $('#m-hp').setAttribute('aria-label', `Φτερά: ${fly.hp} από ${FLY_HP}`);
+  $('#m-route').innerHTML = FLIGHT.map((_, i) => `<i class="${i < reached ? 'on' : i === reached ? 'now' : ''}"></i>`).join('');
+  $('#m-route').setAttribute('aria-label', `Διαδρομή: ${reached} από ${FLIGHT.length} σταθμούς`);
+  renderSkyStops(reached);
+}
+function renderLeg(first) {
+  const G = FLIGHT[fly.k], opts = shuffled(G.options.map((o, i) => ({ t: o.t, why: o.why, ok: i === 0 }))), host = $('#flight');
+  let wrong = 0, solved = false;
+  host.innerHTML = `
+    ${fly.practice ? '<div class="practice">Επανάληψη για εξάσκηση: αυτή η πτήση δεν δίνει νέα νομίσματα.</div>' : ''}
+    <div class="trial-head"><h2>${G.title}</h2><span class="count">Σταθμός ${fly.k + 1} από ${FLIGHT.length} · ${G.from} → ${G.to}</span></div>
+    ${G.sun ? `<div class="speech sun-say">${avatar('c-sun')}<div class="bubble"><div class="who">ΗΛΙΟΣ</div><p>${G.sun}</p></div></div>` : ''}
+    <div class="speech">${avatar('c-icarus')}
+      <div class="bubble"><div class="who">ΙΚΑΡΟΣ</div>
+        <p class="riddle" id="fly-q" tabindex="-1">${G.q}</p>
+        <button class="link-btn tts-btn" type="button" data-act="tts">Άκου την ερώτηση</button>
+      </div>
+    </div>
+    <div class="options one" role="group" aria-label="Επιλογές διαδρομής">${opts.map((o, k) => `<button class="opt" type="button" data-k="${k}"><span class="key">${'ΑΒΓ'[k]}</span><span>${o.t}</span></button>`).join('')}</div>
+    <div class="feedback" aria-live="polite"></div>
+    <div class="row-end"><button class="btn btn-ghost" type="button" data-act="map">Εργαστήριο</button><button class="btn btn-primary" type="button" data-act="next" hidden></button></div>`;
+  const fb = $('.feedback', host), btns = $$('.opt', host), next = $('[data-act="next"]', host), flyer = $('#sky-flyer .flyer-in');
+  const showNext = label => { next.textContent = label; next.hidden = false; next.focus({ preventScroll: true }); next.scrollIntoView({ block: 'nearest', behavior: REDUCED ? 'auto' : 'smooth' }); };
+  flyMeters(fly.k);
+  if (!first) { $('#fly-q').focus({ preventScroll: true }); reveal($('.fly-top')); }
+  host.onclick = e => {
+    const b = e.target.closest('button');
+    if (!b || b.disabled || !host.contains(b)) return;
+    const act = b.dataset.act;
+    if (act === 'map') { showMap(); return; }
+    if (act === 'tts') { speak((G.sun ? G.sun + ' ' : '') + G.q + ' ' + opts.map((o, k) => 'ΑΒΓ'[k] + '. ' + o.t).join('. ')); return; }
+    if (act === 'next') {
+      if (fly.hp <= 0) flightLost();
+      else if (fly.k >= FLIGHT.length - 1) flightWon();
+      else { fly.k++; renderLeg(false); }
+      return;
+    }
+    if (!b.classList.contains('opt') || solved || fly.hp <= 0) return;
+    const o = opts[+b.dataset.k];
+    hush();
+    if (!o.ok) {
+      wrong++; fly.hp--; b.disabled = true; b.classList.add('is-bad'); $('.key', b).textContent = '✗'; sfx('bad');
+      flyer.classList.remove('hit'); void flyer.getBoundingClientRect(); flyer.classList.add('hit');
+      bump('#m-hp'); flyMeters(fly.k);
+      fb.innerHTML = fbHtml('bad', 'c-daedalus', `${pick(SAY.flyBad)} Έχασες ένα φτερό.`, o.why);
+      if (fly.hp <= 0) { btns.forEach(x => { x.disabled = true; }); showNext('Συνέχεια'); }
+      return;
+    }
+    solved = true;
+    btns.forEach(x => { x.disabled = true; });
+    b.classList.add('is-ok'); $('.key', b).textContent = '✓';
+    // κάθε σταθμός πληρώνει μία φορά, ακόμη κι αν η πτήση χρειαστεί να ξαναρχίσει
+    const pays = !fly.practice && fly.k >= S.fl, gain = pays ? Math.max(1, FLY_COINS - wrong) : 0;
+    if (pays) { S.fl = fly.k + 1; save(); addCoins(gain); } else sfx('ok');
+    sfx('whoosh');
+    flyTo(fly.k + 1);
+    flyMeters(fly.k + 1);
+    fb.innerHTML = fbHtml('ok', 'c-daedalus', `${pick(SAY.flyOk)}${gain ? ` +${gain} ${coinsWord(gain)}.` : ''}`, o.why);
+    showNext(fly.k >= FLIGHT.length - 1 ? 'Πάτα στη στεριά!' : 'Επόμενος σταθμός');
+  };
+}
+function flightLost() {
+  openModal({
+    art: `<div class="modal-art round">${use('c-daedalus')}</div>`,
+    title: 'Πίσω στον πύργο για επισκευή!',
+    body: '<p>Τα πέντε φτερά σου χάθηκαν ένα ένα και ο Ίκαρος δεν μπορεί πια να κρατηθεί στον αέρα. Ευτυχώς ο Δαίδαλος τον άρπαξε από το χέρι και τον γύρισε πίσω στον πύργο.</p><p>Λίγο κερί, καινούργια πούπουλα — και πάμε ξανά!</p>',
+    primary: 'Ξαναδοκίμασε', secondary: 'Στο εργαστήριο', onPrimary: startFlight, onSecondary: showMap,
+  });
+}
+function flightWon() {
+  if (!S.flight) { S.flight = true; save(); }
+  renderHUD();
+  showWin();
+}
+function showWin() {
+  const pct = S.coins / MAX_COINS;
+  const rank = pct >= 0.85 ? 'Θρύλος των ουρανών' : pct >= 0.6 ? 'Αστέρι του Αιγαίου' : 'Νέο ταλέντο του Δαίδαλου';
+  const host = $('#win');
+  host.innerHTML = `
+    <div class="trophy gold">${FEATHER}</div>
+    <h2 style="color:var(--prim-dark);font-size:1.4rem;margin-bottom:.5rem">Κέρδισες το Χρυσό Φτερό!</h2>
+    <p>Ο Ίκαρος πάτησε γερά στην αμμουδιά και ο Δαίδαλος τον έσφιξε στην αγκαλιά του: «Η Φυσική μάς έσωσε, παιδί μου!»</p>
+    <div class="win-cast">${avatar('c-daedalus')}${avatar('c-icarus')}${avatar('c-sun')}</div>
+    <div class="stats">
+      <div class="stat"><b>${S.coins}</b><span>χρυσά νομίσματα (από ${MAX_COINS})</span></div>
+      <div class="stat"><b>${feathers()} + 1</b><span>φτερά και το χρυσό</span></div>
+    </div>
+    <p style="margin-bottom:.3rem">Ο τίτλος σου:</p>
+    <p><span class="rank">${rank}</span></p>
+    <p class="fact" style="text-align:left"><strong>Μύθος και Φυσική.</strong> Στον μύθο ο Ίκαρος πέταξε πολύ ψηλά, ο Ήλιος έλιωσε το κερί κι εκείνος έπεσε στη θάλασσα, που από τότε λέγεται Ικάριο πέλαγος· ο Δαίδαλος έφτασε σώος ως τη Σικελία. Στην πραγματικότητα, όσο ανεβαίνουμε ο αέρας γίνεται πιο κρύος και πιο αραιός. Ο αληθινός κίνδυνος εκεί ψηλά δεν είναι η ζέστη: είναι ότι τα φτερά δεν βρίσκουν αρκετό αέρα για να δώσουν άντωση.</p>
+    <div class="row-mid">
+      <button class="btn btn-primary" type="button" data-act="map">Πίσω στο εργαστήριο</button>
+      <button class="btn btn-ghost" type="button" data-act="new">Νέο παιχνίδι</button>
+      <a class="btn btn-ghost site-link" href="../">Όλα τα παιχνίδια</a>
+    </div>`;
+  host.onclick = e => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    if (b.dataset.act === 'map') showMap(); else if (b.dataset.act === 'new') askReset();
+  };
+  show('s-win');
+  sfx('win');
+}
+
+// ── Ρυθμίσεις, νέο παιχνίδι, εκκίνηση ─────────────────────────
+function askReset() {
+  openModal({
+    title: 'Νέο παιχνίδι;',
+    body: '<p>Θα χαθούν τα νομίσματα και τα φτερά που έχεις μαζέψει και θα ξεκινήσεις από την αρχή.</p>',
+    primary: 'Ναι, από την αρχή', secondary: 'Άκυρο',
+    onPrimary: () => { S = Object.assign(freshState(), { sound: S.sound, big: S.big, free: S.free }); save(); syncIntro(); showMap(); },
+  });
+}
+function applySettings() {
+  document.documentElement.classList.toggle('big', S.big);
+  $('#btn-text').setAttribute('aria-pressed', String(S.big));
+  $('#btn-sound').setAttribute('aria-pressed', String(S.sound));
+  $('#chk-free').checked = S.free;
+}
+function syncIntro() {
+  const p = hasProgress();
+  $('#btn-start').textContent = p ? 'Συνέχισε το παιχνίδι' : 'Μπες στο εργαστήριο';
+  $('#btn-new').hidden = !p;
+  $('#resume').hidden = !p;
+}
+$('#btn-start').addEventListener('click', () => { sfx('tap'); showMap(); });
+$('#btn-resume').addEventListener('click', () => { sfx('tap'); showMap(); });
+$('#btn-new').addEventListener('click', askReset);
+$('#btn-reset').addEventListener('click', askReset);
+$('#btn-map').addEventListener('click', showMap);
+$('#btn-sound').addEventListener('click', () => { S.sound = !S.sound; save(); applySettings(); if (S.sound) sfx('ok'); else hush(); });
+$('#btn-text').addEventListener('click', () => { S.big = !S.big; save(); applySettings(); });
+$('#chk-free').addEventListener('change', e => { S.free = e.target.checked; save(); renderPlan(); renderLevelList(); });
+$('#trial-next').addEventListener('click', () => { if (ctx.t < NT - 1) openTrial(ctx.t + 1); else finishLevel(); });
+$('#levels').addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (!b || b.disabled) return;
+  if (b.dataset.enter != null) { if (canEnter(+b.dataset.enter)) openLevel(+b.dataset.enter); } else if (b.dataset.flight) startFlight();
+});
+$('#plan').addEventListener('click', e => {
+  const g = e.target.closest('.st, #plan-sun');
+  if (!g) return;
+  const cur = currentIndex(), tell = t => { $('#map-say').textContent = t; };
+  if (g.id === 'plan-sun') {
+    if (cur >= LEVELS.length) startFlight();
+    else tell('Ο ουρανός μάς περιμένει — πρώτα όμως πρέπει να ολοκληρώσουμε και τα πέντε κομμάτια του σχεδίου!');
+    return;
+  }
+  const i = +g.dataset.i;
+  if (canEnter(i)) openLevel(i);
+  else tell(`Το στάδιο ${i + 1} είναι ακόμη κλειδωμένο. Ολοκλήρωσε πρώτα το στάδιο ${cur + 1}: «${LEVELS[cur].name}».`);
+});
+
+// ── Εφαρμογή: εγκατάσταση στη συσκευή και παιχνίδι χωρίς σύνδεση ──
+// (η σελίδα προεπισκόπησης, χωρίς site γύρω της, δεν έχει αρχεία εφαρμογής: εκεί όλα αυτά μένουν κλειστά)
+const ONLINE = /^https?:$/.test(location.protocol) && !document.documentElement.classList.contains('in-app');
+const STANDALONE = !!((window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true);
+const UA = navigator.userAgent || '';
+const IN_APP = /FBAN|FBAV|FB_IAB|FBIOS|Instagram|Messenger/i.test(UA); // ο ενσωματωμένος browser του Facebook, του Instagram ή του Messenger
+const IOS = /iPad|iPhone|iPod/.test(UA) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+let installEvt = null;
+function syncApp() {
+  const box = $('#app-box'), hint = $('#app-hint');
+  $$('.js-install').forEach(b => { b.hidden = !installEvt; });
+  if (!ONLINE || STANDALONE) { box.hidden = true; return; }
+  if (installEvt) hint.textContent = 'Βάλε το παιχνίδι στην οθόνη σου, με δικό του εικονίδιο. Παίζεται και χωρίς ίντερνετ.';
+  else if (IN_APP) hint.textContent = 'Για να το βάλεις στην οθόνη σου, άνοιξέ το πρώτα στον browser του κινητού: πάτησε τις τρεις τελείες και «Άνοιγμα σε πρόγραμμα περιήγησης».';
+  else if (IOS) hint.textContent = 'Για να το βάλεις στην οθόνη σου, πάτησε «Κοινή χρήση» και μετά «Προσθήκη στην οθόνη Αφετηρίας».';
+  else { box.hidden = true; return; }
+  box.hidden = false;
+}
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; syncApp(); });
+window.addEventListener('appinstalled', () => { installEvt = null; syncApp(); $('#app-box').hidden = true; });
+document.addEventListener('click', e => {
+  const b = e.target.closest ? e.target.closest('.js-install') : null;
+  if (!b || !installEvt) return;
+  const evt = installEvt;
+  installEvt = null; // κάθε πρόσκληση εγκατάστασης χρησιμοποιείται μία φορά
+  try { evt.prompt(); } catch (err) { /* αγνόησε */ }
+  Promise.resolve(evt.userChoice).catch(() => {}).then(syncApp);
+});
+if (ONLINE && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => { /* το παιχνίδι δουλεύει και χωρίς αυτό */ }); });
+}
+
+applySettings(); renderHUD(); syncIntro(); syncApp(); renderPlan();})();
+</script>
+</body>
+</html>
