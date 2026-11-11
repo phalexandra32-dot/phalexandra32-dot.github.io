@@ -3,7 +3,6 @@ import mdx from '@astrojs/mdx';
 
 export default defineConfig({
   site: 'https://phalexandra32-dot.github.io',
-  base: '/akinclusilab.github.io',
   integrations: [
     mdx(),
   ],
