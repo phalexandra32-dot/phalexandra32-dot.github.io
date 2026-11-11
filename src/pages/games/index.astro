@@ -20,6 +20,30 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
 
   <section class="games-grid">
 
+    <!-- Ο Οδυσσέας και ο Κύκλωπας -->
+    <div class="game-card odysseas">
+      <div class="game-icon">🌊</div>
+      <div class="game-body">
+        <span class="game-tag">Φυσική Α' Γυμνασίου · Οπτική · Ήχος · Πίεση · Μοχλοί</span>
+        <h2>Ο Οδυσσέας και ο Κύκλωπας</h2>
+        <p>
+          Ο Οδυσσέας και οι σύντροφοί του είναι παγιδευμένοι στη σπηλιά του Κύκλωπα Πολύφημου!
+          Λύσε 5 αίθουσες γρίφων με οδηγούς την Αθηνά, τον Ερμή, τον Ποσειδώνα, τον Ήφαιστο
+          και τον Οδυσσέα — αντιστοίχισε έννοιες, λύσε ακροστιχίδες και απόδρασε!
+        </p>
+        <div class="game-meta">
+          <span>⏱ ~40 λεπτά</span>
+          <span>🗝️ 5 επίπεδα</span>
+          <span>🧩 Γρίφοι · Αντιστοιχία · Ακροστιχίδες</span>
+          <span>📲 Εγκαθίσταται σαν εφαρμογή</span>
+          <span>🔤 Κουμπί μεγαλύτερης γραμματοσειράς</span>
+        </div>
+        <a href="/games/odysseas/" class="btn btn-odysseas">
+          🌊 Ξεκίνα την Αποστολή!
+        </a>
+      </div>
+    </div>
+
     <!-- Προμηθέας – Η Κλοπή της Φωτιάς -->
     <div class="game-card prometheus">
       <div class="game-icon">🔥</div>
@@ -208,6 +232,7 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
     box-shadow: 0 6px 20px rgba(0,0,0,0.12);
   }
 
+  .game-card.odysseas { border-top: 5px solid #1565c0; }
   .game-card.prometheus { border-top: 5px solid #e65100; }
   .game-card.labyrinth { border-top: 5px solid #a3231d; }
   .game-card.ikaros { border-top: 5px solid #e3b23c; }
@@ -273,6 +298,7 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
 
   .btn:hover { opacity: 0.88; transform: translateY(-1px); }
 
+  .btn-odysseas { background: #1565c0; color: #fff; }
   .btn-prometheus { background: #e65100; color: #fff; }
   .btn-labyrinth { background: #a3231d; color: #fff; }
   .btn-ikaros { background: #12294a; color: #fff; }
