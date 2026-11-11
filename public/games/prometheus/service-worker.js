@@ -1,36 +1,64 @@
-// Προμηθέας – Service Worker v2
-const CACHE = 'prometheus-v2';
+// Προμηθέας – Service Worker v3
+// Το παιχνίδι ανοίγει και χωρίς σύνδεση.
+// Αγγίζει ΜΟΝΟ τα δικά του αποθηκευμένα αρχεία: στην ίδια διεύθυνση φιλοξενούνται
+// κι άλλα παιχνίδια (Λαβύρινθος, Ίκαρος), που κρατούν τα δικά τους αντίγραφα.
+const PREFIX = 'prometheus-';
+const CACHE = PREFIX + 'v2';
+const SCOPE = self.registration.scope;
 const CORE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)));
-  self.skipWaiting();
+  e.waitUntil(
+    caches.open(CACHE)
+      .then(c => c.addAll(CORE.map(u => new Request(u, { cache: 'reload' }))))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener('activate', e => {
+  // σβήνει μόνο παλιότερες εκδόσεις ΤΟΥ ΠΡΟΜΗΘΕΑ, ποτέ τα αρχεία άλλων παιχνιδιών
   e.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
-    )
+    caches.keys()
+      .then(keys => Promise.all(keys.filter(k => k.startsWith(PREFIX) && k !== CACHE).map(k => caches.delete(k))))
+      .then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
 self.addEventListener('fetch', e => {
-  const url = e.request.url;
-  // Network-first for fonts (cache as bonus), cache-first for everything else
-  if (url.includes('fonts.gstatic.com') || url.includes('fonts.googleapis.com')) {
+  const req = e.request;
+  if (req.method !== 'GET') return;
+  const url = new URL(req.url);
+
+  // Γραμματοσειρές Google: το αποθηκευμένο αντίγραφο αν υπάρχει, αλλιώς το δίκτυο
+  if (url.hostname === 'fonts.gstatic.com' || url.hostname === 'fonts.googleapis.com') {
     e.respondWith(
       caches.open(CACHE).then(cache =>
-        cache.match(e.request).then(cached => {
-          const net = fetch(e.request).then(r => { cache.put(e.request, r.clone()); return r; });
-          return cached || net;
+        cache.match(req).then(cached => {
+          const net = fetch(req).then(r => {
+            if (r && (r.ok || r.type === 'opaque')) cache.put(req, r.clone());
+            return r;
+          });
+          if (cached) { net.catch(() => {}); return cached; }
+          return net;
         })
       )
     );
-  } else {
-    e.respondWith(
-      caches.match(e.request).then(cached => cached || fetch(e.request))
-    );
+    return;
   }
+
+  if (!url.href.startsWith(SCOPE)) return;        // ό,τι δεν ανήκει στο παιχνίδι το αφήνουμε ήσυχο
+
+  // Αρχεία του παιχνιδιού: αμέσως το αποθηκευμένο αντίγραφο (άρα και χωρίς σύνδεση) και,
+  // στο παρασκήνιο, ανανέωση από το δίκτυο, ώστε την επόμενη φορά να ανοίξει η νεότερη έκδοση.
+  const key = url.origin + url.pathname;          // χωρίς ?fbclid=… και παρόμοια
+  const net = fetch(req);
+  const stored = net.then(r => {
+    if (!r || !r.ok || r.type !== 'basic') return null;
+    const copy = r.clone();
+    return caches.open(CACHE).then(c => c.put(key, copy));
+  }).catch(() => null);
+  e.waitUntil(stored);
+  e.respondWith(
+    caches.open(CACHE).then(c => c.match(key)).then(cached => cached || net)
+  );
 });
