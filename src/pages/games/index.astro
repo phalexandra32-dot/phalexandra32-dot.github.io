@@ -5,13 +5,13 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
 <ArticleLayout
   title="Παιχνίδια & Σταυρόλεξα"
   eyebrow="Διαδραστική Μάθηση"
-  description="Προμηθέας, Λαβύρινθος του Μινώταυρου, Δαίδαλος και Ίκαρος, quiz γνώσεων Φυσικής & Χημείας και διαδραστικά σταυρόλεξα — μάθε παίζοντας!"
+  description="Ηρακλής, Προμηθέας, Λαβύρινθος του Μινώταυρου, Δαίδαλος και Ίκαρος, quiz γνώσεων Φυσικής & Χημείας και διαδραστικά σταυρόλεξα — μάθε παίζοντας!"
   heroIcon="🎮"
 >
   <section class="games-intro">
     <p>
       Δοκίμασε τις γνώσεις σου με διαδραστικά παιχνίδια φυσικής και χημείας.
-      Από τη φωτιά του Προμηθέα, την περιπέτεια του Θησέα στον Λαβύρινθο και
+      Από τους δώδεκα άθλους του Ηρακλή, τη φωτιά του Προμηθέα, την περιπέτεια του Θησέα στον Λαβύρινθο και
       την απόδραση του Ίκαρου από τον ουρανό, ως quiz στυλ «Ποιος θέλει να
       γίνει εκατομμυριούχος» και σταυρόλεξα με επιστημονικούς όρους — μάθηση
       που μοιάζει με παιχνίδι!
@@ -19,6 +19,32 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
   </section>
 
   <section class="games-grid">
+
+    <!-- Ηρακλής – Οι 12 Άθλοι της Φυσικής και της Χημείας -->
+    <div class="game-card iraklis">
+      <div class="game-icon">🦁</div>
+      <div class="game-body">
+        <span class="game-tag">Φυσική & Χημεία Γυμνασίου</span>
+        <h2>Ηρακλής – Οι 12 Άθλοι της Φυσικής και της Χημείας</h2>
+        <p>
+          Η θεά Ήρα έπεισε τον βασιλιά Ευρυσθέα να δώσει στον Ηρακλή δώδεκα άθλους!
+          Σε κάθε άθλο κρύβεται ένας γρίφος Φυσικής ή Χημείας — με οδηγούς τον Δία, την Ήρα,
+          τον Ιφικλή, τη Δηιάνειρα και τον Κένταυρο Νέσσο. Λύσε τους και βοήθησε τον Ηρακλή
+          να φτάσει στον Όλυμπο!
+        </p>
+        <div class="game-meta">
+          <span>⏱ ~45 λεπτά</span>
+          <span>🗝️ 12 άθλοι</span>
+          <span>🧩 Πολλαπλή επιλογή · Σωστό-Λάθος · Αντιστοίχιση · Σταυρόλεξα · Ακροστιχίδες</span>
+          <span>📲 Εγκαθίσταται σαν εφαρμογή</span>
+          <span>🔤 Κουμπί μεγαλύτερης γραμματοσειράς</span>
+          <span>🎵 Απαλή μουσική αυλού</span>
+        </div>
+        <a href="/games/iraklis/" class="btn btn-iraklis">
+          🦁 Ξεκίνα τους Άθλους!
+        </a>
+      </div>
+    </div>
 
     <!-- Ο Οδυσσέας και ο Κύκλωπας -->
     <div class="game-card odysseas">
@@ -232,6 +258,7 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
     box-shadow: 0 6px 20px rgba(0,0,0,0.12);
   }
 
+  .game-card.iraklis { border-top: 5px solid #b07a26; }
   .game-card.odysseas { border-top: 5px solid #1565c0; }
   .game-card.prometheus { border-top: 5px solid #e65100; }
   .game-card.labyrinth { border-top: 5px solid #a3231d; }
@@ -298,6 +325,7 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
 
   .btn:hover { opacity: 0.88; transform: translateY(-1px); }
 
+  .btn-iraklis { background: #8a5a12; color: #fff; }
   .btn-odysseas { background: #1565c0; color: #fff; }
   .btn-prometheus { background: #e65100; color: #fff; }
   .btn-labyrinth { background: #a3231d; color: #fff; }
