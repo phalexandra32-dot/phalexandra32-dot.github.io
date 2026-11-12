@@ -1,17 +1,17 @@
-// Ηρακλής – Οι 12 Άθλοι · Service Worker v1
+// Ηρακλής – Οι 12 Άθλοι · Service Worker v2
 // Με σύνδεση ανοίγει πάντα η νεότερη έκδοση του παιχνιδιού· χωρίς σύνδεση (ή με πολύ αργή σύνδεση) το αποθηκευμένο αντίγραφο.
 // Αγγίζει ΜΟΝΟ τα δικά του αποθηκευμένα αρχεία: στην ίδια διεύθυνση φιλοξενούνται κι άλλα παιχνίδια,
 // που κρατούν τα δικά τους αντίγραφα.
 const PREFIX = 'iraklis-';
-const CACHE = PREFIX + 'v1';
+const CACHE = PREFIX + 'v2';
 const SCOPE = self.registration.scope;
-const CORE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
+const CORE = ['./', './manifest.json', './icon-192.png', './icon-512.png'];      // το «./index.html» φυλάσσεται ως «./» (βλ. παρακάτω), άρα δεν κατεβαίνει δεύτερη φορά
 const WAIT = 4000;                                 // τόσο περιμένουμε το δίκτυο πριν δώσουμε το αποθηκευμένο αντίγραφο
 
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(CACHE)
-      .then(c => c.addAll(CORE.map(u => new Request(u, { cache: 'reload' }))))
+      .then(c => c.addAll(CORE))                 // η σελίδα μόλις κατέβηκε: το αντίγραφό της παίρνεται από τη μνήμη του προγράμματος περιήγησης, χωρίς δεύτερο κατέβασμα
       .then(() => self.skipWaiting())
   );
 });
