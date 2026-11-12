@@ -342,15 +342,17 @@ h1,h2,h3 { font-family: 'Cinzel', serif; letter-spacing: 0.05em; }
   margin: 0 auto;
 }
 .ws-grid td {
-  width: 36px; height: 36px; text-align: center; vertical-align: middle;
-  font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700;
+  --cell: 36px; --fit: max(20px, min(var(--cell), calc((100vh - var(--bar)) / 10)));
+  width: var(--fit); height: var(--fit); text-align: center; vertical-align: middle;
+  font-family: 'Cinzel', serif; font-size: min(1rem, calc(var(--fit) * 0.6)); font-weight: 700;
   color: var(--fg2);
   border: 1px solid rgba(107,58,10,0.3);
   cursor: pointer; position: relative;
   transition: color 0.2s;
   letter-spacing: 0;
 }
-@media (max-width: 400px) { .ws-grid td { width: 28px; height: 28px; font-size: 0.82rem; } }
+@media (max-width: 400px) { .ws-grid td { --cell: 28px; font-size: min(0.82rem, calc(var(--fit) * 0.6)); } }
+@supports (height: 100dvh) { .ws-grid td { --fit: max(20px, min(var(--cell), calc((100dvh - var(--bar)) / 10))); } }
 .ws-grid td.selected { background: rgba(255,153,51,0.25); color: #fff; }
 .ws-grid td.found-cell { background: rgba(76,175,122,0.2); color: var(--success); }
 .ws-grid td.found-cell.hl0 { background: rgba(255,80,0,0.25); color: #ff9966; }
@@ -484,9 +486,11 @@ h1,h2,h3 { font-family: 'Cinzel', serif; letter-spacing: 0.05em; }
 }
 #font-toggle:hover { opacity: 1; }
 #font-toggle.large { color: var(--fire3); border-color: var(--fire3); }
-body.font-large { font-size: 26px !important; }
-body.font-large .ws-grid td { width: 44px; height: 44px; font-size: 1rem; }
-@media (max-width: 400px) { body.font-large .ws-grid td { width: 34px; height: 34px; font-size: 0.9rem; } }
+/* «Α+»: τα μεγέθη της σελίδας είναι σε rem, άρα μεγαλώνει η βάση τους και μαζί της όλα τα γράμματα */
+html.font-large { font-size: 125%; }
+body.font-large { font-size: 27.5px !important; }
+body.font-large .ws-grid td { --cell: 44px; font-size: min(1rem, calc(var(--fit) * 0.6)); }
+@media (max-width: 400px) { body.font-large .ws-grid td { --cell: 34px; font-size: min(0.9rem, calc(var(--fit) * 0.6)); } }
 
 /* ── MISC ── */
 .text-center { text-align: center; }
@@ -626,6 +630,32 @@ body.font-large .ws-grid td { width: 44px; height: 44px; font-size: 1rem; }
 .story-art figcaption {
   padding: 8px 12px; font-size: .9rem; line-height: 1.45; font-style: italic; color: var(--fg2);
   background: rgba(13,9,5,.92); border-top: 1px solid rgba(201,168,76,.25);
+}
+
+/* ══════════ ΜΕΓΑΛΑ ΓΡΑΜΜΑΤΑ: ό,τι χρειάζεται για να χωρούν ══════════ */
+/* «στάδιο ολοκληρώθηκε»: κεντράρισμα μόνο όταν χωράει, ποτέ κομμένη αρχή· ο τίτλος χωρά και στη στενή οθόνη */
+#s-stage-complete { justify-content: flex-start; padding-top: 52px; }
+#s-stage-complete::before, #s-stage-complete::after { content: ''; flex: 1 0 0px; }
+.sc-title { font-size: min(clamp(1.8rem, 6vw, 2.6rem), 9vw); }
+/* ο τίτλος της αρχικής οθόνης δεν ξεπερνά το πλαίσιό του όταν η οθόνη είναι πλάγια */
+@media (orientation: landscape) {
+  #s-intro .intro-title { font-size: min(clamp(1.7rem, 4.3vw, 3.2rem), calc((clamp(300px, 40vw, 480px) - 52px) / 7.6)); }
+}
+/* η ερώτηση του γρίφου μεγαλώνει το ίδιο σε κάθε πλάτος οθόνης */
+html.font-large .riddle-q { font-size: clamp(1rem, 3.75vw, 1.2rem); }
+/* ══════════ ΚΡΥΠΤΟΛΕΞΟ: ολόκληρο το πλέγμα στην οθόνη ══════════ */
+:root { --bar: 58px; }                 /* η πάνω μπάρα και λίγος αέρας */
+html.font-large { --bar: 68px; }
+/* Κινητό κρατημένο πλάγια: το πλέγμα αριστερά και οι λέξεις δεξιά, για να φαίνονται μαζί.
+   Το πλέγμα μένει στη θέση του όσο κυλάει η δεξιά στήλη και δεν πέφτει κάτω από το κουμπί «Α+». */
+@media (orientation: landscape) and (max-height: 520px) {
+  #s-wordsearch { padding-top: 0; }                                  /* το κενό πάνω γίνεται περιθώριο, για να μετρά σωστά το sticky */
+  #s-wordsearch > div { margin-top: calc(var(--bar) + 2px) !important; }
+  .ws-box { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto auto auto auto 1fr; column-gap: 20px; align-items: start; }
+  .ws-box > * { grid-column: 2; }
+  .ws-box > .ws-grid-wrap { grid-column: 1; grid-row: 1 / -1; margin-bottom: 0; position: sticky; top: calc(var(--bar) - 10px); overflow: visible; }
+  .ws-box > .ws-words { margin-bottom: 12px; }
+  .ws-box > .ws-hint { text-align: left; }
 }
 </style>
 </head>
@@ -1059,7 +1089,7 @@ let acCorrect = [];
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const el = document.getElementById(id);
-  if(el) { void el.offsetWidth; el.classList.add('active'); }
+  if(el) { void el.offsetWidth; el.classList.add('active'); el.scrollTop = 0; }
   window.scrollTo(0,0);
 }
 
@@ -1105,6 +1135,8 @@ function progressDots(container, total, current) {
 // ════════════════════════════════════════════════
 function toggleFont() {
   const isLarge = document.body.classList.toggle('font-large');
+  document.documentElement.classList.toggle('font-large', isLarge);
+  setTimeout(wsShowWholeGrid, 60);
   const btn = document.getElementById('font-toggle');
   btn.classList.toggle('large', isLarge);
   btn.textContent = isLarge ? 'Α−' : 'Α+';
@@ -1114,6 +1146,7 @@ function toggleFont() {
   try {
     if (localStorage.getItem('prometheus-font') === 'large') {
       document.body.classList.add('font-large');
+      document.documentElement.classList.add('font-large');
       const btn = document.getElementById('font-toggle');
       if (btn) { btn.classList.add('large'); btn.textContent = 'Α−'; }
     }
@@ -1303,6 +1336,24 @@ function generateGrid(words, size=10) {
   return {grid, wordPos};
 }
 
+// Το πλέγμα του κρυπτόλεξου πρέπει να φαίνεται ολόκληρο: αλλιώς δεν σέρνεται το δάχτυλο πάνω σε μια μεγάλη λέξη.
+function wsShowWholeGrid() {
+  const scr = document.getElementById('s-wordsearch'), tbl = document.getElementById('ws-table');
+  if (!scr || !tbl || !scr.classList.contains('active')) return;
+  if (wsDragging || document.getElementById('ws-next-btn').style.display !== 'none') return;   // όχι την ώρα που σέρνει, ούτε όταν τελείωσε
+  const t = tbl.getBoundingClientRect(), aplus = document.getElementById('font-toggle').getBoundingClientRect();
+  const top = document.getElementById('hud').getBoundingClientRect().bottom + 4;
+  let bottom = window.innerHeight - 4;
+  // το κουμπί «Α+» κάθεται κάτω δεξιά: αν πέφτει πάνω στο πλέγμα, το πλέγμα σταματά πιο πάνω από αυτό
+  if (t.right > aplus.left - 4 && t.left < aplus.right && t.height <= aplus.top - 6 - top) bottom = aplus.top - 6;
+  if (t.height > bottom - top) return;
+  if (t.bottom > bottom) scr.scrollTop += t.bottom - bottom;
+  else if (t.top < top) scr.scrollTop -= top - t.top;
+}
+window.addEventListener('resize', () => setTimeout(wsShowWholeGrid, 200));
+// και όταν αλλάξει το μέγεθος του πλαισίου (φόρτωσε η γραμματοσειρά, πατήθηκε το «Α+»)
+if (window.ResizeObserver) new ResizeObserver(() => wsShowWholeGrid()).observe(document.querySelector('.ws-box'));
+
 function setupWordSearch(ch) {
   document.getElementById('ws-stage-title').textContent = STAGES[gStage].title;
   progressDots(document.getElementById('ws-progress'), 3, 1);
@@ -1343,6 +1394,7 @@ function setupWordSearch(ch) {
   document.getElementById('ws-next-btn').style.display='none';
   document.getElementById('ws-hint').textContent='Κάνε κλικ-σύρε για να επιλέξεις γράμματα οριζόντια, κάθετα ή διαγώνια';
   showScreen('s-wordsearch');
+  wsShowWholeGrid();
 }
 
 function wsGetCell(e) {
@@ -1432,6 +1484,7 @@ function wsCheckSelection(start, end) {
 function wsComplete() {
   document.getElementById('ws-hint').textContent='🎉 Βρήκες όλες τις λέξεις! Εξαιρετική δουλειά!';
   document.getElementById('ws-next-btn').style.display='';
+  document.getElementById('ws-next-btn').scrollIntoView({ block: 'nearest' });   // να φαίνεται το «Συνέχεια»
 }
 
 // ════════════════════════════════════════════════
