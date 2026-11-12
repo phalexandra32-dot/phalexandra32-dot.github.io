@@ -5,13 +5,13 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
 <ArticleLayout
   title="Παιχνίδια & Σταυρόλεξα"
   eyebrow="Διαδραστική Μάθηση"
-  description="Ηρακλής, Προμηθέας, Λαβύρινθος του Μινώταυρου, Δαίδαλος και Ίκαρος, quiz γνώσεων Φυσικής & Χημείας και διαδραστικά σταυρόλεξα — μάθε παίζοντας!"
+  description="Περσέας, Ηρακλής, Προμηθέας, Λαβύρινθος του Μινώταυρου, Δαίδαλος και Ίκαρος, quiz γνώσεων Φυσικής & Χημείας και διαδραστικά σταυρόλεξα — μάθε παίζοντας!"
   heroIcon="🎮"
 >
   <section class="games-intro">
     <p>
       Δοκίμασε τις γνώσεις σου με διαδραστικά παιχνίδια φυσικής και χημείας.
-      Από τους δώδεκα άθλους του Ηρακλή, τη φωτιά του Προμηθέα, την περιπέτεια του Θησέα στον Λαβύρινθο και
+      Από το μυστήριο της Μέδουσας και τους δώδεκα άθλους του Ηρακλή, τη φωτιά του Προμηθέα, την περιπέτεια του Θησέα στον Λαβύρινθο και
       την απόδραση του Ίκαρου από τον ουρανό, ως quiz στυλ «Ποιος θέλει να
       γίνει εκατομμυριούχος» και σταυρόλεξα με επιστημονικούς όρους — μάθηση
       που μοιάζει με παιχνίδι!
@@ -19,6 +19,32 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
   </section>
 
   <section class="games-grid">
+
+    <!-- Περσέας – Το Μυστήριο της Μέδουσας -->
+    <div class="game-card perseas">
+      <div class="game-icon">🛡️</div>
+      <div class="game-body">
+        <span class="game-tag">Φυσική Γυμνασίου · Το φως</span>
+        <h2>Περσέας – Το Μυστήριο της Μέδουσας</h2>
+        <p>
+          Όποιος κοιτάξει τη Μέδουσα κατάματα γίνεται πέτρα. Πώς θα τη νικήσει ο Περσέας χωρίς να την κοιτάξει;
+          Η απάντηση κρύβεται στο φως: σκιές, καθρέφτες, ανάκλαση και διάθλαση. Δώδεκα σταθμοί του μύθου,
+          με οδηγούς την Αθηνά, τον Ερμή, τη Δανάη, την Ανδρομέδα και τον Πολυδέκτη — και μια γυαλισμένη
+          ασπίδα που πρέπει να στρίψεις σωστά!
+        </p>
+        <div class="game-meta">
+          <span>⏱ ~45 λεπτά</span>
+          <span>🗝️ 12 σταθμοί</span>
+          <span>🧩 10 είδη γρίφων: Παρείσακτος · Σωστή ακτίνα · Κενά · Στόχευση με την ασπίδα · Ουράνιο τόξο · Σταυρόλεξα · Ακροστιχίδες</span>
+          <span>📲 Εγκαθίσταται σαν εφαρμογή</span>
+          <span>🔤 Κουμπί μεγαλύτερης γραμματοσειράς</span>
+          <span>🎵 Απαλή μουσική αυλού</span>
+        </div>
+        <a href="/games/perseas/" class="btn btn-perseas">
+          🛡️ Ξεκίνα το Ταξίδι!
+        </a>
+      </div>
+    </div>
 
     <!-- Ηρακλής – Οι 12 Άθλοι της Φυσικής και της Χημείας -->
     <div class="game-card iraklis">
@@ -258,6 +284,7 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
     box-shadow: 0 6px 20px rgba(0,0,0,0.12);
   }
 
+  .game-card.perseas { border-top: 5px solid #1f7a6d; }
   .game-card.iraklis { border-top: 5px solid #b07a26; }
   .game-card.odysseas { border-top: 5px solid #1565c0; }
   .game-card.prometheus { border-top: 5px solid #e65100; }
@@ -325,6 +352,7 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
 
   .btn:hover { opacity: 0.88; transform: translateY(-1px); }
 
+  .btn-perseas { background: #17635a; color: #fff; }
   .btn-iraklis { background: #8a5a12; color: #fff; }
   .btn-odysseas { background: #1565c0; color: #fff; }
   .btn-prometheus { background: #e65100; color: #fff; }
