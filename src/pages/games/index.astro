@@ -5,13 +5,13 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
 <ArticleLayout
   title="Παιχνίδια & Σταυρόλεξα"
   eyebrow="Διαδραστική Μάθηση"
-  description="Φυσική και Πόλεμος (Αθήνα εναντίον Σπάρτης), Περσέας, Ηρακλής, Προμηθέας, Λαβύρινθος του Μινώταυρου, Δαίδαλος και Ίκαρος, quiz γνώσεων Φυσικής & Χημείας και διαδραστικά σταυρόλεξα — μάθε παίζοντας!"
+  description="Αϊ-Βασίλης (χριστουγεννιάτικο παιχνίδι στα ελληνικά και στα αγγλικά), Φυσική και Πόλεμος (Αθήνα εναντίον Σπάρτης), Περσέας, Ηρακλής, Προμηθέας, Λαβύρινθος του Μινώταυρου, Δαίδαλος και Ίκαρος, quiz γνώσεων Φυσικής & Χημείας και διαδραστικά σταυρόλεξα — μάθε παίζοντας!"
   heroIcon="🎮"
 >
   <section class="games-intro">
     <p>
       Δοκίμασε τις γνώσεις σου με διαδραστικά παιχνίδια φυσικής και χημείας.
-      Από την αναμέτρηση της Αθήνας με τη Σπάρτη, το μυστήριο της Μέδουσας και τους δώδεκα άθλους του Ηρακλή, τη φωτιά του Προμηθέα, την περιπέτεια του Θησέα στον Λαβύρινθο και
+      Από την αποστολή των δώρων του Αϊ-Βασίλη και την αναμέτρηση της Αθήνας με τη Σπάρτη, το μυστήριο της Μέδουσας και τους δώδεκα άθλους του Ηρακλή, τη φωτιά του Προμηθέα, την περιπέτεια του Θησέα στον Λαβύρινθο και
       την απόδραση του Ίκαρου από τον ουρανό, ως quiz στυλ «Ποιος θέλει να
       γίνει εκατομμυριούχος» και σταυρόλεξα με επιστημονικούς όρους — μάθηση
       που μοιάζει με παιχνίδι!
@@ -19,6 +19,33 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
   </section>
 
   <section class="games-grid">
+
+    <!-- Αϊ-Βασίλης – Η Αποστολή των Δώρων -->
+    <div class="game-card aivasilis">
+      <div class="game-icon">🎅</div>
+      <div class="game-body">
+        <span class="game-tag">Χριστούγεννα · Δημοτικό και Γυμνάσιο · Ελληνικά και αγγλικά</span>
+        <h2>Αϊ-Βασίλης – Η Αποστολή των Δώρων</h2>
+        <p>
+          Τα σκανταλιάρικα ξωτικά άδειασαν τον σάκο του Αϊ-Βασίλη! Με το έλκηθρο και τον Ρούντολφ ταξιδεύεις
+          σε δώδεκα χώρες πάνω στον χάρτη του κόσμου, λύνεις αστείους γρίφους για τα χριστουγεννιάτικα γλυκά
+          και φαγητά και για γενικές γνώσεις, και γεμίζεις τον σάκο με δώρα — με οδηγό το Πνεύμα των
+          Περασμένων Χριστουγέννων.
+        </p>
+        <div class="game-meta">
+          <span>⏱ ~40 λεπτά</span>
+          <span>🗺️ 12 χώρες</span>
+          <span>🌍 Τα παιδιά διαλέγουν ελληνικά ή αγγλικά</span>
+          <span>🧩 Παρείσακτος · Σωστό-Λάθος · Ακροστιχίδες · Κενά · Αντιστοίχιση · Σταυρόλεξο</span>
+          <span>📲 Εγκαθίσταται σαν εφαρμογή</span>
+          <span>🔤 Κουμπί μεγαλύτερης γραμματοσειράς</span>
+          <span>🎵 Χριστουγεννιάτικη μουσική</span>
+        </div>
+        <a href="/games/aivasilis/" class="btn btn-aivasilis">
+          🎅 Ξεκίνα την Αποστολή!
+        </a>
+      </div>
+    </div>
 
     <!-- Φυσική και Πόλεμος – Αθήνα εναντίον Σπάρτης -->
     <div class="game-card polemos">
@@ -316,6 +343,7 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
   /* Φυσική και Πόλεμος: δίχρωμη λωρίδα, γαλάζιο της Αθήνας και κόκκινο της Σπάρτης */
   .game-card.polemos { border-top: 0; }
   .game-card.polemos::before { content: ""; display: block; flex: none; height: 5px; background: linear-gradient(90deg, #1b4a82 0 50%, #8a231c 50% 100%); }
+  .game-card.aivasilis { border-top: 5px solid #c8323f; }
   .game-card.perseas { border-top: 5px solid #1f7a6d; }
   .game-card.iraklis { border-top: 5px solid #b07a26; }
   .game-card.odysseas { border-top: 5px solid #1565c0; }
@@ -385,6 +413,7 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
   .btn:hover { opacity: 0.88; transform: translateY(-1px); }
 
   .btn-polemos { background: linear-gradient(90deg, #1b4a82, #8a231c); color: #fff; }
+  .btn-aivasilis { background: #b02a36; color: #fff; }
   .btn-perseas { background: #17635a; color: #fff; }
   .btn-iraklis { background: #8a5a12; color: #fff; }
   .btn-odysseas { background: #1565c0; color: #fff; }
