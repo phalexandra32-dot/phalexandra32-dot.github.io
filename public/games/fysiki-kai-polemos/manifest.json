@@ -1,0 +1,16 @@
+{
+  "name": "Φυσική και Πόλεμος – Αθήνα εναντίον Σπάρτης",
+  "short_name": "Φυσική & Πόλεμος",
+  "description": "Εκπαιδευτικό παιχνίδι Φυσικής Γυμνασίου για δύο ομάδες: δεκαπέντε αποστολές στον κόσμο των αρχαίων Ελλήνων | © 2026 Αλεξάνδρα Κούση",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#07121a",
+  "theme_color": "#07121a",
+  "lang": "el",
+  "categories": ["education", "games"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
