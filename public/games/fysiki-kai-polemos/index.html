@@ -27,6 +27,10 @@
 <meta name="apple-mobile-web-app-title" content="Φυσική &amp; Πόλεμος">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
+<script>
+/* πριν ζωγραφιστεί η σελίδα: οθόνη αφής (touch) και κινητό (phone: μικρή πλευρά οθόνης έως 560 px) */
+(function () { try { var c = document.documentElement.classList; if (window.matchMedia && matchMedia('(any-pointer: coarse)').matches) { c.add('touch'); if (Math.min(screen.width, screen.height) <= 560) c.add('phone'); } } catch (e) {} })();
+</script>
 <style>
 /* Γραμματοσειρές: Literata (The Literata Project Authors) και Cardo (David Perry), άδεια SIL Open Font License 1.1 */
 @font-face{font-family:'Cardo';font-style:normal;font-weight:700;font-display:swap;src:url(data:font/woff2;base64,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) format('woff2');unicode-range:U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF}
@@ -53,16 +57,17 @@
   color-scheme: dark;
 }
 *, *::before, *::after { box-sizing: border-box; }
-html { height: 100%; overflow: hidden; font-size: clamp(13.5px, calc(8.6px + .56vw), 21px); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+html { height: 100%; overflow: hidden; font-size: clamp(13.5px, calc(8.6px + .56vw), 21px); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; touch-action: manipulation; }
 html.font-large { font-size: clamp(16px, calc(10.4px + .66vw), 25px); }
 body { height: 100%; margin: 0; overflow: hidden; background: var(--night); color: var(--marble); font-family: var(--body); font-size: 1rem; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-wrap: break-word; }
 h1, h2, h3, p, ol, ul, figure { margin: 0; }
 ol, ul { padding: 0; list-style: none; }
 button, input { font: inherit; color: inherit; -webkit-tap-highlight-color: transparent; }
+button, .zone { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
 [hidden] { display: none !important; }
 :focus:not(:focus-visible) { outline: none; }
 :focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
-#app { position: fixed; top: 0; right: 0; bottom: 0; left: 0; }
+#app { position: fixed; top: env(safe-area-inset-top, 0px); right: env(safe-area-inset-right, 0px); bottom: env(safe-area-inset-bottom, 0px); left: env(safe-area-inset-left, 0px); }      /* μέσα από την εγκοπή και τη γραμμή αρχικής των κινητών */
 
 /* ── οθόνες ── */
 .screen { position: absolute; top: 0; right: 0; bottom: 0; left: 0; display: flex; opacity: 0; visibility: hidden; transition: opacity .35s ease, visibility 0s linear .35s; background: var(--night); }
@@ -96,7 +101,7 @@ button, input { font: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
 /* ── αρχική ── */
 #setup-screen, #victory-screen { align-items: center; justify-content: center; }
-.setup-card { position: relative; width: min(46rem, 92vw); max-height: 96vh; padding: 1.5rem 2rem 1.2rem; text-align: center; }
+.setup-card { position: relative; width: min(46rem, 92vw); max-height: 100%; overflow: hidden auto; padding: 1.5rem 2rem 1.2rem; text-align: center; }
 .team-fields { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; margin-top: 1.15rem; }
 .field { display: block; text-align: left; }
 .field span { display: block; margin-bottom: .25rem; font: 600 .74rem/1.2 var(--body); letter-spacing: .12em; }
@@ -235,15 +240,23 @@ kbd { display: inline-block; min-width: 1.45em; padding: .02em .3em; border: 1px
 
 /* αριθμητική απάντηση */
 .nums { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
-.num { display: flex; align-items: center; gap: .5rem; min-width: 0; padding: .5rem .6rem; border: 1.5px solid; border-radius: 6px; background: rgba(13, 28, 38, .88); }
+.num { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; min-width: 0; padding: .5rem .6rem; border: 1.5px solid; border-radius: 6px; background: rgba(13, 28, 38, .88); }
 .num.ath { border-color: #2d5f8f; } .num.spa { border-color: #8f3a32; }
 .num.ok .btn, .num.bad .btn { display: none; }
 .num label { flex: none; font: 700 .92rem/1.1 var(--display); letter-spacing: .06em; max-width: 7rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .num.ath label { color: var(--ath); } .num.spa label { color: var(--spa); }
-.num input { flex: 1; min-width: 0; min-height: 2.6rem; padding: .2rem .6rem; border: 1.5px solid var(--line); border-radius: 4px; background: var(--night); font: 700 1.25rem/1 var(--display); color: var(--marble); }
+.num input { flex: 1; min-width: 3.4rem; min-height: 2.6rem; padding: .2rem .6rem; border: 1.5px solid var(--line); border-radius: 4px; background: var(--night); font: 700 1.25rem/1 var(--display); color: var(--marble); }
 .num .unit { flex: none; font: 600 .98rem/1 var(--body); color: var(--dust); }
 .num .mark { flex: none; font: 700 1.05rem/1.1 var(--body); white-space: nowrap; }
 .num .mark:empty { display: none; }
+/* πλήκτρα αριθμών για οθόνες αφής (κινητό, tablet, διαδραστικός πίνακας): κάθε ομάδα γράφει στη δική της πλευρά, χωρίς το πληκτρολόγιο της συσκευής */
+.pad { display: none; flex: 1 0 100%; grid-template-columns: repeat(6, 1fr); gap: .3rem; }
+html.touch .pad { display: grid; }
+.num.locked .pad, .num.ok .pad, .num.bad .pad { display: none; }
+.pad button { min-height: 2.6rem; padding: 0; border: 1.5px solid var(--line); border-radius: 5px; background: var(--night-3); font: 700 1.2rem/1 var(--display); color: var(--marble); cursor: pointer; touch-action: manipulation; }
+.pad button:active { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+.num.ath .pad button { border-color: #2d5f8f; } .num.spa .pad button { border-color: #8f3a32; }
+.pad button[data-k="del"] { font-family: var(--body); font-size: 1.05rem; color: var(--dust); }
 .num.ok { border-color: var(--ok); } .num.ok .mark { color: var(--ok); } .num.bad { border-color: var(--bad); } .num.bad .mark { color: var(--bad); }
 
 /* ταξινόμηση */
@@ -273,7 +286,7 @@ kbd { display: inline-block; min-width: 1.45em; padding: .02em .3em; border: 1px
 .reasoning { margin-top: .7rem; padding: .6rem .85rem .7rem; border: 1px solid var(--line); border-radius: 8px; background: var(--night-2); }
 .reasoning-h { font: 700 1.08rem/1.2 var(--display); color: var(--gold); } .reasoning-h small { font: 400 .78rem/1 var(--body); color: var(--dust); }
 .reasoning-prompt { margin: .3rem 0 .5rem; font-size: .98rem; line-height: 1.4; }
-.reasoning-rows { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+.reasoning-rows { display: grid; grid-template-columns: repeat(auto-fit, minmax(20.6rem, 1fr)); gap: .5rem .8rem; }
 .reasoning-row { display: flex; align-items: center; gap: .6rem; } .reasoning-row b { font: 700 .9rem/1.1 var(--display); letter-spacing: .06em; min-width: 4.5rem; }
 .reasoning-row.ath b { color: var(--ath); } .reasoning-row.spa b { color: var(--spa); }
 .reasoning-btns { display: flex; gap: .3rem; }
@@ -283,7 +296,7 @@ kbd { display: inline-block; min-width: 1.45em; padding: .02em .3em; border: 1px
 @keyframes pop { from { transform: translate(-50%, -50%) scale(.6); opacity: 0; } to { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
 
 /* ── νίκη ── */
-.victory-card { position: relative; width: min(52rem, 94vw); max-height: 96vh; overflow: hidden auto; padding: 1.4rem 2rem 1.3rem; text-align: center; }
+.victory-card { position: relative; width: min(52rem, 94vw); max-height: 100%; overflow: hidden auto; padding: 1.4rem 2rem 1.3rem; text-align: center; }
 .victory-winner { font-size: 2.9rem; }
 .victory-scores { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: .3rem; }
 .vscore { padding: .6rem .8rem .7rem; border: 1.5px solid; border-radius: 8px; background: rgba(7, 18, 26, .72); }
@@ -296,10 +309,10 @@ kbd { display: inline-block; min-width: 1.45em; padding: .02em .3em; border: 1px
 .victory-stats { margin-top: .8rem; font-size: .9rem; color: var(--dust); }
 
 /* ── κάρτα ήρωα ── */
-.modal { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 50; display: grid; place-items: center; padding: 1.2rem; background: rgba(3, 9, 14, .84); }
-.modal-card { display: flex; max-width: min(58rem, 96vw); max-height: 92vh; border: 1.5px solid var(--bronze); border-radius: 8px; background: var(--night-2); overflow: hidden; box-shadow: 0 30px 80px rgba(0, 0, 0, .7); }
-.modal-card img { flex: none; display: block; width: min(31rem, 52vw); height: min(31rem, 52vw); max-height: 92vh; object-fit: cover; }
-.modal-text { display: flex; flex-direction: column; justify-content: center; gap: .55rem; padding: 1.4rem 1.6rem; min-width: 15rem; }
+.modal { position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 50; display: grid; place-items: center; padding: 1.2rem; background: rgba(3, 9, 14, .84); }
+.modal-card { display: flex; max-width: min(58rem, 96vw); max-height: 100%; border: 1.5px solid var(--bronze); border-radius: 8px; background: var(--night-2); overflow: hidden; box-shadow: 0 30px 80px rgba(0, 0, 0, .7); }
+.modal-card img { flex: none; display: block; width: min(31rem, 52vw); height: min(31rem, 52vw); max-height: 92vh; max-height: 92dvh; object-fit: cover; }
+.modal-text { display: flex; flex-direction: column; justify-content: center; gap: .55rem; padding: 1.4rem 1.6rem; min-width: 15rem; overflow: hidden auto; }
 .hero-line { font-size: 1.06rem; line-height: 1.5; } .hero-role { font-size: .92rem; color: var(--dust); padding-top: .6rem; border-top: 1px solid var(--line); }
 .modal-text .btn { align-self: flex-start; margin-top: .5rem; }
 
@@ -310,13 +323,149 @@ kbd { display: inline-block; min-width: 1.45em; padding: .02em .3em; border: 1px
   .title { font-size: 2.5rem; }
 }
 @media (max-height: 640px) { .setup-card { padding-top: .6rem; } .title { font-size: 2.5rem; } .byline { margin-top: .6rem; } }
-/* ── κινητό σε όρθια θέση: οι τρεις στήλες του παιχνιδιού δεν χωρούν, ζητάμε οριζόντια οθόνη ── */
+/* ══════════ ΚΙΝΗΤΟ ΣΕ ΟΡΙΖΟΝΤΙΑ ΘΕΣΗ (χαμηλή οθόνη) ══════════
+   Το ύψος είναι λίγο και το πλάτος άφθονο: οι πλαϊνές στήλες στενεύουν, οι γραμμές του πάνω μέρους γίνονται μία,
+   τα διακοσμητικά φεύγουν και ό,τι δεν χωρά κυλά μέσα στο πλαίσιό του. Τίποτα δεν μένει έξω από την οθόνη.
+   Ισχύει μόνο σε κινητά (html.phone: οθόνη αφής με μικρή πλευρά έως 560 px)· ένας φορητός με χαμηλό παράθυρο κρατά την κανονική διάταξη της τάξης. */
+@media (orientation: landscape) and (max-height: 540px) {
+  html.phone { font-size: 13px; }
+  html.phone.font-large { font-size: 15.5px; }
+  html.phone .eyebrow { font-size: .76rem; letter-spacing: .13em; }
+  html.phone .btn { min-height: 2.6rem; padding: .35rem .95rem; }
+  html.phone .btn-big { min-height: 2.8rem; padding-inline: 1.4rem; font-size: 1.06rem; }
+  html.phone .btn-small { min-height: 2.3rem; padding: .25rem .65rem; font-size: .88rem; }
+  html.phone .actions { margin-top: .6rem; gap: .5rem; }
+
+  /* αρχική */
+  html.phone .setup-card { width: min(44rem, 96%); padding: .4rem 1rem .35rem; }
+  html.phone .title { font-size: 2rem; }
+  html.phone .subtitle { margin-top: 0; font-size: 1.12rem; }
+  html.phone .setup-card .meander, html.phone .lead { display: none; }
+  html.phone .team-fields { margin-top: .45rem; gap: .7rem; }
+  html.phone .field span { margin-bottom: .12rem; font-size: .76rem; }
+  html.phone .field input { min-height: 2.4rem; padding: .25rem .7rem; font-size: 1.24rem; }
+  html.phone .diff { margin-top: .5rem; gap: .45rem; }
+  html.phone .diff-label { font-size: .76rem; }
+  html.phone .diff-btn { min-width: 7.4rem; padding: .2rem .7rem .24rem; }
+  html.phone .diff-btn b { font-size: .98rem; } html.phone .diff-btn small { font-size: .78rem; }
+  html.phone .setup-card .actions { margin-top: .5rem; }
+  html.phone .byline { margin-top: .4rem; font-size: .74rem; line-height: 1.4; }
+  html.phone .corner-tools { top: .4rem; right: .5rem; gap: .35rem; }
+
+  /* ήρωες: οι δύο πόλεις δίπλα δίπλα, η λίστα κυλά */
+  html.phone #role-screen { padding: .35rem .55rem .4rem; gap: .35rem; }
+  html.phone .bar { gap: .6rem; }
+  html.phone .h2 { font-size: 1.22rem; }
+  html.phone .bar-sub { display: none; }
+  html.phone .cities { gap: .55rem; overflow: hidden auto; }
+  html.phone .city { padding: .35rem .5rem .5rem; }
+  html.phone .city-name { margin-bottom: .3rem; font-size: 1.08rem; } html.phone .city-name small { font-size: .82rem; }
+  html.phone .hero-grid { grid-template-rows: repeat(2, minmax(5.6rem, 1fr)); gap: .4rem; }
+  html.phone .hero-cap { padding: .2rem .45rem .3rem; margin-top: -1.5rem; }
+  html.phone .hero-cap b { font-size: 1rem; } html.phone .hero-cap span, html.phone .hero-cap input { display: none; }      /* τα ονόματα των παιδιών γράφονται στη μεγάλη οθόνη */
+
+  /* χάρτης: στενή στήλη με τα απαραίτητα, ο χάρτης παίρνει τον υπόλοιπο χώρο */
+  html.phone .side { width: 10.2rem; gap: .3rem; padding: .38rem .45rem .38rem; }
+  html.phone .side-title, html.phone .side .meander, html.phone .legend, html.phone .side-h, html.phone .score-unit, html.phone .score-gold { display: none; }      /* τα χρυσά νομίσματα φαίνονται μέσα στην αποστολή και στα αποτελέσματα */
+  html.phone .score-block { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: .4rem; padding: .16rem .55rem .18rem .7rem; }
+  html.phone .score-name { font-size: .86rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  html.phone .score-val { font-size: 1.55rem; }
+  html.phone .side-sec { padding-top: .26rem; }
+  html.phone .chapters li { gap: .35rem; padding: .06rem 0; font-size: .82rem; line-height: 1.1; }
+  html.phone .chapters canvas { width: 1.3rem; height: 1.3rem; }
+  html.phone .chapters .ch-c { font-size: .78rem; }
+  html.phone .side-btns { display: grid; grid-template-columns: repeat(3, 1fr); gap: .28rem; }
+  html.phone .side-btns .btn { min-height: 2.3rem; padding: .15rem .3rem; font-size: .84rem; }
+  html.phone #results-btn, html.phone #reset-btn { grid-column: 1 / -1; }
+
+  /* αποστολή: στενές λωρίδες για τις ομάδες, μία γραμμή επάνω, όλο το υπόλοιπο για την ερώτηση */
+  html.phone .team-panel { width: 6.2rem; gap: .22rem; padding: .35rem .28rem .3rem; align-items: center; }
+  html.phone .panel-name { max-width: 100%; font-size: .8rem; letter-spacing: .04em; overflow-wrap: anywhere; }
+  html.phone .panel-score { font-size: 1.75rem; } html.phone .panel-score small, html.phone .panel-h, html.phone .panel-keys, html.phone .ph-rest, html.phone .ph > span { display: none; }
+  html.phone .panel-gold { font-size: .76rem; line-height: 1.15; }
+  html.phone .panel-heroes { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: .22rem; margin-top: .15rem; }
+  html.phone .ph img { width: 2.15rem; height: 2.15rem; border-width: 1.5px; }
+  html.phone .panel-status { width: 100%; min-height: 0; padding: .25rem .15rem; font-size: .76rem; line-height: 1.2; overflow-wrap: normal; }
+  html.phone .panel-status b { font-size: .84rem; }
+  html.phone .panel-status:empty { display: none; }
+  html.phone .mission-main { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto minmax(0, 1fr); }
+  html.phone .m-top { grid-area: 1 / 1 / 2 / 2; min-width: 0; gap: .45rem; padding: .22rem .45rem; }
+  html.phone .m-meta { grid-area: 1 / 2 / 2 / 3; gap: .4rem; padding: .22rem .45rem .22rem 0; background: rgba(7, 18, 26, .96); }
+  html.phone .stage { grid-area: 2 / 1 / 3 / 3; }
+  html.phone .phases, html.phone .subject-tags { display: none; }
+  html.phone .m-title { gap: .4rem; font-size: 1rem; white-space: nowrap; overflow: hidden; }
+  html.phone .m-title > span:last-child { overflow: hidden; text-overflow: ellipsis; }
+  html.phone .timer { flex: none; gap: .4rem; }
+  html.phone .timer-track { flex: none; width: 4.4rem; }
+  html.phone .timer-num { min-width: 1.7rem; font-size: 1.12rem; }
+  html.phone .ctx, html.phone .qo { max-height: 100%; padding: 1.5rem .8rem .5rem; background: linear-gradient(180deg, rgba(7, 18, 26, 0) 0, rgba(7, 18, 26, .88) 1.4rem, rgba(7, 18, 26, .95) 100%); }
+  html.phone .ov-title { margin: .1rem 0 .2rem; font-size: 1.22rem; }
+  html.phone .ov-text { font-size: 1rem; line-height: 1.42; }
+  html.phone .ov-row { margin-top: .4rem; } html.phone .ov-count { font-size: .8rem; }
+  html.phone .q-text { margin-top: .12rem; font-size: 1.06rem; line-height: 1.34; }
+  html.phone .q-formula, html.phone .hint-text { margin-top: .3rem; padding: .2rem .55rem; font-size: .94rem; }
+  html.phone #q-inputs-area { margin-top: .4rem; }
+  html.phone .opts { gap: .35rem; }
+  html.phone .opt { gap: .4rem; padding: .22rem .32rem; }
+  html.phone .opt-t { font-size: .98rem; line-height: 1.22; }
+  html.phone .pick { min-width: 3rem; min-height: 2.7rem; } html.phone .pick small { font-size: .68rem; letter-spacing: .06em; }
+  html.phone .q-note { margin-top: .3rem; font-size: .8rem; line-height: 1.3; }
+  html.phone .nums { gap: .45rem; }
+  html.phone .num { gap: .35rem; padding: .3rem .4rem .35rem; }
+  html.phone .num label { max-width: 4.6rem; font-size: .84rem; }
+  html.phone .num input { min-height: 2.4rem; padding: .15rem .5rem; }
+  html.phone .num .unit { font-size: .9rem; }
+  html.phone .pad { gap: .26rem; } html.phone .pad button { min-height: 2.5rem; }
+  html.phone .cls-items { gap: .3rem; min-height: 2.4rem; }
+  html.phone .chip { min-height: 2.4rem; padding: .2rem .75rem; font-size: .96rem; }
+  html.phone .cls-zones { gap: .4rem; margin-top: .35rem; }
+  html.phone .zone { min-height: 3.7rem; padding: .3rem .45rem .4rem; } html.phone .zone-h { margin-bottom: .22rem; font-size: .94rem; }
+  html.phone .res { padding: .5rem .8rem .65rem; }
+  html.phone .res-title { font-size: 1.28rem; }
+  html.phone .res-cards { gap: .5rem; margin-top: .4rem; }
+  html.phone .res-card { gap: .5rem; padding: .32rem .55rem; }
+  html.phone .res-card .rc-big { width: 2.3rem; height: 2.3rem; font-size: 1.25rem; }
+  html.phone .rc-name { font-size: .95rem; } html.phone .rc-line { font-size: .84rem; } html.phone .rc-pts { font-size: 1.25rem; } html.phone .rc-pts small { font-size: .74rem; }
+  html.phone .res-exp { margin-top: .45rem; padding: .35rem .6rem; font-size: 1rem; line-height: 1.38; }
+  html.phone .res-xs { margin-top: .35rem; padding: .35rem .6rem; font-size: .92rem; line-height: 1.38; }
+  html.phone .reasoning { margin-top: .45rem; padding: .4rem .6rem .5rem; }
+  html.phone .reasoning-h { font-size: 1rem; } html.phone .reasoning-h small { font-size: .78rem; }
+  html.phone .reasoning-prompt { margin: .2rem 0 .4rem; font-size: .94rem; line-height: 1.34; }
+  html.phone .reasoning-rows { grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: .4rem .7rem; }
+  html.phone .reasoning-row { gap: .45rem; min-width: 0; } html.phone .reasoning-row b { min-width: 0; max-width: 4.6rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  html.phone .reasoning-btns { flex: 1; display: grid; grid-template-columns: repeat(6, 1fr); gap: .25rem; }
+  html.phone .rb { min-width: 0; min-height: 2.6rem; }
+  html.phone .bonus-banner { padding: .45rem 1.1rem; font-size: 1.25rem; }
+
+  /* νίκη */
+  html.phone .victory-card { width: min(50rem, 97%); padding: .45rem 1rem .5rem; }
+  html.phone .victory-winner { font-size: 1.85rem; }
+  html.phone .victory-card .meander { display: none; }
+  html.phone .victory-scores { gap: .6rem; margin-top: .35rem; }
+  html.phone .vscore { padding: .3rem .6rem .35rem; }
+  html.phone .vscore-name { font-size: 1rem; } html.phone .vscore-val { font-size: 2.1rem; } html.phone .vscore-sub { font-size: .78rem; }
+  html.phone .victory-heroes { gap: .4rem; margin-top: .45rem; }
+  html.phone .victory-heroes figure { width: 5rem; } html.phone .victory-heroes img { display: block; width: 3.2rem; height: 3.2rem; margin: 0 auto; border-width: 2px; }
+  html.phone .victory-heroes figcaption { margin-top: .12rem; font-size: .76rem; line-height: 1.12; }
+  html.phone .victory-stats { margin-top: .4rem; font-size: .84rem; }
+
+  /* κάρτα ήρωα */
+  html.phone .modal { padding: .5rem; }
+  html.phone .modal-card img { width: min(40vw, 86vh); height: min(40vw, 86vh); width: min(40vw, 86dvh); height: min(40vw, 86dvh); max-height: 100%; }
+  html.phone .modal-text { justify-content: flex-start; gap: .35rem; min-width: 0; padding: .7rem .95rem; }
+  html.phone .hero-line { font-size: 1rem; line-height: 1.42; } html.phone .hero-role { padding-top: .4rem; font-size: .9rem; }
+}
+/* οθόνες αφής: πεδία ονομάτων με γράμματα 16px, για να μη μεγεθύνει μόνη της τη σελίδα η Safari του iPhone όταν τα αγγίζεις */
+@media (pointer: coarse) { .hero-cap input { font-size: 16px; } .panel-keys { display: none; } }
+/* ── κινητό σε όρθια θέση: το παιχνίδι είναι για δύο ομάδες, αριστερά και δεξιά, γι' αυτό ζητάμε οριζόντια οθόνη ── */
 #rotate-note { display: none; }
-@media (orientation: portrait) and (max-width: 640px) {
-  #rotate-note { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.1rem; padding: 2rem 1.6rem; text-align: center; background: radial-gradient(ellipse at 50% 36%, #14313f 0%, var(--night) 72%); }
-  #rotate-note svg { width: 6.4rem; height: 6.4rem; color: var(--gold); animation: rotate-hint 3s ease-in-out infinite; }
-  #rotate-note h2 { font: 700 2rem/1.2 var(--display); color: var(--gold); }
-  #rotate-note p { max-width: 21rem; font-size: 1.15rem; line-height: 1.55; color: var(--dust); }
+@media (orientation: portrait) and (max-width: 700px) {
+  html.touch #rotate-note { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 2rem 1.6rem; text-align: center; background: radial-gradient(ellipse at 50% 36%, #14313f 0%, var(--night) 72%); }
+  html.touch #rotate-note svg { width: 6rem; height: 6rem; color: var(--gold); animation: rotate-hint 3s ease-in-out infinite; }
+  html.touch #rotate-note h2 { font: 700 2rem/1.2 var(--display); color: var(--gold); }
+  html.touch #rotate-note p { max-width: 21rem; font-size: 1.15rem; line-height: 1.5; color: var(--dust); }
+  html.touch #rotate-note .rotate-tip { font-size: .98rem; color: var(--dim); }
+  html.touch #rotate-note .btn { margin-top: .3rem; }
 }
 @keyframes rotate-hint { 0%, 22% { transform: rotate(0deg); } 58%, 100% { transform: rotate(-90deg); } }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
@@ -327,8 +476,10 @@ kbd { display: inline-block; min-width: 1.45em; padding: .02em .3em; border: 1px
 <!-- ═════════ ΚΙΝΗΤΟ ΣΕ ΟΡΘΙΑ ΘΕΣΗ ═════════ -->
 <div id="rotate-note">
   <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="20" y="6" width="24" height="44" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><path d="M29 44h6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M8 54c6 6 18 8 30 4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M38 51.5l1.2 6.8-7-.6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  <h2>Γύρισε τη συσκευή οριζόντια</h2>
-  <p>Το παιχνίδι παίζεται από δύο ομάδες στην ίδια οθόνη. Δείχνει καλύτερα σε υπολογιστή, προβολέα, διαδραστικό πίνακα ή tablet.</p>
+  <h2>Γύρισε το κινητό οριζόντια</h2>
+  <p>Το παιχνίδι παίζεται από δύο ομάδες στην ίδια οθόνη: η Αθήνα αριστερά, η Σπάρτη δεξιά.</p>
+  <button class="btn btn-primary btn-big" id="rotate-full" type="button" hidden>Άνοιγμα σε πλήρη οθόνη</button>
+  <p class="rotate-tip">Αν η οθόνη δεν γυρίζει, ξεκλείδωσε την αυτόματη περιστροφή από τις ρυθμίσεις του κινητού.</p>
 </div>
 
 <div id="app">
@@ -1317,7 +1468,7 @@ const MAP = (function () {
   const CH_COL = { A: '#b0452c', B: '#5e7f2e', C: '#1f6f8b', D: '#6b3fa0', E: '#c8931e' };
 
   function layoutPins(V) {
-    const R = clamp(Math.min(V.iw, V.ih) * 0.036, 17, 40);
+    const R = Math.max(clamp(Math.min(V.iw, V.ih) * 0.036, 17, 40), 15 * PXR);      // σε μικρή οθόνη (κινητό) οι καρφίτσες δεν πέφτουν κάτω από 30 px διάμετρο, για να πατιούνται με το δάχτυλο
     const pins = {};
     for (const id in MGEO) {
       const g = MGEO[id]; let ax, ay, x, y;
@@ -1325,6 +1476,22 @@ const MAP = (function () {
       else { [ax, ay] = V.xy(g.lat, g.lon); x = ax + g.off[0] * R; y = ay + g.off[1] * R; }
       x = clamp(x, V.x0 + R * 1.25, V.x0 + V.iw - R * 1.25); y = clamp(y, V.y0 + R * 1.25, V.y0 + V.ih - R * 1.9);
       pins[id] = { id, ax, ay, x, y, R, corner: g.corner || null, place: g.place };
+    }
+    // μικρή οθόνη: οι μεγαλωμένες καρφίτσες απλώνονται ώστε να μη σκεπάζει η μία την άλλη· ο μίσχος τους δείχνει πάντα τον τόπο
+    if (R > clamp(Math.min(V.iw, V.ih) * 0.036, 17, 40) + 0.5) {
+      const ids = Object.keys(pins), minD = R * 2.3;
+      for (let it = 0; it < 80; it++) {
+        let moved = false;
+        for (let i = 0; i < ids.length; i++) for (let j = i + 1; j < ids.length; j++) {
+          const a = pins[ids[i]], b = pins[ids[j]]; let dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy);
+          if (d >= minD) continue; if (d < 0.01) { dx = 1; dy = 0; d = 1; }
+          const push = (minD - d) / 2 + 0.5, ux = dx / d, uy = dy / d;
+          if (!a.corner) { a.x -= ux * push; a.y -= uy * push; } if (!b.corner) { b.x += ux * push; b.y += uy * push; }
+          moved = true;
+        }
+        for (const id of ids) { const q = pins[id]; if (q.corner) continue; q.x = clamp(q.x, V.x0 + R * 1.25, V.x0 + V.iw - R * 1.25); q.y = clamp(q.y, V.y0 + R * 1.25, V.y0 + V.ih - R * 1.9); }
+        if (!moved) break;
+      }
     }
     return pins;
   }
@@ -1759,7 +1926,7 @@ const MAP = (function () {
   }
 
   // ---------- κατάσταση ----------
-  let canvas = null, ctx = null, stat = null, hoverId = null, toast = null, fontsOK = false;
+  let canvas = null, ctx = null, stat = null, hoverId = null, toast = null, fontsOK = false, PXR = 1;      // PXR: εικονοστοιχεία καμβά ανά εικονοστοιχείο οθόνης (CSS)
   function stateOf(id) {
     if (GS.completedMissions.includes(id)) return 'done';
     const ch = CHAPTERS.find(c => c.missions.includes(id)), i = CHAPTERS.indexOf(ch);
@@ -1769,7 +1936,7 @@ const MAP = (function () {
   function chOf(id) { return CHAPTERS.find(c => c.missions.includes(id)).id; }
   function ensure() {
     if (!canvas || !rasReady) return false;
-    if (!stat || stat.canvas.width !== canvas.width || stat.canvas.height !== canvas.height) { if (canvas.width < 80 || canvas.height < 80) return false; stat = buildStatic(canvas.width, canvas.height); }
+    if (!stat || stat.canvas.width !== canvas.width || stat.canvas.height !== canvas.height) { if (canvas.width < 80 || canvas.height < 80) return false; const cw = canvas.getBoundingClientRect().width; PXR = cw > 1 ? canvas.width / cw : 1; stat = buildStatic(canvas.width, canvas.height); }
     return true;
   }
   function draw(t) {
@@ -1787,14 +1954,14 @@ const MAP = (function () {
     const ids = Object.keys(V.pins).sort((a, b) => (stateOf(a) === 'open') - (stateOf(b) === 'open') || V.pins[a].y - V.pins[b].y);
     for (const id of ids) if (id !== hoverId) medallion(c, V.pins[id], stateOf(id), chOf(id), t, false);
     if (hoverId && V.pins[hoverId]) medallion(c, V.pins[hoverId], stateOf(hoverId), chOf(hoverId), t, true);
-    if (V.pins.A2) { const p = V.pins.A2; txt(c, 'προς Αλεξάνδρεια', p.x, p.y - p.R * 1.38, { font: `italic 400 ${Math.max(9, 10.5 * k)}px ${SERIF}`, fill: 'rgba(236,248,246,0.95)', halo: 'rgba(8,32,50,0.6)', haloW: 3 * k }); }
+    if (V.pins.A2) { const p = V.pins.A2; txt(c, 'προς Αλεξάνδρεια', p.x, p.y - p.R * 1.38, { font: `italic 400 ${Math.max(9 * PXR, 10.5 * k)}px ${SERIF}`, fill: 'rgba(236,248,246,0.95)', halo: 'rgba(8,32,50,0.6)', haloW: 3 * k }); }
     // επεξήγηση αποστολής
     if (hoverId && V.pins[hoverId]) tooltip(c, V, V.pins[hoverId]);
     c.restore();
     if (toast) { const age = (performance.now() - toast.t0) / 1000; if (age > 3.2) toast = null; else drawToast(c, V, toast.msg, age); }
   }
   function tooltip(c, V, p) {
-    const k = V.k, m = MISSIONS[p.id], st = stateOf(p.id), ch = CHAPTERS.find(cc => cc.missions.includes(p.id));
+    const k = Math.max(V.k, 0.82 * PXR), m = MISSIONS[p.id], st = stateOf(p.id), ch = CHAPTERS.find(cc => cc.missions.includes(p.id));
     const f1 = `700 ${Math.round(14.5 * k)}px ${DISPLAY}`, f2 = `italic 400 ${Math.round(11 * k)}px ${SERIF}`, f3 = `600 ${Math.round(10 * k)}px ${SERIF}`;
     const l1 = m ? m.title : p.id, l2 = p.place, l3 = (ch ? upperEl(ch.name) : '') + (st === 'locked' ? ' · ΚΛΕΙΔΩΜΕΝΗ' : st === 'done' ? ' · ΟΛΟΚΛΗΡΩΘΗΚΕ' : '');
     const W = Math.max(txtW(c, l1, f1), txtW(c, l2, f2), txtW(c, l3, f3, 1.2 * k)) + 28 * k, H = 70 * k;
@@ -1808,14 +1975,14 @@ const MAP = (function () {
     txt(c, l2, x + 14 * k, y + 55 * k, { font: f2, fill: '#cbc1ad', align: 'left' });
   }
   function drawToast(c, V, msg, age) {
-    const k = V.k, a = clamp(Math.min(age / 0.25, (3.2 - age) / 0.5), 0, 1), f = `600 ${Math.round(14 * k)}px ${SERIF}`;
+    const k = Math.max(V.k, 0.82 * PXR), a = clamp(Math.min(age / 0.25, (3.2 - age) / 0.5), 0, 1), f = `600 ${Math.round(14 * k)}px ${SERIF}`;      // ευανάγνωστο και σε μικρή οθόνη
     const W = txtW(c, msg, f) + 44 * k, H = 42 * k, x = V.x0 + V.iw / 2 - W / 2, y = V.y0 + 22 * k - (1 - a) * 14 * k;
     c.save(); c.globalAlpha = a; c.shadowColor = 'rgba(0,0,0,0.5)'; c.shadowBlur = 14 * k; c.shadowOffsetY = 4 * k; c.fillStyle = 'rgba(7,18,26,0.94)'; rr(c, x, y, W, H, H / 2); c.fill(); c.shadowColor = 'transparent';
     c.strokeStyle = '#c79245'; c.lineWidth = 1.4 * k; rr(c, x, y, W, H, H / 2); c.stroke(); txt(c, msg, x + W / 2, y + H / 2 + 1, { font: f, fill: '#f4ecdc' }); c.restore();
   }
   function pick(px, py) {
     if (!stat) return null; let best = null, bd = 1e9;
-    for (const id in stat.V.pins) { const p = stat.V.pins[id], d = Math.hypot(px - p.x, py - p.y); if (d < p.R * 1.18 && d < bd) { bd = d; best = id; } }
+    for (const id in stat.V.pins) { const p = stat.V.pins[id], d = Math.hypot(px - p.x, py - p.y); if (d < Math.max(p.R * 1.18, 21 * PXR) && d < bd) { bd = d; best = id; } }      // κερδίζει η πιο κοντινή καρφίτσα
     return best;
   }
   function toCanvas(e) { const r = canvas.getBoundingClientRect(); return [(e.clientX - r.left) * (canvas.width / r.width), (e.clientY - r.top) * (canvas.height / r.height)]; }
@@ -2039,6 +2206,7 @@ const SCENE = (function () {
   const sceneView = SCENE.view(sceneCanvas), setupView = SCENE.view(setupCanvas), victoryView = SCENE.view(victoryCanvas);
   setupView.set('E3'); victoryView.set('victory');
 
+  const COARSE = window.matchMedia ? matchMedia('(pointer: coarse)') : { matches: false };      // κύριος δείκτης το δάχτυλο: κινητό ή tablet
   function fit(cv, maxPx) {
     const r = cv.getBoundingClientRect(); if (r.width < 2 || r.height < 2) return;
     let d = Math.min(2, window.devicePixelRatio || 1);
@@ -2273,10 +2441,22 @@ const SCENE = (function () {
     const wrap = document.createElement('div'); wrap.className = 'nums';
     TEAMS.forEach(team => {
       const a = m.answers[team], box = document.createElement('div'); box.className = 'num ' + TEAM[team].cls; box.id = 'num-' + team;
-      box.innerHTML = `<label for="num-input-${team}">${esc(teamName(team))}</label><input id="num-input-${team}" inputmode="decimal" autocomplete="off" aria-label="${esc(a.label || 'Απάντηση')}, ομάδα ${esc(teamName(team))}"><span class="unit">${esc(a.unit || '')}</span><button class="btn btn-small" type="button">Κλείδωμα</button><span class="mark"></span>`;
+      // σε κινητό και tablet (κύριος δείκτης το δάχτυλο) το πληκτρολόγιο της συσκευής δεν ανοίγει: οι ομάδες γράφουν με τα πλήκτρα του παιχνιδιού
+      box.innerHTML = `<label for="num-input-${team}">${esc(teamName(team))}</label><input id="num-input-${team}" inputmode="${COARSE.matches ? 'none' : 'decimal'}" autocomplete="off" aria-label="${esc(a.label || 'Απάντηση')}, ομάδα ${esc(teamName(team))}"><span class="unit">${esc(a.unit || '')}</span><button class="btn btn-small lock" type="button">Κλείδωμα</button><span class="mark"></span><div class="pad" role="group" aria-label="Πλήκτρα αριθμών, ομάδα ${esc(teamName(team))}">${'1234567890'.split('').map(d => `<button type="button" data-k="${d}">${d}</button>`).join('')}<button type="button" data-k="," aria-label="Υποδιαστολή">,</button><button type="button" data-k="del" aria-label="Σβήσιμο">⌫</button></div>`;
       const inp = box.querySelector('input'), go = () => { if (GS.currentPhase !== 'PHYSICS' || GS[team + 'Answered']) return; const c = parseNum(inp.value); if (!c.length) { inp.focus(); inp.select(); return; } R['raw_' + team] = inp.value.trim(); lockAnswer(team, c); };
       inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); go(); } });
-      box.querySelector('button').addEventListener('click', go); wrap.appendChild(box);
+      box.querySelector('.lock').addEventListener('click', go);
+      const press = k => {
+        if (inp.disabled || GS.currentPhase !== 'PHYSICS') return; const v = inp.value;
+        if (k === 'del') inp.value = v.slice(0, -1);
+        else if (k === ',') { if (!/[.,]/.test(v)) inp.value = (v || '0') + ','; }
+        else if (v.length < 10) inp.value = v + k;
+      };
+      // pointerdown και όχι click: έτσι μετρά κάθε δάχτυλο χωριστά, ακόμη κι όταν οι δύο ομάδες πατούν την ίδια στιγμή
+      const pad = box.querySelector('.pad'); let lastDown = -1e9;
+      pad.addEventListener('pointerdown', e => { const b = e.target.closest('button[data-k]'); if (!b) return; e.preventDefault(); lastDown = performance.now(); press(b.dataset.k); });
+      pad.addEventListener('click', e => { const b = e.target.closest('button[data-k]'); if (b && performance.now() - lastDown > 800) press(b.dataset.k); });      // πληκτρολόγιο ή αναγνώστης οθόνης (χωρίς pointerdown)
+      wrap.appendChild(box);
     });
     area.appendChild(wrap);
     const note = document.createElement('div'); note.className = 'q-note'; note.innerHTML = '<span>Μόλις κλειδώσει μια ομάδα, ο αριθμός της κρύβεται. Τα αποτελέσματα φαίνονται όταν απαντήσουν και οι δύο.</span>'; area.appendChild(note);
@@ -2315,7 +2495,7 @@ const SCENE = (function () {
 
   function lockAnswer(team, val, timeout) {
     if (GS[team + 'Answered']) return; GS[team + 'Answered'] = true; GS[team + 'AnswerVal'] = val;
-    const inp = $('num-input-' + team); if (inp) { inp.value = ''; inp.placeholder = timeout ? 'τέλος χρόνου' : 'κλείδωσε'; inp.disabled = true; const b = inp.parentNode.querySelector('button'); if (b) b.disabled = true; }
+    const inp = $('num-input-' + team); if (inp) { inp.value = ''; inp.placeholder = timeout ? 'τέλος χρόνου' : 'κλείδωσε'; inp.disabled = true; inp.parentNode.classList.add('locked'); const b = inp.parentNode.querySelector('.lock'); if (b) b.disabled = true; }
     if (timeout) document.querySelectorAll(`#q-inputs-area .pick[data-team="${team}"]`).forEach(b => { b.disabled = true; });
     setStatus(team, timeout ? 'bad' : 'locked', timeout ? '<b>Τέλος χρόνου</b>χωρίς απάντηση' : '<b>Κλείδωσε</b>η απάντησή σας');
     if (GS.athensAnswered && GS.spartaAnswered) reveal();
@@ -2490,7 +2670,16 @@ const SCENE = (function () {
   $('hero-box-close').addEventListener('click', closeHero);
   $('hero-box').addEventListener('click', e => { if (e.target === $('hero-box')) closeHero(); });
   document.querySelectorAll('[data-act="font"]').forEach(b => b.addEventListener('click', () => { document.documentElement.classList.toggle('font-large'); setTimeout(() => { fitAll(); MAP.invalidate(); if (active === 'map-screen') updateMapUI(); }, 60); }));
-  document.querySelectorAll('[data-act="full"]').forEach(b => b.addEventListener('click', () => { const d = document, el = d.documentElement; if (d.fullscreenElement) d.exitFullscreen(); else if (el.requestFullscreen) el.requestFullscreen().catch(() => { }); }));
+  const lockLandscape = () => { try { const o = screen.orientation; if (o && o.lock) return o.lock('landscape').catch(() => { }); } catch (e) { /* τίποτα */ } return Promise.resolve(); };
+  if (!document.documentElement.requestFullscreen) document.querySelectorAll('[data-act="full"]').forEach(b => { b.hidden = true; });
+  document.querySelectorAll('[data-act="full"]').forEach(b => b.addEventListener('click', () => { const d = document, el = d.documentElement; if (d.fullscreenElement) d.exitFullscreen(); else if (el.requestFullscreen) el.requestFullscreen().then(lockLandscape).catch(() => { }); }));
+  // όρθιο κινητό: όπου ο περιηγητής το επιτρέπει (Android), ένα πάτημα ανοίγει το παιχνίδι σε πλήρη οθόνη και το γυρίζει οριζόντια, ακόμη και με κλειδωμένη περιστροφή
+  (() => {
+    const btn = $('rotate-full'), el = document.documentElement; if (!btn) return;
+    const can = !!(el.requestFullscreen && screen.orientation && screen.orientation.lock);
+    btn.hidden = !can;
+    btn.addEventListener('click', () => { el.requestFullscreen().then(() => screen.orientation.lock('landscape')).catch(() => { btn.hidden = true; if (document.fullscreenElement) document.exitFullscreen().catch(() => { }); }); });
+  })();
   function refreshResume() { const s = loadSave(); $('resume-btn').hidden = !(s && (s.done.length || (s.ar && s.ar.length))); }
 
   document.addEventListener('keydown', e => {
@@ -2503,6 +2692,13 @@ const SCENE = (function () {
     TEAMS.forEach(team => { const j = TEAM[team].keys.indexOf(e.key); if (j >= 0 && document.querySelector(`#q-inputs-area .opt[data-j="${j}"]`)) pickMC(team, j, kind); });
   });
 
+  // οθόνη αφής (κινητό, tablet, διαδραστικός πίνακας): εμφανίζονται τα πλήκτρα αριθμών του παιχνιδιού
+  // (οι κλάσεις touch/phone μπαίνουν και από το <head>, πριν ζωγραφιστεί η σελίδα· εδώ καλύπτονται οι συσκευές που δηλώνουν την αφή μόνο όταν τις αγγίξεις)
+  const markTouch = () => { const c = document.documentElement.classList; if (c.contains('touch')) return; c.add('touch'); if (Math.min(screen.width, screen.height) <= 560) c.add('phone'); setTimeout(() => { fitAll(); MAP.invalidate(); }, 60); };
+  if (window.matchMedia && matchMedia('(any-pointer: coarse)').matches) markTouch();
+  window.addEventListener('pointerdown', e => { if (e.pointerType === 'touch') markTouch(); }, { passive: true });
+  // iPhone: όταν κλείνει το πληκτρολόγιο της συσκευής, η σελίδα γυρίζει στη θέση της
+  document.addEventListener('focusout', e => { if (e.target && e.target.tagName === 'INPUT') setTimeout(() => { if (!document.activeElement || document.activeElement.tagName !== 'INPUT') window.scrollTo(0, 0); }, 80); });
   MAP.attach(mapCanvas, id => launchMission(id));
   let rz = 0; const onResize = () => { clearTimeout(rz); rz = setTimeout(fitAll, 140); };      // ο χάρτης ξαναχτίζεται μία φορά, όταν σταματήσει η αλλαγή μεγέθους
   window.addEventListener('resize', onResize);
